@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      api: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend
+        api: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.frontend.containers.image | quote }}
+          imagePullPolicy: Always
+          env:
+            - name: GO_API_HOST
+              value: {{ .Values.frontend.envVars.GO_API_HOST | quote  }}
+            - name: GO_API_PORT
+              value: {{ .Values.frontend.envVars.GO_API_PORT | quote  }}
+          ports:
+            - name: frontend
+              containerPort: 80
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      name: frontend
+  selector:
+    app: frontend
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+spec:
+  ingressClassName: {{ .Values.frontend.ingress.ingressClassName | quote }}
+  rules:
+    - host: null
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: go-api
+                port:
+                  number: 8080
+

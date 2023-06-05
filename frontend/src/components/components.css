@@ -1,0 +1,260 @@
+  .profile-small-lessons-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .profile-small-lessons-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .profile-small-lessons-item {
+    margin-bottom: 5px;
+  }
+
+    /* IDE Container */
+.ide-container {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* IDE Editor */
+  .ide-editor {
+    margin-bottom: 20px;
+  }
+  
+  .ide-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .ide-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+  }
+  
+  /* IDE Actions */
+  .ide-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+  }
+  
+  .ide-button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .ide-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .ide-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #007bff;
+  }
+  
+  /* IDE Input */
+.ide-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .ide-input::selection {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  /* Terminal.css */
+
+.terminal-container {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    border-radius: 4px;
+    
+  }
+  
+  .terminal-output {
+    margin-bottom: 10px;
+  }
+  
+  .terminal-form {
+    display: flex;
+  }
+  
+  .terminal-prompt {
+    color: #66ff66;
+    margin-right: 5px;
+  }
+  
+  .terminal-input {
+    flex: 1;
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    outline: none;
+  }
+  
+  .terminal-input::selection {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .terminal-submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .terminal-form {
+    display: flex;
+    align-items: center;
+  }
+  
+  .terminal-prompt {
+    padding-right: 0.5em;
+  }
+  
+  .terminal-input {
+    flex: 1;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Adjust the number of columns as needed */
+    grid-gap: 20px; /* Adjust the gap between grid items */
+  }
+  
+
+  .header {
+    width: 100%;
+    background-color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav-item {
+    margin-right: 20px;
+  }
+  
+  .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+  
+
+  .video-player {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .video {
+    width: 800px; /* Adjust the width as desired */
+    height: auto;
+  }
+  
+
+  .header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-links li {
+  margin-left: 10px;
+}
+
+.header-links li:first-child {
+  margin-left: 0;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.auth-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 70%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.form-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}

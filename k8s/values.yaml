@@ -1,0 +1,28 @@
+frontend:
+  containers:
+    image: jdvincent/gorm-frontend:latest
+  
+  envVars:
+    GO_API_HOST: go-api
+    GO_API_PORT: "8080"
+
+  ingress:
+    ingressClassName: kong
+    host: null
+
+goAPI:
+  containers:
+    image: jdvincent/gorm-api:latest
+  
+  envVars:
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: "5432"
+    POSTGRES_DB: example_db
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+
+postgres:
+  envVars:
+    POSTGRES_DB: example_db
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres

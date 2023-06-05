@@ -1,0 +1,29 @@
+2023-05-26 11:44:01 INFO: (<Image: ''>, <itertools._tee object at 0x105f9aa80>)
+2023-05-26 11:44:31 INFO: (<Image: ''>, <itertools._tee object at 0x1073ef300>)
+2023-05-26 11:47:13 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x102fbd580>)
+2023-05-26 11:52:15 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x103bc63c0>)
+2023-05-26 11:52:15 INFO: b'1\n'
+2023-05-26 11:52:34 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x100e6a500>)
+2023-05-26 11:52:34 INFO: b'1\n'
+2023-05-26 11:54:10 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x1048eb7c0>)
+2023-05-26 11:54:11 INFO: b'1\n'
+2023-05-26 11:54:50 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x1023e7780>)
+2023-05-26 11:54:50 INFO: b'1\n'
+2023-05-26 11:56:03 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x106d19d00>)
+2023-05-26 11:56:03 INFO: b'1\n2\n'
+2023-05-26 11:56:35 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x1052e5d00>)
+2023-05-26 11:56:54 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x102e4c740>)
+2023-05-26 11:56:54 INFO: b'1\n2\n'
+2023-05-26 11:58:25 INFO: (<Image: 'new_image:latest'>, <itertools._tee object at 0x103136540>)
+2023-05-26 12:16:16 INFO: b'1\n'
+2023-05-26 12:23:20 INFO: b'1\n'
+2023-05-26 12:24:37 INFO: b'1\n'
+2023-05-26 12:27:09 INFO: b'1\n'
+2023-05-26 12:27:34 INFO: b'1\n'
+2023-05-26 12:28:54 INFO: b'1\n'
+2023-05-26 12:34:30 INFO: b'y\n'
+2023-05-26 12:35:05 INFO: b'y\n1\n'
+2023-05-26 12:35:38 INFO: b'y\n1\n12\n'
+2023-05-26 12:37:39 INFO: b'y\n'
+2023-05-26 12:38:46 INFO: b'y\nx\n'
+2023-05-26 12:42:02 INFO: b'y\nx\ndude, it works!\n'
