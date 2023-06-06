@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
@@ -6,33 +6,10 @@ import 'ace-builds/src-noconflict/theme-solarized_light';
 const IDE = ({ lessonID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
-  const [highlightedContent, setHighlightedContent] = useState('');
 
   const handleFileContentChange = (value) => {
     setFileContent(value);
-    setHighlightedContent(value);
   };
-
-  console.log('example code id');
-  console.log(lessonID);
-
-  useEffect(() => {
-    // Apply syntax highlighting when fileContent changes
-    setHighlightedContent(fileContent);
-  }, [fileContent]);
-
-  // You can replace this with your own syntax highlighting logic
-  const highlightSyntax = (content) => {
-    // Here, we're just returning the content as-is
-    // Replace this with your own syntax highlighting logic
-    return content;
-  };
-
-  useEffect(() => {
-    // Apply syntax highlighting to the textarea
-    const highlightedText = highlightSyntax(fileContent);
-    setHighlightedContent(highlightedText);
-  }, [fileContent]);
 
   const handleRunCode = () => {
     const formData = new FormData();
@@ -56,14 +33,6 @@ const IDE = ({ lessonID }) => {
         console.error('Error running code:', error);
       });
   };
-
-  useEffect(() => {
-    // Render the response content when it updates
-    if (outputFileContent !== '') {
-      // Display the response content
-      console.log('Response content:', outputFileContent);
-    }
-  }, [outputFileContent]);
 
   return (
     <div className="ide-container">
