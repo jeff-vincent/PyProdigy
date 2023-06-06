@@ -2,7 +2,7 @@ import React from 'react';
 import './components.css'; // Assuming you have a CSS file for video player styling
 
 const VideoPlayer = ({ lessonID }) => {
-  const videoUrl = `http://localhost:8084/app/stream/${lessonID}`; // Replace with your video URL format
+  const videoUrl = `http://localhost:8084/video/stream/${lessonID}`; // Replace with your video URL format
 
   console.log('video id');
   console.log(lessonID);
