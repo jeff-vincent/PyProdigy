@@ -6,7 +6,6 @@ const ProfileSmall = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -19,7 +18,7 @@ const ProfileSmall = () => {
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
-          console.log(userData);
+          console.log(userData.completed_lessons);
         } else {
           console.error('Error:', response.status);
         }
@@ -32,14 +31,6 @@ const ProfileSmall = () => {
 
     fetchUserData();
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform form submission logic here
-
-    // Reload the page
-    window.location.reload();
-  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -65,7 +56,7 @@ const ProfileSmall = () => {
         <ul className="profile-small-lessons-list">
           {user.completed_lessons.map((completed_lesson) => (
             <li key={completed_lesson.id} className="profile-small-lessons-item">
-              {completed_lesson.name}
+              {completed_lesson.id}
             </li>
           ))}
         </ul>
