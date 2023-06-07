@@ -52,6 +52,10 @@ def create_topic(topic: schemas.TopicCreate, db: Session = Depends(get_db)):
 def get_topics_by_category(category_id: str, db: Session = Depends(get_db)):
     return crud.get_topics_by_category(db=db, category_id=category_id)
 
+@app.get("/lesson/{lesson_id}", response_model=schemas.Lesson)
+def get_lesson_by_id(lesson_id: str, db: Session = Depends(get_db)):
+    return crud.get_lesson_by_id(db=db, lesson_id=lesson_id)
+
 @app.post("/lesson/", response_model=schemas.Lesson)
 def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
     return crud.create_lesson(db=db, lesson=lesson)

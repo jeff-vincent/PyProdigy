@@ -24,7 +24,7 @@ def get_lessons(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Lesson).offset(skip).limit(limit).all()
 
 def get_lesson_by_id(db: Session, lesson_id: int):
-    return db.query(models.Pet).filter(models.Lesson.id == lesson_id).first()
+    return db.query(models.Lesson).filter(models.Lesson.id == lesson_id).first()
 
 def get_category_by_id(db: Session, id: str):
     return db.query(models.User).filter(models.Category.id == id).first()

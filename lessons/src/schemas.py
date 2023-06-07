@@ -6,7 +6,6 @@ class LessonBase(BaseModel):
 class LessonCreate(LessonBase):
     name: str
     topic_id: int | None = None
-    # url: str | None = None
     example_code: str | None = None
     text: str | None = None
 
@@ -14,7 +13,6 @@ class Lesson(LessonBase):
     id: int
     name: str
     topic_id: int | None = None
-    # url: str | None = None
     example_code: str | None = None
     text: str | None = None
 
