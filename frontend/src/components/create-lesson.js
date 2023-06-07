@@ -4,7 +4,7 @@ const CreateLesson = () => {
   const [thumbnail, setThumbnail] = useState(null);
   const [video, setVideo] = useState(null);
   const [exampleCode, setExampleCode] = useState('');
-  const [text, setText] = useState('');
+  const [lessonText, setLessonText] = useState('');
   const [topicID, setTopicID] = useState('');
   const [name, setName] = useState('');
 
@@ -24,8 +24,8 @@ const CreateLesson = () => {
     setName(event.target.value);
   };
 
-  const handleTextChange = (event) => {
-    setText(event.target.value);
+  const handleLessonTextChange = (event) => {
+    setLessonText(event.target.value);
   };
 
   const handleTopicIDChange = (event) => {
@@ -38,7 +38,7 @@ const CreateLesson = () => {
     // Create the payload object
     const payload = {
       example_code: exampleCode,
-      text,
+      lesson_text: lessonText,
       name,
       topic_id: topicID
     };
@@ -63,14 +63,12 @@ const CreateLesson = () => {
         const extractedLessonID = data.id;
         setTopicID(extractedLessonID);
 
-        // Send video and lessonID to a separate API endpoint
-        const separateFormData = new FormData();
-        separateFormData.append('video', video);
-        separateFormData.append('lesson_id', extractedLessonID);
+        const formData = new FormData();
+        formData.append('video', video);
 
-        return fetch('/your-separate-api-url', {
+        return fetch(`http://localhost:8084/video/upload/${extractedLessonID}`, {
           method: 'POST',
-          body: separateFormData
+          body: formData
         });
       })
       .then(response => {
@@ -104,8 +102,8 @@ const CreateLesson = () => {
         <input type="text" id="exampleCode" value={exampleCode} onChange={handleExampleCodeChange} />
       </div>
       <div>
-        <label htmlFor="text">Text:</label>
-        <input type="text" id="text" value={text} onChange={handleTextChange} />
+        <label htmlFor="lessonText">Lesson Text:</label>
+        <input type="text" id="lessonText" value={lessonText} onChange={handleLessonTextChange} />
       </div>
       <div>
         <label htmlFor="topicID">Topic ID:</label>
