@@ -63,9 +63,9 @@ const ProfileSmall = () => {
       <div className="profile-small-lessons">
         <p className="profile-small-lessons-title">Completed lessons:</p>
         <ul className="profile-small-lessons-list">
-          {user.pets.map((pet) => (
-            <li key={pet.id} className="profile-small-lessons-item">
-              {pet.name}
+          {user.completed_lessons.map((completed_lesson) => (
+            <li key={completed_lesson.id} className="profile-small-lessons-item">
+              {completed_lesson.name}
             </li>
           ))}
         </ul>

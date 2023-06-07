@@ -16,3 +16,6 @@
 2023-06-07 13:10:57 INFO: b'<built-in method random of Random object at 0xaaaaf469a120>\n'
 2023-06-07 13:11:08 INFO: b'1\n'
 2023-06-07 13:11:33 INFO: b'0.25633873592418577\n'
+2023-06-07 13:35:03 INFO: b'this is a string\n'
+2023-06-07 13:36:51 INFO: b'this is a string\n'
+2023-06-07 13:39:36 INFO: b'this is a string\n'

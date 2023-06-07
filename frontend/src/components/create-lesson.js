@@ -9,6 +9,7 @@ const CreateLesson = () => {
   const [name, setName] = useState('');
   const [categories, setCategories] = useState([]);
   const [topics, setTopics] = useState([]);
+  const [expectedOutput, setExpectedOutput] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:8085/category')
@@ -19,7 +20,7 @@ const CreateLesson = () => {
 
   const handleCategoryChange = (event) => {
     const categoryId = event.target.value;
-  
+
     if (categoryId) {
       fetch(`http://localhost:8085/${categoryId}/topics`)
         .then(response => response.json())
@@ -31,12 +32,16 @@ const CreateLesson = () => {
     } else {
       setTopics([]);
     }
-  
+
     setTopicID('');
   };
 
   const handleThumbnailChange = (event) => {
     setThumbnail(event.target.files[0]);
+  };
+
+  const handleExpectedOutputChange = (event) => {
+    setExpectedOutput(event.target.value);
   };
 
   const handleVideoChange = (event) => {
@@ -67,10 +72,11 @@ const CreateLesson = () => {
       example_code: exampleCode,
       lesson_text: lessonText,
       name,
-      topic_id: topicID
+      topic_id: topicID,
+      expected_output: expectedOutput // Include expected output in the payload
     };
 
-    console.log(payload)
+    console.log(payload);
 
     // Send the payload as JSON to the server
     fetch('http://localhost:8085/lesson/', {
@@ -133,6 +139,10 @@ const CreateLesson = () => {
       <div>
         <label htmlFor="lessonText">Lesson Text:</label>
         <input type="text" id="lessonText" value={lessonText} onChange={handleLessonTextChange} />
+      </div>
+      <div>
+        <label htmlFor="expectedOutput">Expected Output:</label>
+        <input type="text" id="expectedOutput" value={expectedOutput} onChange={handleExpectedOutputChange} />
       </div>
       <div>
         <label htmlFor="category">Category:</label>

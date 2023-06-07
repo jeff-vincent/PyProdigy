@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from . import models, schemas, auth
+import logging
 
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
@@ -26,25 +27,10 @@ def update_user(db: Session, db_user: models.User, user: schemas.UserUpdate):
     db.refresh(db_user)
     return db_user
 
-def create_pet(db: Session, pet: schemas.PetCreate):
-    db_pet = models.Pet(**pet.dict())
-    db.add(db_pet)
+def create_completed_lesson(db: Session, completed_lesson: schemas.CompletedLessonCreate):
+    db_completed_lesson = models.CompletedLesson(**completed_lesson.dict())
+    db.add(db_completed_lesson)
     db.commit()
-    return db_pet
+    db.refresh(db_completed_lesson)
+    return db_completed_lesson
 
-def update_pet(db: Session, db_pet: models.Pet, pet: schemas.PetUpdate):
-    db_pet.name = pet.name
-    db.add(db_pet)
-    db.commit()
-    return db_pet
-
-def get_pets(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Pet).offset(skip).limit(limit).all()
-
-def get_pet_by_id(db: Session, pet_id: int):
-    return db.query(models.Pet).filter(models.Pet.id == pet_id).first()
-
-def delete_pet(db: Session, pet_id: int):
-    db_pet = db.query(models.Pet).filter(models.Pet.id == pet_id).first()
-    db.delete(db_pet)
-    db.commit()

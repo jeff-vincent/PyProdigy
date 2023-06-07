@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 
 class Token(BaseModel):
@@ -7,22 +8,15 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     username: str | None = None
 
-class PetBase(BaseModel):
-    name: str
+class CompletedLessonCreate(BaseModel):
+    lesson_id: int
+    user_id: int
+    # completed_date: datetime
 
-class PetCreate(PetBase):
-    owner_id: int | None = None
-
-class Pet(PetBase):
+class CompletedLesson(BaseModel):
     id: int
-
-    class Config:
-        orm_mode = True
-
-class PetUpdate(PetBase):
-    id: int | None = None
-    owner_id: int | None = None
-    name: str | None = None
+    lesson_id: int
+    user_id: int
 
     class Config:
         orm_mode = True
@@ -36,7 +30,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-    pets: list[Pet] = []
+    completed_lessons: list[CompletedLesson] = []
 
     class Config:
         orm_mode = True

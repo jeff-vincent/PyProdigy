@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -10,12 +10,13 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    pets = relationship("Pet", back_populates="owner")
+    completed_lessons = relationship("CompletedLesson", back_populates="user")
 
-class Pet(Base):
-    __tablename__ = "pets"
+class CompletedLesson(Base):
+    __tablename__ = "completed_lessons"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    lesson_id = Column(Integer, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    completed_date = Column(DateTime)
 
-    owner = relationship("User", back_populates="pets")
+    user = relationship("User", back_populates="completed_lessons")

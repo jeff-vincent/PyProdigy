@@ -16,7 +16,7 @@ class Topic(Base):
     __tablename__ = "topics"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, nullable=False)
+    name = Column(String, nullable=False)
     category_id = Column(Integer, ForeignKey("categories.id"))
 
     lessons = relationship("Lesson", back_populates="topic")
@@ -28,7 +28,7 @@ class Lesson(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     topic_id = Column(Integer, ForeignKey("topics.id"))
-    # url = Column(String, index=True)
+    expected_output = Column(String, index=True)
     example_code = Column(String, index=True)
     text = Column(String, index=True)
 

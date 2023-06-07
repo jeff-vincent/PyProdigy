@@ -6,6 +6,7 @@ import 'ace-builds/src-noconflict/theme-solarized_light';
 const IDE = ({ lessonID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
+  const [expectedOutput, setExpectedOutput] = useState('');
 
   useEffect(() => {
     // Fetch the lesson data from the /lesson/{lessonID} endpoint
@@ -14,6 +15,7 @@ const IDE = ({ lessonID }) => {
       .then(data => {
         // Set the sample code in state
         setFileContent(data.example_code);
+        setExpectedOutput(data.expected_output)
       })
       .catch(error => {
         console.error('Error fetching lesson:', error);
@@ -27,7 +29,7 @@ const IDE = ({ lessonID }) => {
   const handleRunCode = () => {
     const formData = new FormData();
     formData.append('script', fileContent);
-
+  
     fetch('http://localhost:8081/build', {
       method: 'POST',
       body: formData
@@ -40,8 +42,17 @@ const IDE = ({ lessonID }) => {
         }
       })
       .then(content => {
-        console.log(typeof content); 
-        setOutputFileContent(content.toString()); // Set the response content in state
+        console.log(typeof content);
+        const processedContent = content.replace(/\\n/g, "<br>").replace(/"/g, "");
+        setOutputFileContent(processedContent); // Set the response content in state
+  
+        if (processedContent === expectedOutput) {
+          setOutputFileContent("Success!"); // Set "Success!" if output matches expected output
+        }
+        if (processedContent != expectedOutput) {
+          console.log(processedContent);
+          console.log(expectedOutput)
+        }
       })
       .catch(error => {
         console.error('Error running code:', error);

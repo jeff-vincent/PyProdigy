@@ -8,6 +8,7 @@ class LessonCreate(LessonBase):
     topic_id: int | None = None
     example_code: str | None = None
     text: str | None = None
+    expected_output: str | None = None
 
 class Lesson(LessonBase):
     id: int
@@ -15,6 +16,7 @@ class Lesson(LessonBase):
     topic_id: int | None = None
     example_code: str | None = None
     text: str | None = None
+    expected_output: str | None = None
 
     class Config:
         orm_mode = True
