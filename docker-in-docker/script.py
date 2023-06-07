@@ -1,1 +1,5 @@
-print("this is a string")
+from random import random
+
+r = random()
+
+print(r)

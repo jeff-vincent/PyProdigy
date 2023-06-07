@@ -40,7 +40,8 @@ const IDE = ({ lessonID }) => {
         }
       })
       .then(content => {
-        setOutputFileContent(content); // Set the response content in state
+        console.log(typeof content); 
+        setOutputFileContent(content.toString()); // Set the response content in state
       })
       .catch(error => {
         console.error('Error running code:', error);
@@ -60,8 +61,9 @@ const IDE = ({ lessonID }) => {
         height="300px"
       />
       <div className="ide-response">
-        {outputFileContent}
+      <div dangerouslySetInnerHTML={{ __html: outputFileContent.replace(/\\n/g, "<br>").replace(/"/g, "") }} />
       </div>
+     
       <div className="ide-actions">
         <button onClick={handleRunCode} className="ide-button">
           Run
