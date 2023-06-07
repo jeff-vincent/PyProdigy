@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const CreateLesson = () => {
   const [thumbnail, setThumbnail] = useState(null);
@@ -7,6 +7,33 @@ const CreateLesson = () => {
   const [lessonText, setLessonText] = useState('');
   const [topicID, setTopicID] = useState('');
   const [name, setName] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [topics, setTopics] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8085/category')
+      .then(response => response.json())
+      .then(data => setCategories(data))
+      .catch(error => console.error('Error fetching categories:', error));
+  }, []);
+
+  const handleCategoryChange = (event) => {
+    const categoryId = event.target.value;
+  
+    if (categoryId) {
+      fetch(`http://localhost:8085/${categoryId}/topics`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data); // Add this line to check the data received
+          setTopics(data);
+        })
+        .catch(error => console.error('Error fetching topics:', error));
+    } else {
+      setTopics([]);
+    }
+  
+    setTopicID('');
+  };
 
   const handleThumbnailChange = (event) => {
     setThumbnail(event.target.files[0]);
@@ -42,6 +69,8 @@ const CreateLesson = () => {
       name,
       topic_id: topicID
     };
+
+    console.log(payload)
 
     // Send the payload as JSON to the server
     fetch('http://localhost:8085/lesson/', {
@@ -106,8 +135,22 @@ const CreateLesson = () => {
         <input type="text" id="lessonText" value={lessonText} onChange={handleLessonTextChange} />
       </div>
       <div>
-        <label htmlFor="topicID">Topic ID:</label>
-        <input type="text" id="topicID" value={topicID} onChange={handleTopicIDChange} />
+        <label htmlFor="category">Category:</label>
+        <select id="category" onChange={handleCategoryChange}>
+          <option value="">Select a category</option>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>{category.name}</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label htmlFor="topic">Topic:</label>
+        <select id="topic" value={topicID} onChange={handleTopicIDChange}>
+          <option value="">Select a topic</option>
+          {topics.map(topic => (
+            <option key={topic.id} value={topic.id}>{topic.name}</option>
+          ))}
+        </select>
       </div>
       <button type="submit">Submit</button>
     </form>

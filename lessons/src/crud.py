@@ -4,8 +4,8 @@ from . import models, schemas
 def get_topic_by_id(db: Session, id: str):
     return db.query(models.Topic).filter(models.Topic.id == id).first()
 
-def get_topics(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Topic).offset(skip).limit(limit).all()
+def get_topics_by_category(category_id: str, db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Topic).filter(models.Topic.category_id == category_id).offset(skip).limit(limit).all()
 
 def create_topic(db: Session, topic: schemas.TopicCreate):
     db_topic = models.Topic(**topic.dict())

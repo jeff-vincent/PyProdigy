@@ -48,7 +48,10 @@ def get_categories(db: Session = Depends(get_db)):
 def create_topic(topic: schemas.TopicCreate, db: Session = Depends(get_db)):
     return crud.create_topic(db=db, topic=topic)
 
+@app.get("/{category_id}/topics", response_model=list[schemas.Topic])
+def get_topics_by_category(category_id: str, db: Session = Depends(get_db)):
+    return crud.get_topics_by_category(db=db, category_id=category_id)
+
 @app.post("/lesson/", response_model=schemas.Lesson)
 def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
-    lesson.topic_id = 1
     return crud.create_lesson(db=db, lesson=lesson)
