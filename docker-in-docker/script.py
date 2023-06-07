@@ -1,3 +1,1 @@
-from random import random
-
-print(str(random()).split('.')[1])
+print("this is a string")
