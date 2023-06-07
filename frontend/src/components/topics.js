@@ -13,7 +13,6 @@ const Topics = () => {
 
         const data = await response.json();
 
-        console.log(data);
         setCategories(data);
 
         // Convert base64 image data to URL

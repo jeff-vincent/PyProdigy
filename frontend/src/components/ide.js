@@ -3,7 +3,7 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
 
-const IDE = ({ lessonID }) => {
+const IDE = ({ lessonID, userID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
   const [expectedOutput, setExpectedOutput] = useState('');
@@ -42,15 +42,42 @@ const IDE = ({ lessonID }) => {
         }
       })
       .then(content => {
-        console.log(typeof content);
         const processedContent = content.replace(/\\n/g, "<br>").replace(/"/g, "");
         setOutputFileContent(processedContent); // Set the response content in state
   
         if (processedContent === expectedOutput) {
           setOutputFileContent("Success!"); // Set "Success!" if output matches expected output
+
+          if (outputFileContent === "Success!") {
+            const data = {
+              lesson_id: lessonID,
+              user_id: userID
+            };
+
+            console.log(data)
+
+            fetch('http://localhost:8000/completed-lesson', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            })
+              .then(response => {
+                console.log(response)
+                if (response.ok) {
+                  console.log('Lesson completed.');
+                } else {
+                  throw new Error('Failed to complete lesson.');
+                }
+              })
+              .catch(error => {
+                console.error('Error completing lesson:', error);
+              });
+          }
         }
         if (processedContent != expectedOutput) {
-          console.log(processedContent);
+          console.log(processedContent)
           console.log(expectedOutput)
         }
       })
@@ -72,7 +99,7 @@ const IDE = ({ lessonID }) => {
         height="300px"
       />
       <div className="ide-response">
-      <div dangerouslySetInnerHTML={{ __html: outputFileContent.replace(/\\n/g, "<br>").replace(/"/g, "") }} />
+        <div dangerouslySetInnerHTML={{ __html: outputFileContent.replace(/\\n/g, "<br>").replace(/"/g, "") }} />
       </div>
      
       <div className="ide-actions">
