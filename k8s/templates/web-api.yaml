@@ -17,22 +17,22 @@ spec:
     spec:
       containers:
         - name: web-api
-          image: {{ .Values.goAPI.containers.image | quote }}
+          image: {{ .Values.webAPI.containers.image | quote }}
           env:
             - name: POSTGRES_HOST
-              value: {{ .Values.goAPI.envVars.POSTGRES_HOST | quote  }}
+              value: {{ .Values.webAPI.envVars.POSTGRES_HOST | quote  }}
             - name: POSTGRES_PORT
-              value: {{ .Values.goAPI.envVars.POSTGRES_PORT | quote  }}
+              value: {{ .Values.webAPI.envVars.POSTGRES_PORT | quote  }}
             - name: POSTGRES_DB
-              value: {{ .Values.goAPI.envVars.POSTGRES_DB | quote  }}
+              value: {{ .Values.webAPI.envVars.POSTGRES_DB | quote  }}
             - name: POSTGRES_USER
-              value: {{ .Values.goAPI.envVars.POSTGRES_USER | quote  }}
+              value: {{ .Values.webAPI.envVars.POSTGRES_USER | quote  }}
             - name: POSTGRES_PASSWORD
-              value: {{ .Values.goAPI.envVars.POSTGRES_PASSWORD | quote  }}
+              value: {{ .Values.webAPI.envVars.POSTGRES_PASSWORD | quote  }}
 
           ports:
             - name: web-api
-              containerPort: 8080
+              containerPort: 8000
               protocol: TCP
 ---
 apiVersion: v1
@@ -41,8 +41,8 @@ metadata:
   name: web-api
 spec:
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 8000
+      targetPort: 8000
       name: web-api
   selector:
     app: web-api

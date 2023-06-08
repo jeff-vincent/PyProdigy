@@ -258,3 +258,38 @@
 .form-button:hover {
   background-color: #0056b3;
 }
+
+
+.your-form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc; /* Add a border */
+  padding: 20px; /* Add padding around the content */
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-select {
+  padding: 0.5rem;
+}
+
+.submit-button {
+  padding: 0.5rem 1rem;
+  background-color: blue;
+  color: white;
+  border: none;
+}
+
+.cms-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px; /* Adjust the value as needed */
+  margin: 0 auto; /* Centers the container horizontally */
+}

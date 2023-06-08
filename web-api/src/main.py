@@ -2,7 +2,6 @@ from datetime import timedelta
 from typing import Annotated
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi.middleware.cors import CORSMiddleware
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from . import crud, models, schemas, auth
@@ -12,20 +11,6 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Configure CORS
-origins = [
-    "http://localhost",
-    "http://localhost:3000",  # Add the URL of your React app here
-    # Add more allowed origins if needed
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Dependency
 def get_db():
@@ -35,14 +20,16 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/users/", response_model=schemas.User)
+
+@app.post("/api/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(db=db, user=user)
 
-@app.put("/users/", response_model=schemas.User)
+
+@app.put("/api/users/", response_model=schemas.User)
 def update_user(user: schemas.UserUpdate, token: Annotated[str, Depends(auth.oauth2_scheme)], db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -63,7 +50,8 @@ def update_user(user: schemas.UserUpdate, token: Annotated[str, Depends(auth.oau
     user.id = current_user.id
     return crud.update_user(db=db, db_user=current_user, user=user)
 
-@app.post("/token", response_model=schemas.Token)
+
+@app.post("/api/token", response_model=schemas.Token)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(get_db)):
     user = crud.get_user_by_email(db, email=form_data.username)
@@ -79,17 +67,18 @@ async def login_for_access_token(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-@app.get('/logout')
+
+@app.get('/api/logout')
 async def logout():
     return {"access_token": None, "token_type": "bearer"}
 
 
-@app.post('/completed-lesson')
+@app.post('/api/completed-lesson')
 def create_completed_lesson(completed_lesson: schemas.CompletedLessonCreate, db: Session = Depends(get_db)):
     return crud.create_completed_lesson(db=db, completed_lesson=completed_lesson)
 
 
-@app.get("/users/me/", response_model=schemas.User)
+@app.get("/api/users/me/", response_model=schemas.User)
 async def read_users_me(token: Annotated[str, Depends(auth.oauth2_scheme)], db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

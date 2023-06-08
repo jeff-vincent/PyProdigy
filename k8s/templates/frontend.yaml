@@ -8,23 +8,20 @@ metadata:
 spec:
   selector:
     matchLabels:
-      api: frontend
+      app: frontend
   replicas: 1
   template:
     metadata:
       labels:
         app: frontend
-        api: frontend
     spec:
       containers:
         - name: frontend
           image: {{ .Values.frontend.containers.image | quote }}
           imagePullPolicy: Always
           env:
-            - name: GO_API_HOST
-              value: {{ .Values.frontend.envVars.GO_API_HOST | quote  }}
-            - name: GO_API_PORT
-              value: {{ .Values.frontend.envVars.GO_API_PORT | quote  }}
+            - name: BASE_URL
+              value: {{ .Values.frontend.envVars.BASE_URL}}
           ports:
             - name: frontend
               containerPort: 80
@@ -64,7 +61,27 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: go-api
+                name: web-api
                 port:
-                  number: 8080
-
+                  number: 8000
+          - path: /video
+            pathType: Prefix
+            backend:
+              service:
+                name: video-api
+                port:
+                  number: 8000
+          - path: /lessons
+            pathType: Prefix
+            backend:
+              service:
+                name: lessons-api
+                port:
+                  number: 8000
+          - path: /docker
+            pathType: Prefix
+            backend:
+              service:
+                name: docker-api
+                port:
+                  number: 8000

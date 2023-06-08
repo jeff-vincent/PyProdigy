@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: video-api
+      labels:
+        api: video-api
+    spec:
+      selector:
+        matchLabels:
+          api: video-api
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            api: video-api
+        spec:
+          containers:
+            - name: video-api
+              image: {{ .Values.videoAPI.containers.image | quote }}
+              env:
+                - name: MONGO_HOST
+                  value: {{ .Values.videoAPI.envVars.MONGO_HOST | toJson  }}
+                - name: MONGO_PORT
+                  value: {{ .Values.videoAPI.envVars.MONGO_PORT | toJson  }}
+              ports:
+                - name: video-api
+                  containerPort: 8000
+                  protocol: TCP
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: video-api
+    spec:
+      ports:
+        - port: 8000
+          targetPort: 8000
+          name: video-api
+      selector:
+        api: video-api
+      type: ClusterIP

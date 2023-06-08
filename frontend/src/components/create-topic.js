@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 const CreateTopic = () => {
-  const [thumbnail, setThumbnail] = useState(null);
   const [name, setName] = useState('');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
+  const BASE_URL = process.env.BASE_URL
+
   useEffect(() => {
-    fetch('http://localhost:8085/category')
+    fetch(`/lessons/category`)
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error));
   }, []);
-
-  const handleThumbnailChange = (event) => {
-    setThumbnail(event.target.files[0]);
-  };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -37,7 +34,7 @@ const CreateTopic = () => {
     console.log(payload);
 
     // Send the payload as JSON to the server
-    fetch('http://localhost:8085/topic/', {
+    fetch(`/lessons/topic/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -50,26 +47,27 @@ const CreateTopic = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="thumbnail">Thumbnail Image:</label>
-        <input type="file" id="thumbnail" onChange={handleThumbnailChange} />
-      </div>
-      <div>
-        <label htmlFor="name">Topic Name:</label>
-        <input type="text" id="name" value={name} onChange={handleNameChange} />
-      </div>
-      <div>
-        <label htmlFor="category">Category:</label>
-        <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
+    <div>
+      <h2>Create a topic</h2>
+    <form onSubmit={handleSubmit} className="your-form">
+            <div className="form-group">
+        <label htmlFor="category" className="form-label">Category:</label>
+        <select id="category" value={selectedCategory} onChange={handleCategoryChange} className="form-select">
           <option value="">Select a category</option>
           {categories.map(category => (
             <option key={category.id} value={category.id}>{category.name}</option>
           ))}
         </select>
       </div>
-      <button type="submit">Submit</button>
+      <div className="form-group">
+        <label htmlFor="name" className="form-label">Topic Name:</label>
+        <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
+      </div>
+      <button type="submit" className="submit-button">
+        Submit
+      </button>
     </form>
+    </div>
   );
 };
 

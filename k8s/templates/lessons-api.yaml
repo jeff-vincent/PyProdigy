@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lessons-api
+  labels:
+    app: lessons-api
+spec:
+  selector:
+    matchLabels:
+      app: lessons-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: lessons-api
+    spec:
+      containers:
+        - name: lessons-api
+          image: {{ .Values.lessonsAPI.containers.image | quote }}
+          env:
+            - name: POSTGRES_HOST
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_HOST | quote  }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_PORT | quote  }}
+            - name: POSTGRES_DB
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_DB | quote  }}
+            - name: POSTGRES_USER
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_USER | quote  }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_PASSWORD | quote  }}
+
+          ports:
+            - name: lessons-api
+              containerPort: 8000
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lessons-api
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+      name: lessons-api
+  selector:
+    app: lessons-api
+  type: ClusterIP

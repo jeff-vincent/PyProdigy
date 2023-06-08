@@ -44,3 +44,10 @@ def create_category(db: Session, category: schemas.CategoryCreate):
     db.commit()
     db.refresh(db_category)
     return db_category
+
+def update_category(db: Session, id: int, thumbnail: bytes):
+    db_category = db.query(models.Category).filter(models.Category.id == id).first()
+    db_category.thumbnail = thumbnail
+    db.commit()
+    db.refresh(db_category)
+    return db_category

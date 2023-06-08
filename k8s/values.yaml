@@ -1,28 +1,61 @@
 frontend:
   containers:
-    image: jdvincent/gorm-frontend:latest
+    image: jdvincent/docker-in-browser-frontend:latest
   
   envVars:
-    GO_API_HOST: go-api
-    GO_API_PORT: "8080"
+    BASE_URL: "http://localhost/"
 
   ingress:
     ingressClassName: kong
     host: null
 
-goAPI:
+webAPI:
   containers:
-    image: jdvincent/gorm-api:latest
-  
+    image: jdvincent/docker-in-browser-web-api:latest
+
   envVars:
-    POSTGRES_HOST: postgres
+    POSTGRES_HOST: postgres1
     POSTGRES_PORT: "5432"
-    POSTGRES_DB: example_db
+    POSTGRES_DB: users_db
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
 
-postgres:
+lessonsAPI:
+  containers:
+    image: jdvincent/docker-in-browser-lessons:latest
+  
   envVars:
-    POSTGRES_DB: example_db
+    POSTGRES_HOST: postgres2
+    POSTGRES_PORT: "5432"
+    POSTGRES_DB: lessons_db
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
+
+videoAPI:
+  containers:
+    image: jdvincent/docker-in-browser-video:latest
+
+  envVars:
+    MONGO_HOST: mongo
+    MONGO_PORT: "27017"
+
+dockerAPI:
+  containers:
+    image: jdvincent/docker-in-browser-docker:latest
+
+  envVars:
+    DOCKER_HOST: docker-in-docker
+    DOCKER_PORT: "2375"
+
+postgres1:
+  envVars:
+    POSTGRES_DB: users_db
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+
+postgres2:
+  envVars:
+    POSTGRES_DB: lessons_db
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+

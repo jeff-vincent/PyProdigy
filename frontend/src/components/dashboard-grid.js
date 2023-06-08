@@ -11,11 +11,13 @@ const Grid = () => {
   const { lessonID } = useParams();
   const [userID, setUserID] = useState(null);
 
+  const BASE_URL = process.env.BASE_URL
+
   useEffect(() => {
     // Fetch the user data and retrieve the userID
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/users/me/', {
+        const response = await fetch(`/api/users/me/`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`,
           },

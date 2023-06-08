@@ -5,12 +5,16 @@ import shutil
 import tempfile
 import docker
 from fastapi import FastAPI, Form
-from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated
 
-
+DOCKER_HOST = os.environ.get('DOCKER_HOST')
+DOCKER_PORT = os.environ.get('DOCKER_PORT')
 app = FastAPI()
-docker_client = docker.from_env()
+
+DOCKER_HOST = f"tcp://{DOCKER_HOST}:{DOCKER_PORT}"
+
+# docker_client = docker.from_env()
+docker_client = docker.DockerClient(base_url=DOCKER_HOST)
 
 logging.basicConfig(
     level=logging.INFO,  # Set the desired logging level
@@ -23,23 +27,7 @@ logging.basicConfig(
 )
 
 
-# Configure CORS
-origins = [
-    "http://localhost",
-    "http://localhost:3000",  # Add the URL of your React app here
-    # Add more allowed origins if needed
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-
-@app.post('/run')
+@app.post('/docker/run')
 def run(cmd: Annotated[str, Form()], os: Annotated[str, Form()]):
     if not os:
         os = 'ubuntu:latest'
@@ -49,7 +37,8 @@ def run(cmd: Annotated[str, Form()], os: Annotated[str, Form()]):
         return f"Error: {str(e)}"
     return response
 
-@app.post('/build')
+
+@app.post('/docker/build')
 def build_image(script: Annotated[str, Form()]):
     hash = _generate_hash()
     tmp_dir = tempfile.mkdtemp(prefix=hash)
@@ -74,11 +63,14 @@ def build_image(script: Annotated[str, Form()]):
     _remove_directory(tmp_dir)
     return response
 
+
 def _generate_hash():
     return binascii.hexlify(os.urandom(16)).decode('utf-8')
 
+
 def _remove_directory(path):
     shutil.rmtree(path)
+
 
 def _clean_up_docker():
     docker_client.images.prune()

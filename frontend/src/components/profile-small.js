@@ -6,10 +6,12 @@ const ProfileSmall = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const BASE_URL = process.env.BASE_URL
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:8000/users/me/', {
+        const response = await fetch(`/api/users/me/`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`, // Pass the access token from the browser's local storage
           },

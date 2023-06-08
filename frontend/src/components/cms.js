@@ -7,18 +7,17 @@ import CreateTopic from './create-topic';
 const CMS = () => {
 
   return (
-    <div className="grid-container">
-      <div className="">
+    <div className="cms-container">
+      <div className="grid-item">
         <CreateCategory />
       </div>
-      <div className="">
+      <div className="grid-item">
         <CreateTopic />
       </div>
-      <div className="">
+      <div className="grid-item">
         <CreateLesson />
       </div>
     </div>
   );
-};
-
+};  
 export default CMS;

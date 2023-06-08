@@ -2,7 +2,9 @@ import React from 'react';
 import './components.css'; // Assuming you have a CSS file for video player styling
 
 const VideoPlayer = ({ lessonID }) => {
-  const videoUrl = `http://localhost:8084/video/stream/${lessonID}`;
+
+  const BASE_URL = process.env.BASE_URL
+  const videoUrl = `/video/stream/${lessonID}`;
   
   return (
     <div className='video-container' style={{ paddingLeft: '0.5in' }}>

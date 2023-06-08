@@ -1,6 +1,7 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, LargeBinary
 from sqlalchemy.orm import relationship
 from .database import Base
+
 
 class Category(Base):
     __tablename__ = "categories"
@@ -8,6 +9,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False, unique=True)
     language = Column(String, index=True, nullable=True)
+    thumbnail = Column(LargeBinary, index=True)
 
     topics = relationship("Topic", back_populates="category")
 

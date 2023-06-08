@@ -1,7 +1,9 @@
 from pydantic import BaseModel
 
+
 class LessonBase(BaseModel):
     name: str
+
 
 class LessonCreate(LessonBase):
     name: str
@@ -9,6 +11,7 @@ class LessonCreate(LessonBase):
     example_code: str | None = None
     text: str | None = None
     expected_output: str | None = None
+
 
 class Lesson(LessonBase):
     id: int
@@ -21,11 +24,14 @@ class Lesson(LessonBase):
     class Config:
         orm_mode = True
 
+
 class TopicBase(BaseModel):
     name: str | None = None
 
+
 class TopicCreate(TopicBase):
     category_id: int
+
 
 class Topic(TopicBase):
     id: int
@@ -34,9 +40,11 @@ class Topic(TopicBase):
     class Config:
         orm_mode = True
 
+
 class CategoryCreate(BaseModel):
     name: str 
     language: str | None = None
+
 
 class Category(BaseModel):
     id: int
@@ -44,7 +52,7 @@ class Category(BaseModel):
     language: str | None = None
     topics: list[Topic] = []
     lessons: list[Lesson] = []
+    thumbnail: bytes | None = None 
 
     class Config:
         orm_mode = True
-

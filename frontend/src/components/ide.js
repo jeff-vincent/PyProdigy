@@ -8,9 +8,11 @@ const IDE = ({ lessonID, userID }) => {
   const [outputFileContent, setOutputFileContent] = useState('');
   const [expectedOutput, setExpectedOutput] = useState('');
 
+  const BASE_URL = process.env.BASE_URL
+
   useEffect(() => {
     // Fetch the lesson data from the /lesson/{lessonID} endpoint
-    fetch(`http://localhost:8085/lesson/${lessonID}`)
+    fetch(`/lessons/lesson/${lessonID}`)
       .then(response => response.json())
       .then(data => {
         // Set the sample code in state
@@ -30,7 +32,7 @@ const IDE = ({ lessonID, userID }) => {
     const formData = new FormData();
     formData.append('script', fileContent);
   
-    fetch('http://localhost:8081/build', {
+    fetch(`/docker/build`, {
       method: 'POST',
       body: formData
     })
@@ -56,7 +58,7 @@ const IDE = ({ lessonID, userID }) => {
 
             console.log(data)
 
-            fetch('http://localhost:8000/completed-lesson', {
+            fetch(`/lessons/completed-lesson`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -75,10 +77,6 @@ const IDE = ({ lessonID, userID }) => {
                 console.error('Error completing lesson:', error);
               });
           }
-        }
-        if (processedContent != expectedOutput) {
-          console.log(processedContent)
-          console.log(expectedOutput)
         }
       })
       .catch(error => {

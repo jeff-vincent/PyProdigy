@@ -1,37 +1,13 @@
 import json
+import os
 from fastapi import FastAPI, BackgroundTasks, UploadFile
 from fastapi.responses import StreamingResponse, JSONResponse
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorGridFSBucket
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# PROTOCOL = os.environ.get('PROTOCOL')
-# HOST = os.environ.get('HOST')
-# MONGO_HOST = os.environ.get('MONGO_HOST')
-# MONGO_PORT = os.environ.get('MONGO_PORT')
-# AUTH_HOST = os.environ.get('AUTH_HOST')
-# AUTH_PORT = os.environ.get('AUTH_PORT')
-
-# Configure CORS
-origins = [
-    "http://localhost",
-    "http://localhost:3000",  # Add the URL of your React app here
-    # Add more allowed origins if needed
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-PROTOCOL = 'http'
-HOST = 'localhost'
-MONGO_HOST = 'localhost'
-MONGO_PORT = '27017'
+MONGO_HOST = os.environ.get('MONGO_HOST')
+MONGO_PORT = os.environ.get('MONGO_PORT')
 
 @app.on_event('startup')
 async def get_mongo():
@@ -50,7 +26,7 @@ async def _get_videos():
     video_urls = ''
     for i in docs:
         filename = i['filename']
-        v = f'<a href="{PROTOCOL}://{HOST}:8084/video/stream/{filename}" target="_blank">http://{HOST}/video/stream/{filename}</a>'
+        v = ''
         video_urls = video_urls + '<br>' + v
     return video_urls
 

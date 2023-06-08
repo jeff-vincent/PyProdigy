@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 const CreateLesson = () => {
-  const [thumbnail, setThumbnail] = useState(null);
   const [video, setVideo] = useState(null);
   const [exampleCode, setExampleCode] = useState('');
   const [lessonText, setLessonText] = useState('');
@@ -11,8 +10,10 @@ const CreateLesson = () => {
   const [topics, setTopics] = useState([]);
   const [expectedOutput, setExpectedOutput] = useState('');
 
+  const BASE_URL = process.env.BASE_URL
+
   useEffect(() => {
-    fetch('http://localhost:8085/category')
+    fetch(`/lessons/category`)
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error));
@@ -22,7 +23,7 @@ const CreateLesson = () => {
     const categoryId = event.target.value;
 
     if (categoryId) {
-      fetch(`http://localhost:8085/${categoryId}/topics`)
+      fetch(`/lessons/${categoryId}/topics`)
         .then(response => response.json())
         .then(data => {
           console.log(data); // Add this line to check the data received
@@ -34,10 +35,6 @@ const CreateLesson = () => {
     }
 
     setTopicID('');
-  };
-
-  const handleThumbnailChange = (event) => {
-    setThumbnail(event.target.files[0]);
   };
 
   const handleExpectedOutputChange = (event) => {
@@ -79,7 +76,7 @@ const CreateLesson = () => {
     console.log(payload);
 
     // Send the payload as JSON to the server
-    fetch('http://localhost:8085/lesson/', {
+    fetch(`/lessons/lesson/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -101,7 +98,7 @@ const CreateLesson = () => {
         const formData = new FormData();
         formData.append('video', video);
 
-        return fetch(`http://localhost:8084/video/upload/${extractedLessonID}`, {
+        return fetch(`/video/upload/${extractedLessonID}`, {
           method: 'POST',
           body: formData
         });
@@ -119,52 +116,52 @@ const CreateLesson = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="thumbnail">Thumbnail Image:</label>
-        <input type="file" id="thumbnail" onChange={handleThumbnailChange} />
-      </div>
-      <div>
-        <label htmlFor="video">Video:</label>
-        <input type="file" id="video" onChange={handleVideoChange} />
-      </div>
-      <div>
-        <label htmlFor="name">Lesson Name:</label>
-        <input type="text" id="name" value={name} onChange={handleNameChange} />
-      </div>
-      <div>
-        <label htmlFor="exampleCode">Example Code:</label>
-        <input type="text" id="exampleCode" value={exampleCode} onChange={handleExampleCodeChange} />
-      </div>
-      <div>
-        <label htmlFor="lessonText">Lesson Text:</label>
-        <input type="text" id="lessonText" value={lessonText} onChange={handleLessonTextChange} />
-      </div>
-      <div>
-        <label htmlFor="expectedOutput">Expected Output:</label>
-        <input type="text" id="expectedOutput" value={expectedOutput} onChange={handleExpectedOutputChange} />
-      </div>
-      <div>
-        <label htmlFor="category">Category:</label>
-        <select id="category" onChange={handleCategoryChange}>
+    <div>
+    <h2>Create a lesson</h2>
+    
+    <form onSubmit={handleSubmit} className="your-form">
+      <div className="form-group">
+        <label htmlFor="category" className="form-label">Category:</label>
+        <select id="category" onChange={handleCategoryChange} className="form-select">
           <option value="">Select a category</option>
           {categories.map(category => (
             <option key={category.id} value={category.id}>{category.name}</option>
           ))}
         </select>
       </div>
-      <div>
-        <label htmlFor="topic">Topic:</label>
-        <select id="topic" value={topicID} onChange={handleTopicIDChange}>
+      <div className="form-group">
+        <label htmlFor="topic" className="form-label">Topic:</label>
+        <select id="topic" value={topicID} onChange={handleTopicIDChange} className="form-select">
           <option value="">Select a topic</option>
           {topics.map(topic => (
             <option key={topic.id} value={topic.id}>{topic.name}</option>
           ))}
         </select>
       </div>
-      <button type="submit">Submit</button>
+      <div className="form-group">
+        <label htmlFor="video" className="form-label">Video:</label>
+        <input type="file" id="video" onChange={handleVideoChange} className="form-input" />
+      </div>
+      <div className="form-group">
+        <label htmlFor="name" className="form-label">Lesson Name:</label>
+        <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
+      </div>
+      <div className="form-group">
+        <label htmlFor="exampleCode" className="form-label">Example Code:</label>
+        <input type="text" id="exampleCode" value={exampleCode} onChange={handleExampleCodeChange} className="form-input" />
+      </div>
+      <div className="form-group">
+        <label htmlFor="lessonText" className="form-label">Lesson Text:</label>
+        <input type="text" id="lessonText" value={lessonText} onChange={handleLessonTextChange} className="form-input" />
+      </div>
+      <div className="form-group">
+        <label htmlFor="expectedOutput" className="form-label">Expected Output:</label>
+        <input type="text" id="expectedOutput" value={expectedOutput} onChange={handleExpectedOutputChange} className="form-input" />
+      </div>
+      <button type="submit" className="submit-button">Submit</button>
     </form>
-  );
+    </div>
+  );  
 };
 
 export default CreateLesson;

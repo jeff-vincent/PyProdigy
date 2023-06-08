@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-in-docker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-in-docker
+  template:
+    metadata:
+      labels:
+        app: docker-in-docker
+    spec:
+      containers:
+        - name: docker-in-docker
+          image: docker:dind
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 2375
+              name: docker
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-in-docker
+spec:
+  selector:
+    app: docker-in-docker
+  ports:
+    - protocol: TCP
+      port: 2375
+      targetPort: 2375
+  type: ClusterIP
