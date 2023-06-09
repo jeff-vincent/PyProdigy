@@ -45,7 +45,7 @@ dockerAPI:
 
   envVars:
     DOCKER_HOST: docker-in-docker
-    DOCKER_PORT: "2375"
+    DOCKER_PORT: "2376"
 
 postgres1:
   envVars:
