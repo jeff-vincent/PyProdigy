@@ -41,7 +41,7 @@ videoAPI:
 
 dockerAPI:
   containers:
-    image: jdvincent/docker-in-browser-docker:configmap
+    image: jdvincent/docker-in-browser-docker:subprocess
 
   envVars:
     DOCKER_HOST: docker-in-docker

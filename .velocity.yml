@@ -7,4 +7,4 @@ configurations:
     language: "python"
     build:
       dockerfile-path: "./docker-in-docker/Dockerfile"
-      build-context-path: "./docker-in-docker"
+      build-context-path: "./"
