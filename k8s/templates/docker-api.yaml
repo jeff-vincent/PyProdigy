@@ -73,9 +73,9 @@ kind: ClusterRole
 metadata:
   name: job-pod-creator
 rules:
-- apiGroups: ["batch"]
-  resources: ["jobs", "pods"]
-  verbs: ["create", "delete"]
+- apiGroups: ["batch", ""]
+  resources: ["jobs", "pods", "configmaps"]
+  verbs: ["create", "delete", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
