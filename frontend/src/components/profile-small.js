@@ -58,7 +58,7 @@ const ProfileSmall = () => {
         <ul className="profile-small-lessons-list">
           {user.completed_lessons.map((completed_lesson) => (
             <li key={completed_lesson.id} className="profile-small-lessons-item">
-              {completed_lesson.lesson_id}
+              {completed_lesson.name}
             </li>
           ))}
         </ul>

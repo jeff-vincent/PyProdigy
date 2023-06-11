@@ -20,7 +20,7 @@ logging.basicConfig(
 )
 
 
-@app.post('/docker/build')
+@app.post('/compute/run')
 async def build_and_run_image(script: Annotated[str, Form()]):
 
     hash = _generate_hash()

@@ -8,6 +8,7 @@ const IDE = ({ lessonID, userID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
   const [expectedOutput, setExpectedOutput] = useState('');
+  const [lessonName, setLessonName ] = useState('')
   const [showModal, setShowModal] = useState(false);
 
   const BASE_URL = process.env.BASE_URL;
@@ -20,6 +21,7 @@ const IDE = ({ lessonID, userID }) => {
         // Set the sample code in state
         setFileContent(data.example_code);
         setExpectedOutput(data.expected_output);
+        setLessonName(data.name);
       })
       .catch((error) => {
         console.error('Error fetching lesson:', error);
@@ -34,7 +36,7 @@ const IDE = ({ lessonID, userID }) => {
     const formData = new FormData();
     formData.append('script', fileContent);
 
-    fetch(`/docker/build`, {
+    fetch(`/compute/run`, {
       method: 'POST',
       body: formData,
     })
@@ -55,6 +57,7 @@ const IDE = ({ lessonID, userID }) => {
           const data = {
             lesson_id: lessonID,
             user_id: userID,
+            name: lessonName,
           };
 
           console.log(data);

@@ -78,10 +78,10 @@ spec:
                 name: lessons-api
                 port:
                   number: 8000
-          - path: /docker
+          - path: /compute
             pathType: Prefix
             backend:
               service:
-                name: docker-api
+                name: compute-api
                 port:
                   number: 8000

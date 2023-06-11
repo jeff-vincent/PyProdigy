@@ -39,13 +39,9 @@ videoAPI:
     MONGO_HOST: mongo
     MONGO_PORT: "27017"
 
-dockerAPI:
+computeAPI:
   containers:
-    image: jdvincent/docker-in-browser-docker:subprocess
-
-  envVars:
-    DOCKER_HOST: docker-in-docker
-    DOCKER_PORT: "2376"
+    image: jdvincent/docker-in-browser-compute:latest
 
 postgres1:
   envVars:
@@ -58,4 +54,3 @@ postgres2:
     POSTGRES_DB: lessons_db
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
-
