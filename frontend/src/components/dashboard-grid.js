@@ -49,9 +49,6 @@ const Grid = () => {
         <div className="">
           <IDE lessonID={lessonID} userID={userID}/>
         </div>
-        <div className="">
-          <Terminal lessonID={lessonID} />
-        </div>
       </div>
     </UserIDContext.Provider>
   );

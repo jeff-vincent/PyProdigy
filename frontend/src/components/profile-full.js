@@ -51,15 +51,16 @@ const ProfileFull = () => {
       <h2 className="dashboard-title">Welcome, {user.email}!</h2>
       <div className="dashboard-info">
       </div>
-      <div className="dashboard-pets">
-        <p className="pets-title">Completed lessons:</p>
-        <ul className="pets-list">
-          {user.pets.map((pet) => (
-            <li key={pet.id} className="pet-item">
-              {pet.name}
+      <div className="profile-completed-lessons">
+                <ul className="profile-small-lessons-list">
+          {user.completed_lessons.map((completed_lesson) => (
+            <li key={completed_lesson.id} className="profile-small-lessons-item">
+              {completed_lesson.id}
             </li>
           ))}
         </ul>
+
+
       </div>
     </div>
   );
