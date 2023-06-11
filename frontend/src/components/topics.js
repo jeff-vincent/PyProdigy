@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './components.css'
 
 const Topics = () => {
   const { id } = useParams();
   const [categories, setCategories] = useState([]);
   const [imageURL, setImageURL] = useState('');
 
-  const BASE_URL = process.env.BASE_URL
+  const BASE_URL = process.env.BASE_URL;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +35,7 @@ const Topics = () => {
   if (!categories) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className="topics-grid">
       {categories.map((category) => (
@@ -63,6 +65,6 @@ const Topics = () => {
       ))}
     </div>
   );
-};  
+};
 
 export default Topics;

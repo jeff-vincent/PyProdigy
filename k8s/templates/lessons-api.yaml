@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,6 +14,19 @@ spec:
       labels:
         app: lessons-api
     spec:
+      initContainers:
+        - name: postgres-ready-check
+          image: postgres:latest
+          command: ["sh", "-c", "until pg_isready --dbname=${POSTGRES_DB} --host=${POSTGRES_HOST} --port=${POSTGRES_PORT} --username=${POSTGRES_USER}; do echo waiting for Postgres; sleep 2; done;"]
+          env:
+            - name: POSTGRES_HOST
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_HOST | quote  }}
+            - name: POSTGRES_PORT
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_PORT | quote  }}
+            - name: POSTGRES_DB
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_DB | quote  }}
+            - name: POSTGRES_USER
+              value: {{ .Values.lessonsAPI.envVars.POSTGRES_USER | quote  }}
       containers:
         - name: lessons-api
           image: {{ .Values.lessonsAPI.containers.image | quote }}
@@ -29,7 +41,6 @@ spec:
               value: {{ .Values.lessonsAPI.envVars.POSTGRES_USER | quote  }}
             - name: POSTGRES_PASSWORD
               value: {{ .Values.lessonsAPI.envVars.POSTGRES_PASSWORD | quote  }}
-
           ports:
             - name: lessons-api
               containerPort: 8000

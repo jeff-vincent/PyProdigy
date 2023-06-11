@@ -6,10 +6,12 @@ import Terminal from './terminal';
 import IDE from './ide';
 import './components.css';
 import UserIDContext from './userContext';
+import LessonText from "./lesson-text";
 
 const Grid = () => {
   const { lessonID } = useParams();
   const [userID, setUserID] = useState(null);
+  const [lessonName, setLessonName] = useState('')
 
   const BASE_URL = process.env.BASE_URL
 
@@ -37,7 +39,28 @@ const Grid = () => {
     fetchUserData();
   }, []);
 
+    useEffect(() => {
+    // Fetch the user data and retrieve the userID
+    const fetchLessonData = async () => {
+      try {
+        const response = await fetch(`/lessons/lesson/${lessonID}/`);
+        if (response.ok) {
+          const lessonData = await response.json();
+          setLessonName(lessonData.name);
+        } else {
+          console.error('Error:', response.status);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchLessonData();
+  }, []);
+
   return (
+      <div>
+      <h1>{lessonName}</h1>
     <UserIDContext.Provider value={userID}>
       <div className="grid-container">
         <div className="">
@@ -49,8 +72,12 @@ const Grid = () => {
         <div className="">
           <IDE lessonID={lessonID} userID={userID}/>
         </div>
+        <div className="">
+          <LessonText lessonID={lessonID}/>
+        </div>
       </div>
     </UserIDContext.Provider>
+        </div>
   );
 };
 

@@ -328,3 +328,26 @@
 .share-button {
   margin-top: 10px;
 }
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust the minmax value as needed */
+  gap: 20px; /* Adjust the gap value as needed */
+}
+
+.category-item {
+  /* Add styling for each category item */
+}
+
+.lesson-article {
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-text {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #333;
+}
