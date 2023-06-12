@@ -67,7 +67,7 @@ const CreateLesson = () => {
     // Create the payload object
     const payload = {
       example_code: exampleCode,
-      lesson_text: lessonText,
+      text: lessonText,
       name,
       topic_id: topicID,
       expected_output: expectedOutput // Include expected output in the payload

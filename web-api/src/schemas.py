@@ -11,12 +11,14 @@ class TokenData(BaseModel):
 class CompletedLessonCreate(BaseModel):
     lesson_id: int
     user_id: int
+    name: str
     # completed_date: datetime
 
 class CompletedLesson(BaseModel):
     id: int
     lesson_id: int
     user_id: int
+    name: str
 
     class Config:
         orm_mode = True

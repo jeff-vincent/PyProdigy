@@ -15,6 +15,7 @@ class User(Base):
 class CompletedLesson(Base):
     __tablename__ = "completed_lessons"
     id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True, nullable=False)
     lesson_id = Column(Integer, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     completed_date = Column(DateTime)

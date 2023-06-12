@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: compute-api
+      labels:
+        api: compute-api
+    spec:
+      selector:
+        matchLabels:
+          api: compute-api
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            api: compute-api
+        spec:
+          containers:
+            - name: compute-api
+              image: {{ .Values.computeAPI.containers.image }}
+              imagePullPolicy: Always
+              ports:
+                - name: compute-api
+                  containerPort: 8000
+                  protocol: TCP
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: compute-api
+    spec:
+      ports:
+        - port: 8000
+          targetPort: 8000
+          name: compute-api
+      selector:
+        api: compute-api
+      type: ClusterIP

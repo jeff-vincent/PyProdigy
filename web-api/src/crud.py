@@ -1,6 +1,8 @@
+import logging
+from datetime import datetime
 from sqlalchemy.orm import Session
 from . import models, schemas, auth
-import logging
+
 
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
@@ -28,7 +30,9 @@ def update_user(db: Session, db_user: models.User, user: schemas.UserUpdate):
     return db_user
 
 def create_completed_lesson(db: Session, completed_lesson: schemas.CompletedLessonCreate):
+    completed_date = datetime.now()
     db_completed_lesson = models.CompletedLesson(**completed_lesson.dict())
+    db_completed_lesson.completed_date = completed_date
     db.add(db_completed_lesson)
     db.commit()
     db.refresh(db_completed_lesson)
