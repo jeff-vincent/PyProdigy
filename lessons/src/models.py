@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, LargeBinary
+from sqlalchemy import Column, ForeignKey, Integer, String, LargeBinary, UniqueConstraint
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -24,6 +24,10 @@ class Topic(Base):
     lessons = relationship("Lesson", back_populates="topic")
     category = relationship("Category", back_populates="topics")
 
+    __table_args__ = (
+        UniqueConstraint('name', 'category_id', name='uq_category_topic'),
+    )
+
 
 class Lesson(Base):
     __tablename__ = "lessons"
@@ -35,3 +39,7 @@ class Lesson(Base):
     text = Column(String, index=True)
 
     topic = relationship("Topic", back_populates="lessons")
+
+    __table_args__ = (
+        UniqueConstraint('name', 'topic_id', name='uq_topic_lesson'),
+    )

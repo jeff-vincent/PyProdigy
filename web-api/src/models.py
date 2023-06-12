@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -21,3 +21,7 @@ class CompletedLesson(Base):
     completed_date = Column(DateTime)
 
     user = relationship("User", back_populates="completed_lessons")
+
+    __table_args__ = (
+        UniqueConstraint('lesson_id', 'user_id', name='uq_lesson_user'),
+    )
