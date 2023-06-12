@@ -351,3 +351,10 @@
   line-height: 1.5;
   color: #333;
 }
+
+.non-code-text {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  /* Add any other styles as needed */
+}

@@ -15,41 +15,50 @@ const LessonText = ({ lessonID }) => {
     fetch(`/lessons/lesson/${lessonID}`)
       .then((response) => response.json())
       .then((data) => {
-        // Set the lesson text in state
-        setLessonText(data.text);
-        highlightCode();
+        // Apply text highlighting
+        const highlightedText = highlightCode(data.text);
+        // Set the highlighted lesson text in state
+        setLessonText(highlightedText);
       })
       .catch((error) => {
         console.error('Error fetching lesson:', error);
       });
   };
 
-  const highlightCode = () => {
-    if (lessonTextRef.current) {
-      const codeElements = lessonTextRef.current.querySelectorAll('code');
-      codeElements.forEach((codeElement) => {
-        Prism.highlightElement(codeElement);
-      });
-    }
+  const highlightCode = (text) => {
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = text;
+
+    const codeElements = tempElement.getElementsByTagName('code');
+    Array.from(codeElements).forEach((codeElement) => {
+      Prism.highlightElement(codeElement);
+    });
+
+    const nonCodeText = Array.from(tempElement.childNodes).reduce((acc, node) => {
+      if (node.nodeName === '#text') {
+        const spanElement = document.createElement('span');
+        spanElement.textContent = node.textContent;
+        spanElement.className = 'non-code-text';
+        acc.appendChild(spanElement);
+      } else {
+        acc.appendChild(node.cloneNode(true));
+      }
+      return acc;
+    }, document.createDocumentFragment());
+
+    const resultElement = document.createElement('div');
+    resultElement.appendChild(nonCodeText);
+
+    return resultElement.innerHTML;
   };
 
   return (
     <div className="lesson-article">
-      <pre className="lesson-text" ref={lessonTextRef} style={lessonTextStyle}>
-        {lessonText}
+      <pre className="lesson-text">
+        <code style={{ fontSize: '16px' }} dangerouslySetInnerHTML={{ __html: lessonText }}></code>
       </pre>
     </div>
   );
-};
-
-const lessonTextStyle = {
-  background: '#f4f4f4',
-  padding: '1em',
-  borderRadius: '4px',
-  fontFamily: 'Consolas, monospace',
-  fontSize: '14px',
-  lineHeight: '1.5',
-  overflowX: 'auto',
 };
 
 export default LessonText;
