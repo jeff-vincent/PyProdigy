@@ -3,7 +3,6 @@ import './components.css'; // Assuming you have a CSS file for video player styl
 
 const VideoPlayer = ({ lessonID }) => {
 
-  const BASE_URL = process.env.BASE_URL
   const videoUrl = `/video/stream/${lessonID}`;
   
   return (

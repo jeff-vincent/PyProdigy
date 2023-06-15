@@ -8,3 +8,9 @@ configurations:
     build:
       dockerfile-path: "./compute/Dockerfile"
       build-context-path: "./"
+  'python-Compute ':
+    name: "Compute "
+    language: "python"
+    build:
+      dockerfile-path: "./compute-k8s/Dockerfile"
+      build-context-path: "./compute-k8s"

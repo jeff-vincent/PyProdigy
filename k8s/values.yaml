@@ -1,6 +1,6 @@
 frontend:
   containers:
-    image: jdvincent/docker-in-browser-frontend:latest
+    image: jdvincent/docker-in-browser-frontend:container
   
   envVars:
     BASE_URL: "http://localhost/"
@@ -41,7 +41,7 @@ videoAPI:
 
 computeAPI:
   containers:
-    image: jdvincent/docker-in-browser-compute:latest
+    image: jdvincent/docker-in-browser-compute-k8s:latest
 
 postgres1:
   envVars:

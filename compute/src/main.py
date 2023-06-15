@@ -26,7 +26,7 @@ async def build_and_run_image(script: Annotated[str, Form()]):
     hash = _generate_hash()
     try:
         tmp_dir = tempfile.mkdtemp(prefix=hash)
-        script_path = os.path.join(tmp_dir, 'script.py')
+        script_path = os.path.join(tmp_dir, 'example.py')
         cmd = 'python'
     except Exception as e:
         return str(e)

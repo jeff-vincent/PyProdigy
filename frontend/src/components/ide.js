@@ -35,6 +35,7 @@ const IDE = ({ lessonID, userID }) => {
   const handleRunCode = () => {
     const formData = new FormData();
     formData.append('script', fileContent);
+    formData.append('user_id', userID);
 
     fetch(`/compute/run`, {
       method: 'POST',
