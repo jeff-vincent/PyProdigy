@@ -82,6 +82,11 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
     except Exception as e:
         return f"Error attaching to pod: {str(e)}"
 
+@app.get('/compute/delete/{user_id}')
+def delete_container(user_id: str):
+    result = subprocess.run(['kubectl', 'delete', 'pod', user_id, '--namespace', 'default'])
+    return result
+
 
 def _generate_hash():
     return binascii.hexlify(os.urandom(16)).decode('utf-8')
