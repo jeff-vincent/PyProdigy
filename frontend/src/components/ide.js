@@ -8,8 +8,9 @@ const IDE = ({ lessonID, userID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
   const [expectedOutput, setExpectedOutput] = useState('');
-  const [lessonName, setLessonName ] = useState('')
+  const [lessonName, setLessonName] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const BASE_URL = process.env.BASE_URL;
 
@@ -33,6 +34,8 @@ const IDE = ({ lessonID, userID }) => {
   };
 
   const handleRunCode = () => {
+    setLoading(true); // Set loading to true before making the API call
+
     const formData = new FormData();
     formData.append('script', fileContent);
     formData.append('user_id', userID);
@@ -55,13 +58,12 @@ const IDE = ({ lessonID, userID }) => {
         if (processedContent === expectedOutput) {
           setOutputFileContent('Success!'); // Set "Success!" if output matches expected output
           setShowModal(true);
+
           const data = {
             lesson_id: lessonID,
             user_id: userID,
             name: lessonName,
           };
-
-          console.log(data);
 
           fetch(`/api/completed-lesson`, {
             method: 'POST',
@@ -71,7 +73,6 @@ const IDE = ({ lessonID, userID }) => {
             body: JSON.stringify(data),
           })
             .then((response) => {
-              console.log(response);
               if (response.ok) {
                 console.log('Lesson completed.');
               } else {
@@ -81,10 +82,38 @@ const IDE = ({ lessonID, userID }) => {
             .catch((error) => {
               console.error('Error completing lesson:', error);
             });
+        } else {
+          // If the output doesn't match the expected output, make the recursive call
+          makeRecursiveCall();
         }
       })
       .catch((error) => {
         console.error('Error running code:', error);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading back to false after the API call
+      });
+  };
+
+  const makeRecursiveCall = () => {
+    setLoading(true); // Set loading to true before making the recursive call
+
+    fetch(`/compute/get-pod/${userID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === true) {
+          // If the recursive call returns true, the code has finished executing
+          handleRunCode(); // Run the code again to check the output
+        } else {
+          // If the recursive call doesn't return true, make the recursive call again after a delay
+          setTimeout(makeRecursiveCall, 1000); // Adjust the delay as needed
+        }
+      })
+      .catch((error) => {
+        console.error('Error making recursive call:', error);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading back to false after the recursive call
       });
   };
 
@@ -108,14 +137,15 @@ const IDE = ({ lessonID, userID }) => {
         editorProps={{ $blockScrolling: true }}
         width="100%"
         height="300px"
+        readOnly={loading} // Set readOnly to true when loading is true, to gray out the IDE
       />
       <div className="ide-response">
         <div dangerouslySetInnerHTML={{ __html: outputFileContent.replace(/\\n/g, '<br>').replace(/"/g, '') }} />
       </div>
 
       <div className="ide-actions">
-        <button onClick={handleRunCode} className="ide-button">
-          Run
+        <button onClick={handleRunCode} className="ide-button" disabled={loading}>
+          {loading ? 'Running...' : 'Run'}
         </button>
       </div>
 

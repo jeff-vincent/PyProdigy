@@ -81,7 +81,7 @@ const ProfileFull = () => {
   if (!user) {
     return (
       <div>
-        <h1>Log in to track your progress</h1>
+        <h1>Log in to get started</h1>
         <div>
           <SignUpLogin />
         </div>

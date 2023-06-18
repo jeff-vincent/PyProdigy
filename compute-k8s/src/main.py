@@ -87,6 +87,15 @@ def delete_container(user_id: str):
     result = subprocess.run(['kubectl', 'delete', 'pod', user_id, '--namespace', 'default'])
     return result
 
+@app.get('/compute/get-pod/{user_id}')
+def get_pod(user_id: str):
+    result = subprocess.run(['kubectl', 'get', 'pod', user_id], capture_output=True)
+    result_string = result.stdout.decode('utf-8')
+    if 'Running' in result_string:
+        return True
+    else:
+        return False
+
 
 def _generate_hash():
     return binascii.hexlify(os.urandom(16)).decode('utf-8')
