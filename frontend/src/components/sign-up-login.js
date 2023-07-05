@@ -17,10 +17,6 @@ const SignUpLogin = () => {
       });
 
       if (response.ok) {
-        // Handle successful sign-up
-        const userData = await response.json();
-        setUserID(userData.id)
-        await createContainer(userID);
       } else {
         console.error('Error:', response.status);
       }

@@ -1,5 +1,5 @@
-# Use a lightweight Python image
-FROM python:3.11-slim-buster
+# Use a lightweight Python image with curl and ca-certificates
+FROM python:3.11-slim-buster AS base
 
 # Set the working directory
 WORKDIR /app
@@ -11,10 +11,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the source code
-COPY src ./src
+COPY main.py .
 
-# Set the working directory to the source code folder
-WORKDIR /app/src
 
 # Start the application using uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

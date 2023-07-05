@@ -6,5 +6,5 @@ configurations:
     name: "Run With Velocity"
     language: "python"
     build:
-      dockerfile-path: "./compute-k8s/Dockerfile"
-      build-context-path: "./compute-k8s"
+      dockerfile-path: "./compute_k8s/Dockerfile"
+      build-context-path: "./compute_k8s"

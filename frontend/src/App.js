@@ -4,7 +4,7 @@ import SignUpLogin from "./components/sign-up-login";
 import Topics from './components/topics';
 import Header from './components/header';
 import Grid from './components/dashboard-grid';
-import ProfileFull from './components/profile-full';
+import Profile from './components/profile-full';
 import CMS from './components/cms';
 import './App.css';
 
@@ -20,7 +20,7 @@ const App = () => {
             <Routes>
               <Route exact path="/" element={<SignUpLogin/>} />
               <Route exact path="/topics" element={<Topics/>} />
-              <Route exact path="/profile" element={<ProfileFull/>} />
+              <Route exact path="/profile" element={<Profile/>} />
               <Route path="/learn/" element={<Grid/>} />
               <Route path="/learn/:lessonID" element={<Grid/>} />
               <Route path="/cms/" element={<CMS/>} />
