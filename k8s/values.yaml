@@ -1,6 +1,6 @@
 frontend:
   containers:
-    image: jdvincent/docker-in-browser-frontend:container
+    image: jdvincent/docker-in-browser-frontend:latest
   
   envVars:
     BASE_URL: "http://localhost/"
@@ -9,9 +9,13 @@ frontend:
     ingressClassName: kong
     host: null
 
+auth:
+  containers:
+    image: jdvincent/docker-in-browser-auth:latest
+
 webAPI:
   containers:
-    image: jdvincent/docker-in-browser-web-api:latest
+    image: jdvincent/docker-in-browser-web-api:auth
 
   envVars:
     POSTGRES_HOST: postgres1

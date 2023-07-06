@@ -13,7 +13,7 @@ async def call_userinfo_endpoint(token):
             return await response.json()
 
 
-@app.post("/authenticate/{token}")
+@app.get("/authenticate/{token}")
 async def authenticate(token: str):
     userinfo = await call_userinfo_endpoint(token)
     return userinfo

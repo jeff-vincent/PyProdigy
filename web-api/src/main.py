@@ -19,19 +19,20 @@ def get_db():
 
 async def get_auth0_user(token):
     async with aiohttp.ClientSession() as session:
-        async with session.get(f'http://auth:8000/authenticate/{token}') as response:
+        async with session.get(f'http://auth-api:8000/authenticate/{token}') as response:
             auth0_user = await response.json()
             return auth0_user
 
 
-@app.post('/api/user')
-async def get_or_create_user(token: str = Form(...), db: Session = Depends(get_db)):
+@app.get('/api/user/{token}')
+async def get_or_create_user(token: str, db: Session = Depends(get_db)):
     auth0_user = await get_auth0_user(token)
     try:
         db_user = crud.get_user_by_sub(db, auth0_user['sub'])
     except:
         db_user = crud.create_user(db, auth0_user)
     return db_user
+
 
 
 # @app.post('/api/completed-lesson')

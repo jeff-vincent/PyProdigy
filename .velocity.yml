@@ -8,3 +8,9 @@ configurations:
     build:
       dockerfile-path: "./compute_k8s/Dockerfile"
       build-context-path: "./compute_k8s"
+  python-web-api:
+    name: "web-api"
+    language: "python"
+    build:
+      dockerfile-path: "./web-api/Dockerfile"
+      build-context-path: "./web-api"

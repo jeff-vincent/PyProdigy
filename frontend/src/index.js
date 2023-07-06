@@ -12,14 +12,8 @@ const OnRedirectCallback = () => {
     const fetchAccessToken = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
-
-        const formData = new FormData();
-        formData.append('access_token', accessToken);
-
-        const response = await fetch('/api/user', {
-          method: 'POST',
-          body: formData,
-        });
+        console.log(accessToken)
+        const response = await fetch(`/api/user/${accessToken}`)
 
         if (response.ok) {
           const result = await response.json();
