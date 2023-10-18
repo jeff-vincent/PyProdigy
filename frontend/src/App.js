@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignUpLogin from "./components/sign-up-login";
 import Topics from './components/topics';
 import Header from './components/header';
-import Grid from './components/dashboard-grid';
+import Grid from './components/lesson-grid';
 import Profile from './components/profile-full';
 import CMS from './components/cms';
 import './App.css';

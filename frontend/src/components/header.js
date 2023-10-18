@@ -9,12 +9,6 @@ const Header = () => {
     <header className="header">
       <nav className="navbar">
         <ul className="nav-list">
-          <li className="nav-list">
-            <LoginButton className="nav-link"/>
-          </li>
-          <li className="nav-list">
-            <LogoutButton className="nav-link"/>
-          </li>
           <li className="nav-item">
             <Link to="/" className="nav-link">Home</Link>
           </li>
@@ -23,6 +17,12 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <Link to="/topics" className="nav-link">Topics</Link>
+          </li>
+                   <li className="nav-list">
+            <LoginButton className="nav-link"/>
+          </li>
+          <li className="nav-list">
+            <LogoutButton className="nav-link"/>
           </li>
         </ul>
       </nav>

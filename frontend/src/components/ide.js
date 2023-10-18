@@ -4,6 +4,8 @@ import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
 import './components.css';
 
+
+
 const IDE = ({ lessonID, userID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
