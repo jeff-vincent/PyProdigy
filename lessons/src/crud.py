@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session, joinedload
-from . import models, schemas
+import models
+import schemas
 
 def get_topic_by_id(db: Session, id: str):
     return db.query(models.Topic).filter(models.Topic.id == id).first()

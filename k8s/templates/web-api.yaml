@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-api
+  name: users
   labels:
-    app: web-api
+    app: users
 spec:
   selector:
     matchLabels:
-      app: web-api
+      app: users
   replicas: 1
   template:
     metadata:
       labels:
-        app: web-api
+        app: users
     spec:
       initContainers:
         - name: postgres-ready-check
@@ -29,8 +29,9 @@ spec:
             - name: POSTGRES_USER
               value: {{ .Values.webAPI.envVars.POSTGRES_USER | quote }}
       containers:
-        - name: web-api
+        - name: users
           image: {{ .Values.webAPI.containers.image | quote }}
+          imagePullPolicy: Always
           env:
             - name: POSTGRES_HOST
               value: {{ .Values.webAPI.envVars.POSTGRES_HOST | quote  }}
@@ -44,19 +45,19 @@ spec:
               value: {{ .Values.webAPI.envVars.POSTGRES_PASSWORD | quote  }}
 
           ports:
-            - name: web-api
+            - name: users
               containerPort: 8000
               protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-api
+  name: users
 spec:
   ports:
     - port: 8000
       targetPort: 8000
-      name: web-api
+      name: users
   selector:
-    app: web-api
+    app: users
   type: ClusterIP
