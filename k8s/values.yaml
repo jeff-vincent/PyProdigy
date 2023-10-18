@@ -15,7 +15,7 @@ auth:
 
 webAPI:
   containers:
-    image: jdvincent/docker-in-browser-web-api:auth
+    image: jdvincent/docker-in-browser-users:latest
 
   envVars:
     POSTGRES_HOST: postgres1

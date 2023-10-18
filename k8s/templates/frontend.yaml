@@ -64,7 +64,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: web-api
+              name: users
               port:
                 number: 8000
         - path: /video

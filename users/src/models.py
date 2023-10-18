@@ -2,6 +2,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, U
 from sqlalchemy.orm import relationship
 from .database import Base
 
+
 class User(Base):
     __tablename__ = "users"
 
@@ -9,6 +10,7 @@ class User(Base):
     sub = Column(String, unique=True, index=True)
 
     completed_lessons = relationship("CompletedLesson", back_populates="user")
+
 
 class CompletedLesson(Base):
     __tablename__ = "completed_lessons"
