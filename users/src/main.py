@@ -37,6 +37,13 @@ async def get_or_create_user(token: str, db: Session = Depends(get_db)):
     return db_user
 
 
+#TODO add get user by sub endpoint for delete pod on logout
+@app.get('/api/get-user-by-sub/{sub}')
+async def get_user_by_sub(sub: str, db: Session = Depends(get_db)):
+    data = {'sub': sub}
+    db_user = crud.get_user_by_sub(db, data)
+    return db_user
+
 
 # @app.post('/api/completed-lesson')
 # async def create_completed_lesson(completed_lesson: schemas.CompletedLessonCreate, db: Session = Depends(get_db)):

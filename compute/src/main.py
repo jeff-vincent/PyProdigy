@@ -2,6 +2,7 @@ import binascii
 import os
 import shutil
 import tempfile
+import requests
 import subprocess
 from typing import Annotated
 from kubernetes import client, config
@@ -62,6 +63,7 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
 
     script_path = os.path.join(tmp_dir, 'script.py')
 
+    # TODO: add logging to script for garbage collection
     with open(script_path, 'w') as f:
         for line in script:
             f.write(line)
@@ -82,10 +84,15 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
     except Exception as e:
         return f"Error attaching to pod: {str(e)}"
 
-@app.get('/compute/delete/{user_id}')
-def delete_container(user_id: str):
-    result = subprocess.run(['kubectl', 'delete', 'pod', user_id, '--namespace', 'default'])
+
+@app.get('/compute/delete/{user_sub}')
+def delete_container_on_logout(user_sub: str):
+    # TODO: get user id with user sub, pass user id in following call
+    r = requests.get(f'http://users:8000/api/get-user-by-sub/{user_sub}')
+    user_data = r.json()
+    result = subprocess.run(['kubectl', 'delete', 'pod', str(user_data['id']), '--namespace', 'default'])
     return result
+
 
 @app.get('/compute/get-pod/{user_id}')
 def get_pod(user_id: str):
