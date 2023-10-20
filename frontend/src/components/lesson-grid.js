@@ -15,6 +15,9 @@ const Grid = () => {
 
   const BASE_URL = process.env.BASE_URL
 
+
+
+  // TODO: update to call users service to get current user's id
   useEffect(() => {
     // Fetch the user data and retrieve the userID
     const fetchUserData = async () => {

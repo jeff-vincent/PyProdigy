@@ -6,25 +6,23 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     try {
-      // Fetch request to delete user data
-      const response = await fetch(`/compute/delete/${user.sub}`, {
+      // Initiate asynchronous deletion process (send a request to delete the pod)
+      fetch(`/compute/delete/${user.sub}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${user.access_token}`,
         },
       });
 
-      if (response.ok) {
-        console.log("User data deleted successfully");
-      } else {
-        console.error("Failed to delete user data");
-      }
+      // Logout the user immediately, without waiting for the deletion response
+      logout({ logoutParams: { returnTo: window.location.origin } });
     } catch (error) {
-      console.error("Error deleting user data:", error);
-    }
+      // Handle errors if needed
+      console.error("Error initiating deletion process:", error);
 
-    // Logout the user after deleting data
-    logout({ logoutParams: { returnTo: window.location.origin } });
+      // Logout the user even if the deletion process fails
+      logout({ logoutParams: { returnTo: window.location.origin } });
+    }
   };
 
   return (
