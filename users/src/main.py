@@ -45,6 +45,6 @@ async def get_user_by_sub(sub: str, db: Session = Depends(get_db)):
     return db_user
 
 
-# @app.post('/api/completed-lesson')
-# async def create_completed_lesson(completed_lesson: schemas.CompletedLessonCreate, db: Session = Depends(get_db)):
-#     return crud.create_completed_lesson(db=db, completed_lesson=completed_lesson)
+@app.post('/api/completed-lesson')
+async def create_completed_lesson(completed_lesson: dict, db: Session = Depends(get_db)):
+    return crud.create_completed_lesson(db=db, completed_lesson=completed_lesson)

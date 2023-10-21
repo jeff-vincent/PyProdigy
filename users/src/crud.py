@@ -33,12 +33,12 @@ def create_user(db: Session, auth0_user: dict):
 #     return db_user
 #
 #
-# def create_completed_lesson(db: Session, completed_lesson: schemas.CompletedLessonCreate):
-#     completed_date = datetime.now()
-#     db_completed_lesson = models.CompletedLesson(**completed_lesson.dict())
-#     db_completed_lesson.completed_date = completed_date
-#     db.add(db_completed_lesson)
-#     db.commit()
-#     db.refresh(db_completed_lesson)
-#     return db_completed_lesson
+def create_completed_lesson(db: Session, completed_lesson: dict):
+    completed_date = datetime.now()
+    db_completed_lesson = models.CompletedLesson(**completed_lesson)
+    db_completed_lesson.completed_date = completed_date
+    db.add(db_completed_lesson)
+    db.commit()
+    db.refresh(db_completed_lesson)
+    return db_completed_lesson
 
