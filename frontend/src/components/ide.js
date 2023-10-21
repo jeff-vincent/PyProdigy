@@ -48,8 +48,10 @@ const IDE = ({ lessonID, userID }) => {
     })
       .then((response) => {
         if (response.ok) {
+          console.log(formData)
           return response.text(); // Read the response as text
         } else {
+          console.log(formData)
           throw new Error('Failed to run code.');
         }
       })
@@ -85,8 +87,8 @@ const IDE = ({ lessonID, userID }) => {
               console.error('Error completing lesson:', error);
             });
         } else {
-          // If the output doesn't match the expected output, make the recursive call
-          makeRecursiveCall();
+          // // If the output doesn't match the expected output, make the recursive call
+          // makeRecursiveCall();
         }
       })
       .catch((error) => {

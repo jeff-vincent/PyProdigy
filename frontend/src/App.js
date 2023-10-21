@@ -8,22 +8,21 @@ import Profile from './components/profile-full';
 import CMS from './components/cms';
 import './App.css';
 
-
-const App = () => {
+const App = ({ userID }) => {
+  console.log('UserID in the App component:', userID);
   return (
     <div>
-     
       <Router>
-      <Header />
+        <Header />
         <div className='app'>
           <div className="app-container">
             <Routes>
-              <Route exact path="/" element={<Welcome/>} />
-              <Route exact path="/topics" element={<Topics/>} />
-              <Route exact path="/profile" element={<Profile/>} />
-              <Route path="/learn/" element={<Grid/>} />
-              <Route path="/learn/:lessonID" element={<Grid/>} />
-              <Route path="/cms/" element={<CMS/>} />
+              <Route exact path="/" element={<Welcome />} />
+              <Route exact path="/topics" element={<Topics />} />
+              <Route exact path="/profile" element={<Profile />} />
+              <Route path="/learn/" element={<Grid userID={userID} />} />
+              <Route path="/learn/:lessonID" element={<Grid userID={userID} />} />
+              <Route path="/cms/" element={<CMS />} />
             </Routes>
           </div>
         </div>

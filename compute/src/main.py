@@ -4,9 +4,12 @@ import shutil
 import tempfile
 import requests
 import subprocess
+import logging
+
 from typing import Annotated
 from kubernetes import client, config
 from fastapi import FastAPI, Form
+
 
 app = FastAPI()
 
@@ -20,6 +23,8 @@ else:
 
 # Create the Kubernetes API client
 api_client = client.ApiClient()
+
+logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 
 
 @app.get('/compute/start/{user_id}')
@@ -62,6 +67,8 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
     tmp_dir = tempfile.mkdtemp(prefix=_hash)
 
     script_path = os.path.join(tmp_dir, 'script.py')
+
+    logging.info(f"user: {user_id} script: {script}")
 
     # TODO: add logging to script for garbage collection
     with open(script_path, 'w') as f:

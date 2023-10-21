@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import './index.css';
@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 const OnRedirectCallback = () => {
   const { getAccessTokenSilently, user } = useAuth0();
+  const [userID, setUserID] = useState(null);
 
   useEffect(() => {
     const fetchAccessToken = async () => {
@@ -27,6 +28,9 @@ const OnRedirectCallback = () => {
           if (computeResponse.ok) {
             const computeResult = await computeResponse.json();
             console.log('Compute Result:', computeResult);
+            console.log('UserID in the callback:', userData.id);
+            // Set the user ID in the state
+            setUserID(userData.id);
           } else {
             console.error('Failed to start user compute');
           }
@@ -44,7 +48,7 @@ const OnRedirectCallback = () => {
     }
   }, [getAccessTokenSilently, user]);
 
-  return <App />;
+  return <App userID={userID} />;
 };
 
 const rootElement = document.getElementById('root');
