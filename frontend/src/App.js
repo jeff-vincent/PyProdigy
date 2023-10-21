@@ -13,7 +13,7 @@ const App = ({ userID }) => {
   return (
     <div>
       <Router>
-        <Header />
+        <Header userID={userID}/>
         <div className='app'>
           <div className="app-container">
             <Routes>
