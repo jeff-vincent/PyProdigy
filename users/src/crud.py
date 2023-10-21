@@ -1,11 +1,24 @@
 import logging
 from datetime import datetime
 from sqlalchemy.orm import Session
+from sqlalchemy.orm import joinedload
 from . import models
 
 
-# def get_user(db: Session, user_id: int):
-#     return db.query(models.User).filter(models.User.id == user_id).first()
+def get_completed_lessons_by_id(db: Session, user_id: int):
+    user = db.query(models.User).options(joinedload(models.User.completed_lessons)).filter(
+        models.User.id == user_id).first()
+    completed_lessons = user.completed_lessons
+    completed_lesson_display_list = []
+    for completed_lesson in completed_lessons:
+        completed_lesson_display = {
+            'lessonName': completed_lesson.name,
+            'completedDate': completed_lesson.completed_date
+        }
+        completed_lesson_display_list.append(completed_lesson_display)
+
+    return completed_lesson_display_list
+
 
 
 def get_user_by_sub(db: Session, auth0_user: dict):
