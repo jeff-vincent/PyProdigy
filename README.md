@@ -17,4 +17,4 @@ The application leverages the Python SDK for Kubernetes to spin up an isolated c
 ![dev-bootcamp.png](img%2Fdev-bootcamp.png)
 
 ## Demo
-![dev-bootcamp-demo.gif](img%2Fdev-bootcamp-demo.gif)
+![PyProdigy.gif](img%2FPyProdigy.gif)
