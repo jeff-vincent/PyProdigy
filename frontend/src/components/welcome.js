@@ -16,7 +16,7 @@ const Welcome = () => {
     <div>
       <div className="hero">
         <div className="hero-content">
-          <h2>👋 Welcome to PyCamp 👋</h2>
+          <h2>👋 Welcome to PyProdigy 👋</h2>
           <p>Learn some cool Python stuff with our free curriculum!</p>
           <LoginButton/>
         </div>

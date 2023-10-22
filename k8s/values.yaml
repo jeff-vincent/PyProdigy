@@ -1,6 +1,6 @@
 frontend:
   containers:
-    image: jdvincent/docker-in-browser-frontend:latest
+    image: jdvincent/pyprodigy-frontend:latest
   
   envVars:
     BASE_URL: "http://localhost/"
@@ -9,13 +9,13 @@ frontend:
     ingressClassName: kong
     host: null
 
-auth:
+authAPI:
   containers:
-    image: jdvincent/docker-in-browser-auth:latest
+    image: jdvincent/pyprodigy-auth:latest
 
-webAPI:
+usersAPI:
   containers:
-    image: jdvincent/docker-in-browser-users:latest
+    image: jdvincent/pyprodigy-users:latest
 
   envVars:
     POSTGRES_HOST: postgres1
@@ -37,7 +37,7 @@ lessonsAPI:
 
 videoAPI:
   containers:
-    image: jdvincent/docker-in-browser-video:latest
+    image: jdvincent/pyprodigy-video:latest
 
   envVars:
     MONGO_HOST: mongo
@@ -45,7 +45,7 @@ videoAPI:
 
 computeAPI:
   containers:
-    image: jdvincent/docker-in-browser-compute-k8s:latest
+    image: jdvincent/pyprodigy-compute:latest
 
 postgres1:
   envVars:
