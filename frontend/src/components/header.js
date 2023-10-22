@@ -9,15 +9,16 @@ const Header = ({ userID }) => {
     <header className="header">
       <nav className="navbar">
         <ul className="nav-list">
-          <li className="nav-item">
-            <Link to="/" className="nav-link">Home</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/profile" className="nav-link">Profile</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/topics" className="nav-link">Topics</Link>
-          </li>
+          {userID && (
+            <>
+              <li className="nav-item">
+                <Link to="/profile" className="nav-link">Profile</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/topics" className="nav-link">Topics</Link>
+              </li>
+            </>
+          )}
           {userID ? (
             <li className="nav-list">
               <LogoutButton className="nav-link" />

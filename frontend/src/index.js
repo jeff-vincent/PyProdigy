@@ -21,6 +21,7 @@ const OnRedirectCallback = () => {
           const userData = await response.json();
           console.log('User Data:', userData);
 
+
           // TODO: Implement spinning up user's pod logic here
 
           const computeResponse = await fetch(`/compute/start/${userData.id}`);

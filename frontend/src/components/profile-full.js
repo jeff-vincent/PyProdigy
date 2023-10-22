@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import withAuth from './withAuth'
 
 const Profile = ({ userID }) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -46,4 +47,4 @@ const Profile = ({ userID }) => {
   );
 };
 
-export default Profile;
+export default withAuth(Profile);

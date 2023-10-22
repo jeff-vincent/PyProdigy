@@ -3,6 +3,7 @@ import './components.css';
 import CreateLesson from './create-lesson';
 import CreateCategory from './create-category';
 import CreateTopic from './create-topic';
+import withAdminRole from './withAdmin'
 
 const CMS = () => {
 
@@ -20,4 +21,4 @@ const CMS = () => {
     </div>
   );
 };  
-export default CMS;
+export default withAdminRole(CMS);

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import VideoPlayer from './video';
 import IDE from './ide';
+import LessonText from "./lesson-text";
 import './components.css';
+import withAuth from './withAuth'
 
 const Grid = ({userID}) => {
   console.log('UserID in the Grid component:', userID)
@@ -29,14 +31,16 @@ const Grid = ({userID}) => {
   }, [lessonID]);
 
   return (
-    <div>
-      <h1>{lessonName}</h1>
-      {/* Your other components */}
-      <VideoPlayer lessonID={lessonID} />
-      <IDE lessonID={lessonID} userID={userID} />
-      {/* Other components */}
+    <div className="grid-container">
+      <div className="grid-item-left">
+        <VideoPlayer lessonID={lessonID} />
+        <IDE lessonID={lessonID} userID={userID} />
+      </div>
+      <div className="grid-item-right">
+        <LessonText lessonID={lessonID} />
+      </div>
     </div>
   );
 };
 
-export default Grid;
+export default withAuth(Grid);
