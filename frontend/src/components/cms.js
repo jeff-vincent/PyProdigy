@@ -3,7 +3,7 @@ import './components.css';
 import CreateLesson from './create-lesson';
 import CreateCategory from './create-category';
 import CreateTopic from './create-topic';
-import withAdminRole from './withAdmin'
+import withAuth from './withAuth'
 
 const CMS = () => {
 
@@ -21,4 +21,4 @@ const CMS = () => {
     </div>
   );
 };  
-export default withAdminRole(CMS);
+export default withAuth(CMS);

@@ -19,7 +19,7 @@ items:
         spec:
           containers:
             - name: auth-api
-              image: {{ .Values.auth.containers.image }}
+              image: {{ .Values.authAPI.containers.image }}
               imagePullPolicy: Always
               ports:
                 - name: auth-api

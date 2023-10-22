@@ -21,28 +21,28 @@ spec:
           command: [ "sh", "-c", "until pg_isready --dbname=${POSTGRES_DB} --host=${POSTGRES_HOST} --port=${POSTGRES_PORT} --username=${POSTGRES_USER}; do echo waiting for Postgres; sleep 2; done;" ]
           env:
             - name: POSTGRES_HOST
-              value: {{ .Values.webAPI.envVars.POSTGRES_HOST | quote }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_HOST | quote }}
             - name: POSTGRES_PORT
-              value: {{ .Values.webAPI.envVars.POSTGRES_PORT | quote }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_PORT | quote }}
             - name: POSTGRES_DB
-              value: {{ .Values.webAPI.envVars.POSTGRES_DB | quote }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_DB | quote }}
             - name: POSTGRES_USER
-              value: {{ .Values.webAPI.envVars.POSTGRES_USER | quote }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_USER | quote }}
       containers:
         - name: users
-          image: {{ .Values.webAPI.containers.image | quote }}
+          image: {{ .Values.usersAPI.containers.image | quote }}
           imagePullPolicy: Always
           env:
             - name: POSTGRES_HOST
-              value: {{ .Values.webAPI.envVars.POSTGRES_HOST | quote  }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_HOST | quote  }}
             - name: POSTGRES_PORT
-              value: {{ .Values.webAPI.envVars.POSTGRES_PORT | quote  }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_PORT | quote  }}
             - name: POSTGRES_DB
-              value: {{ .Values.webAPI.envVars.POSTGRES_DB | quote  }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_DB | quote  }}
             - name: POSTGRES_USER
-              value: {{ .Values.webAPI.envVars.POSTGRES_USER | quote  }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_USER | quote  }}
             - name: POSTGRES_PASSWORD
-              value: {{ .Values.webAPI.envVars.POSTGRES_PASSWORD | quote  }}
+              value: {{ .Values.usersAPI.envVars.POSTGRES_PASSWORD | quote  }}
 
           ports:
             - name: users

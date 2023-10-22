@@ -1,4 +1,4 @@
-# PyProdigy
+# Dev Bootcamp
 A microservices-based application built with FastAPI services deployed in Kubernetes via Helm. 
 
 ## Auth
