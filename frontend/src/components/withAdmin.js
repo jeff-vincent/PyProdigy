@@ -14,7 +14,7 @@ const withAdminRole = (WrappedComponent) => {
         }
 
         try {
-          const roles = user['https://myroles.com/roles']; // Replace with your actual roles key
+          const roles = user['https://127.0.0.1/roles']; // Replace with your actual roles key
           console.log('roles:', roles)
           const isAdminUser = roles && roles.includes('admin');
           setIsAdmin(isAdminUser);
@@ -34,8 +34,7 @@ const withAdminRole = (WrappedComponent) => {
 
     if (!isAuthenticated || !isAdmin) {
       // Redirect to the home page if the user is not authenticated or doesn't have admin role
-      redirect('/');
-      return null;
+      return redirect('https://127.0.0.1');
     }
 
     // Render the wrapped component if the user is authenticated and has admin role

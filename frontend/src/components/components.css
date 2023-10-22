@@ -418,3 +418,45 @@
   .feature {
     text-align: center;
   }
+
+.profile-container {
+  /* Your styles for the profile container */
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  grid-gap: 5px;
+}
+
+.profile-grid-item {
+  height: 50px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.completed-lesson {
+  background-color: #4CAF50FF;
+}
+
+.incomplete-lesson {
+  background-color: gray;
+}
+
+.profile-grid-item:hover {
+  /* Tooltip styles */
+  position: relative;
+}
+
+.profile-grid-item:hover:after {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: nowrap;
+}

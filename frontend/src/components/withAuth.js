@@ -13,8 +13,7 @@ const withAuth = (WrappedComponent) => {
 
     if (!isAuthenticated || !user) {
       // Redirect to the login page if the user is not authenticated or user object is not available
-      redirect('/');
-      return null;
+      return redirect('https://127.0.0.1');
     }
 
     // Render the wrapped component if the user is authenticated
