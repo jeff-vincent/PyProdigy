@@ -145,11 +145,11 @@
     flex: 1;
   }
   
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Adjust the number of columns as needed */
-    grid-gap: 20px; /* Adjust the gap between grid items */
-  }
+  /*.grid-container {*/
+  /*  display: grid;*/
+  /*  grid-template-columns: repeat(2, 1fr); !* Adjust the number of columns as needed *!*/
+  /*  grid-gap: 20px; !* Adjust the gap between grid items *!*/
+  /*}*/
   
 
   .header {
@@ -459,4 +459,39 @@
   padding: 5px;
   border-radius: 5px;
   white-space: nowrap;
+}
+
+.category-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333; /* Change color as per your preference */
+}
+
+.topic-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555; /* Change color as per your preference */
+}
+
+ul.lessons-list {
+  list-style: none; /* Remove list style (bullets) */
+  padding: 0;
+  margin: 0;
+}
+
+.lesson-tile {
+  display: block;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333; /* Change color as per your preference */
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.lesson-tile:hover {
+  background-color: #f0f0f0; /* Change background color on hover */
 }
