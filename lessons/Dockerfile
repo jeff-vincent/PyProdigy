@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src ./src
 
 # Set the working directory to the source code folder
-WORKDIR /app
+WORKDIR /app/src
 
 # Start the application using uvicorn
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
