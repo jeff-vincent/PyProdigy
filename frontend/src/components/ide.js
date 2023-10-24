@@ -23,7 +23,7 @@ const IDE = ({ lessonID, userID }) => {
       .then((data) => {
         // Set the sample code in state
         setFileContent(data.example_code);
-        setExpectedOutput(data.expected_output);
+        setExpectedOutput(data.expected_output.replace(/'/g, ''));
         setLessonName(data.name);
       })
       .catch((error) => {
@@ -35,32 +35,31 @@ const IDE = ({ lessonID, userID }) => {
     setFileContent(value);
   };
 
-  const handleRunCode = () => {
-    setLoading(true); // Set loading to true before making the API call
+    const handleRunCode = async () => {
+    setLoading(true);
 
     const formData = new FormData();
     formData.append('script', fileContent);
     formData.append('user_id', userID);
 
-    fetch(`/compute/run`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(formData)
-          return response.text(); // Read the response as text
-        } else {
-          console.log(formData)
-          throw new Error('Failed to run code.');
-        }
-      })
-      .then((content) => {
-        const processedContent = content.replace(/\\n/g, '<br>').replace(/"/g, '');
-        setOutputFileContent(processedContent); // Set the response content in state
+    try {
+      const response = await fetch(`/compute/run`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const rawContent = await response.text();
+        console.log('raw content as text:', rawContent);
+
+        const processedContent = rawContent.replace(/\\n/g, '').replace(/"/g, '');
+        console.log('processed content:', processedContent);
+        console.log('expected output:', expectedOutput)
+
+        setOutputFileContent(processedContent);
 
         if (processedContent === expectedOutput) {
-          setOutputFileContent('Success!'); // Set "Success!" if output matches expected output
+          setOutputFileContent('Success!');
           setShowModal(true);
 
           const data = {
@@ -69,34 +68,30 @@ const IDE = ({ lessonID, userID }) => {
             name: lessonName,
           };
 
-          fetch(`/api/completed-lesson`, {
+          const completionResponse = await fetch(`/api/completed-lesson`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-          })
-            .then((response) => {
-              if (response.ok) {
-                console.log('Lesson completed.');
-              } else {
-                throw new Error('Failed to complete lesson.');
-              }
-            })
-            .catch((error) => {
-              console.error('Error completing lesson:', error);
-            });
+          });
+
+          if (completionResponse.ok) {
+            console.log('Lesson completed.');
+          } else {
+            console.error('Failed to complete lesson.');
+          }
         } else {
-          // // If the output doesn't match the expected output, make the recursive call
-          // makeRecursiveCall();
+          // Handle case when output does not match expected output
         }
-      })
-      .catch((error) => {
-        console.error('Error running code:', error);
-      })
-      .finally(() => {
-        setLoading(false); // Set loading back to false after the API call
-      });
+      } else {
+        throw new Error('Failed to run code.');
+      }
+    } catch (error) {
+      console.error('Error running code:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const makeRecursiveCall = () => {
