@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const CreateLesson = () => {
   const [video, setVideo] = useState(null);
@@ -53,8 +55,8 @@ const CreateLesson = () => {
     setName(event.target.value);
   };
 
-  const handleLessonTextChange = (event) => {
-    setLessonText(event.target.value);
+ const handleLessonTextChange = (content, delta, source, editor) => {
+    setLessonText(content);
   };
 
   const handleTopicIDChange = (event) => {
@@ -159,18 +161,17 @@ const CreateLesson = () => {
   />
 </div>
 
-<div className="form-group">
-  <label htmlFor="lessonText" className="form-label">
-    Lesson Text:
-  </label>
-  <textarea
-    id="lessonText"
-    value={lessonText}
-    onChange={handleLessonTextChange}
-    className="form-input"
-    rows="4" // Set the number of rows for the textarea (adjust as needed)
-  />
-</div>
+    <div className="form-group">
+      <label htmlFor="lessonText" className="form-label">
+        Lesson Text:
+      </label>
+      <ReactQuill
+        id="lessonText"
+        value={lessonText}
+        onChange={handleLessonTextChange}
+        className="form-input"
+      />
+    </div>
       <div className="form-group">
   <label htmlFor="expectedOutput" className="form-label">
     Expected Output:

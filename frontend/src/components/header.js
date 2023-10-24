@@ -7,6 +7,9 @@ import LogoutButton from "./logout-button";
 const Header = ({ userID }) => {
   return (
     <header className="header">
+        <div className="header-icon">
+            <Link to="/" className="nav-link">PyProdigy</Link>
+        </div>
       <nav className="navbar">
         <ul className="nav-list">
           {userID && (

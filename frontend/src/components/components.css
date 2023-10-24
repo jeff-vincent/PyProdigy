@@ -150,7 +150,9 @@
   /*  grid-template-columns: repeat(2, 1fr); !* Adjust the number of columns as needed *!*/
   /*  grid-gap: 20px; !* Adjust the gap between grid items *!*/
   /*}*/
-  
+  .header-icon{
+    margin-right: auto;
+  }
 
   .header {
     width: 100%;

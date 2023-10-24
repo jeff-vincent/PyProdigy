@@ -26,40 +26,21 @@ const LessonText = ({ lessonID }) => {
   };
 
   const highlightCode = (text) => {
-    const tempElement = document.createElement('div');
-    tempElement.innerHTML = text;
-
-    const codeElements = tempElement.getElementsByTagName('code');
-    Array.from(codeElements).forEach((codeElement) => {
-      Prism.highlightElement(codeElement);
+    // Match text within backticks and apply Prism highlighting
+    const highlightedText = text.replace(/`([^`]+)`/g, (match, p1) => {
+      const highlightedCode = Prism.highlight(p1, Prism.languages.javascript, 'python');
+      return `<span style="font-family: 'Courier New', Courier, monospace; font-weight: bold;">${highlightedCode}</span>`;
     });
 
-    const nonCodeText = Array.from(tempElement.childNodes).reduce((acc, node) => {
-      if (node.nodeName === '#text') {
-        const spanElement = document.createElement('span');
-        spanElement.textContent = node.textContent;
-        spanElement.className = 'non-code-text';
-        acc.appendChild(spanElement);
-      } else {
-        acc.appendChild(node.cloneNode(true));
-      }
-      return acc;
-    }, document.createDocumentFragment());
-
-    const resultElement = document.createElement('div');
-    resultElement.appendChild(nonCodeText);
-
-    return resultElement.innerHTML;
+    return highlightedText;
   };
 
   return (
-      <div className="lesson-article-container">
-    <div className="lesson-article ">
-      <pre className="lesson-text">
-        <code style={{ fontSize: '16px'}} dangerouslySetInnerHTML={{ __html: lessonText }}></code>
-      </pre>
-    </div>
+    <div className="lesson-article-container">
+      <div className="lesson-article">
+        <pre className="lesson-text" dangerouslySetInnerHTML={{ __html: lessonText }}></pre>
       </div>
+    </div>
   );
 };
 
