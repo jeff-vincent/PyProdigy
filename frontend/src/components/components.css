@@ -334,18 +334,28 @@
   /* Add styling for each category item */
 }
 
-.lesson-article {
+.lesson-article-container {
+  width: 500px; /* Set the desired fixed width */
+  height: 758px;
+  max-width: 100%; /* Allow the container to shrink if the viewport is narrower */
+  overflow-y: auto; /* Add a vertical scrollbar if the content overflows vertically */
   padding: 1rem;
   background-color: #f8f8f8;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.lesson-article {
+  /* No specific styles needed here, they are defined in .lesson-article-container */
+}
+
 .lesson-text {
-  font-size: 1.2rem;
+  font-size: 1rem; /* Adjust font size as needed */
   line-height: 1.5;
   color: #333;
+  white-space: pre-wrap; /* Allow wrapping within the .lesson-text */
 }
+
 
 .non-code-text {
   font-family: Arial, sans-serif;
@@ -353,6 +363,7 @@
   line-height: 1.5;
   /* Add any other styles as needed */
 }
+
 
 .grid-container {
   display: grid;
@@ -495,3 +506,5 @@ ul.lessons-list {
 .lesson-tile:hover {
   background-color: #f0f0f0; /* Change background color on hover */
 }
+
+

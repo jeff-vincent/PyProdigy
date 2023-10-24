@@ -146,18 +146,43 @@ const CreateLesson = () => {
         <label htmlFor="name" className="form-label">Lesson Name:</label>
         <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
       </div>
+ <div className="form-group">
+  <label htmlFor="exampleCode" className="form-label">
+    Example Code:
+  </label>
+  <textarea
+    id="exampleCode"
+    value={exampleCode}
+    onChange={handleExampleCodeChange}
+    className="form-input"
+    rows="4" // Set the number of rows for the textarea (adjust as needed)
+  />
+</div>
+
+<div className="form-group">
+  <label htmlFor="lessonText" className="form-label">
+    Lesson Text:
+  </label>
+  <textarea
+    id="lessonText"
+    value={lessonText}
+    onChange={handleLessonTextChange}
+    className="form-input"
+    rows="4" // Set the number of rows for the textarea (adjust as needed)
+  />
+</div>
       <div className="form-group">
-        <label htmlFor="exampleCode" className="form-label">Example Code:</label>
-        <input type="text" id="exampleCode" value={exampleCode} onChange={handleExampleCodeChange} className="form-input" />
-      </div>
-      <div className="form-group">
-        <label htmlFor="lessonText" className="form-label">Lesson Text:</label>
-        <input type="text" id="lessonText" value={lessonText} onChange={handleLessonTextChange} className="form-input" />
-      </div>
-      <div className="form-group">
-        <label htmlFor="expectedOutput" className="form-label">Expected Output:</label>
-        <input type="text" id="expectedOutput" value={expectedOutput} onChange={handleExpectedOutputChange} className="form-input" />
-      </div>
+  <label htmlFor="expectedOutput" className="form-label">
+    Expected Output:
+  </label>
+  <textarea
+    id="expectedOutput"
+    value={expectedOutput}
+    onChange={handleExpectedOutputChange}
+    className="form-input"
+    rows="4" // Set the number of rows for the textarea (adjust as needed)
+  />
+</div>
       <button type="submit" className="submit-button">Submit</button>
     </form>
     </div>

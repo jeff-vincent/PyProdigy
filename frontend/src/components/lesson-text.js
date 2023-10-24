@@ -53,11 +53,13 @@ const LessonText = ({ lessonID }) => {
   };
 
   return (
-    <div className="lesson-article">
+      <div className="lesson-article-container">
+    <div className="lesson-article ">
       <pre className="lesson-text">
-        <code style={{ fontSize: '16px' }} dangerouslySetInnerHTML={{ __html: lessonText }}></code>
+        <code style={{ fontSize: '16px'}} dangerouslySetInnerHTML={{ __html: lessonText }}></code>
       </pre>
     </div>
+      </div>
   );
 };
 
