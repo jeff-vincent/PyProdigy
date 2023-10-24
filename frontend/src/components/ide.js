@@ -94,27 +94,27 @@ const IDE = ({ lessonID, userID }) => {
     }
   };
 
-  const makeRecursiveCall = () => {
-    setLoading(true); // Set loading to true before making the recursive call
-
-    fetch(`/compute/get-pod/${userID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data === true) {
-          // If the recursive call returns true, the code has finished executing
-          handleRunCode(); // Run the code again to check the output
-        } else {
-          // If the recursive call doesn't return true, make the recursive call again after a delay
-          setTimeout(makeRecursiveCall, 1000); // Adjust the delay as needed
-        }
-      })
-      .catch((error) => {
-        console.error('Error making recursive call:', error);
-      })
-      .finally(() => {
-        setLoading(false); // Set loading back to false after the recursive call
-      });
-  };
+  // const makeRecursiveCall = () => {
+  //   setLoading(true); // Set loading to true before making the recursive call
+  //
+  //   fetch(`/compute/get-pod/${userID}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data === true) {
+  //         // If the recursive call returns true, the code has finished executing
+  //         handleRunCode(); // Run the code again to check the output
+  //       } else {
+  //         // If the recursive call doesn't return true, make the recursive call again after a delay
+  //         setTimeout(makeRecursiveCall, 1000); // Adjust the delay as needed
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error making recursive call:', error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false); // Set loading back to false after the recursive call
+  //     });
+  // };
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -149,19 +149,20 @@ const IDE = ({ lessonID, userID }) => {
       </div>
 
       {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <button className="modal-close-button" onClick={handleCloseModal}>
-              X
-            </button>
-            <h2>Congratulations!</h2>
-            <p>You have successfully completed the lesson. 🎉</p>
-            <p>🎇🎆🎉🎊</p>
-            <button className="share-button" onClick={handleShareAccomplishment}>
-              Share on Social Media
-            </button>
-          </div>
-        </div>
+<div className="modal">
+  <div className="modal-content">
+    <button className="modal-close-button" onClick={handleCloseModal}>
+      X
+    </button>
+    <h2>Congratulations!</h2>
+    <p>You have successfully completed the lesson. 🎉</p>
+    <p>🎇🎆🎉🎊</p>
+    <button className="ide-button" onClick={() => window.location.href = '/topics'}>
+      Ready for another lesson? 💪
+    </button>
+  </div>
+</div>
+
       )}
     </div>
   );
