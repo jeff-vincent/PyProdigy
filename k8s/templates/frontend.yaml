@@ -88,3 +88,10 @@ spec:
               name: compute-api
               port:
                 number: 8000
+        - path: /authenticate
+          pathType: Prefix
+          backend:
+            service:
+              name: auth-api
+              port:
+                number: 8000
