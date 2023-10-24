@@ -145,13 +145,17 @@ const CreateLesson = () => {
         <input type="file" id="video" onChange={handleVideoChange} className="form-input" />
       </div>
       <div className="form-group">
+        <div>
         <label htmlFor="name" className="form-label">Lesson Name:</label>
-        <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
+        </div>
+          <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
       </div>
  <div className="form-group">
+   <div>
   <label htmlFor="exampleCode" className="form-label">
     Example Code:
   </label>
+   </div>
   <textarea
     id="exampleCode"
     value={exampleCode}
@@ -173,9 +177,11 @@ const CreateLesson = () => {
       />
     </div>
       <div className="form-group">
+        <div>
   <label htmlFor="expectedOutput" className="form-label">
     Expected Output:
   </label>
+        </div>
   <textarea
     id="expectedOutput"
     value={expectedOutput}

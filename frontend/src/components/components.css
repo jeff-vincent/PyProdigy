@@ -152,7 +152,13 @@
   /*}*/
   .header-icon{
     margin-right: auto;
+    height: 50px;
   }
+
+  .header-icon img {
+  max-height: 100%; /* Ensures the image doesn't exceed the height of the parent div */
+  width: auto; /* Allows the width to adjust proportionally based on the height */
+}
 
   .header {
     width: 100%;
@@ -164,6 +170,7 @@
   .navbar {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
   }
   
   .nav-list {
@@ -398,7 +405,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: url('https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png') no-repeat center center;
+  background: url('4990671.png') no-repeat center center;
   opacity: 0.5; /* Set the background image opacity */
 }
 
@@ -509,4 +516,35 @@ ul.lessons-list {
   background-color: #f0f0f0; /* Change background color on hover */
 }
 
+.footer {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer-section {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.footer h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}

@@ -8,7 +8,9 @@ const Header = ({ userID }) => {
   return (
     <header className="header">
         <div className="header-icon">
-            <Link to="/" className="nav-link">PyProdigy</Link>
+            <Link to="/">
+                <img src="/4990671.png" alt="PyProdigy Logo" className="nav-image" />
+            </Link>
         </div>
       <nav className="navbar">
         <ul className="nav-list">

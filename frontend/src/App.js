@@ -7,6 +7,7 @@ import Grid from './components/lesson-grid';
 import Profile from './components/profile-full';
 import CMS from './components/cms';
 import './App.css';
+import Footer from "./components/footer";
 
 const App = ({ userID }) => {
   console.log('UserID in the App component:', userID);
@@ -26,6 +27,7 @@ const App = ({ userID }) => {
             </Routes>
           </div>
         </div>
+        <Footer/>
       </Router>
     </div>
   );
