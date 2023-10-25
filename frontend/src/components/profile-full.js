@@ -40,36 +40,40 @@ const Profile = ({ userID }) => {
   });
 
   return (
-    isAuthenticated && (
-      <div className="profile-container">
+  isAuthenticated && (
+    <div className="profile-container">
+      <div className="profile-header">
         <img src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
-        <p>{user.email}</p>
-        <h1>💪 Track your progress 💪</h1>
-        <div className="profile-grid">
-          {last100DaysDates.map((date) => {
-            const completedLessonsOnDate = userData ? userData.filter(
-              (lesson) => lesson.completedDate.split("T")[0] === date
-            ) : [];
-
-            return (
-              <div
-                key={date}
-                className={`profile-grid-item ${
-                  completedLessonsOnDate.length > 0 ? "completed-lesson" : "incomplete-lesson"
-                }`}
-                title={
-                  completedLessonsOnDate.length > 0
-                    ? completedLessonsOnDate.map((lesson) => lesson.lessonName).join(", ")
-                    : "None"
-                }
-              ></div>
-            );
-          })}
+        <div className="profile-info">
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
         </div>
       </div>
-    )
-  );
+      <h1>💪 Track your progress 💪</h1>
+      <div className="profile-grid">
+        {last100DaysDates.map((date) => {
+          const completedLessonsOnDate = userData
+            ? userData.filter((lesson) => lesson.completedDate.split("T")[0] === date)
+            : [];
+
+          return (
+            <div
+              key={date}
+              className={`profile-grid-item ${
+                completedLessonsOnDate.length > 0 ? "completed-lesson" : "incomplete-lesson"
+              }`}
+              title={
+                completedLessonsOnDate.length > 0
+                  ? completedLessonsOnDate.map((lesson) => lesson.lessonName).join(", ")
+                  : "None"
+              }
+            ></div>
+          );
+        })}
+      </div>
+    </div>
+  )
+);
 };
 
 export default withAuth(Profile);

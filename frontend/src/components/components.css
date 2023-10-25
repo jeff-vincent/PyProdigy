@@ -1,20 +1,5 @@
-  .profile-small-lessons-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .profile-small-lessons-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .profile-small-lessons-item {
-    margin-bottom: 5px;
-  }
 
-    /* IDE Container */
-.ide-container {
+  .ide-container {
     display: flex;
     width: 94.5%;
     flex-direction: column;
@@ -23,36 +8,26 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
-  /* IDE Editor */
+
   .ide-editor {
     margin-bottom: 20px;
   }
-  
-  .ide-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
+
+  .ide-input,
   .ide-textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    resize: vertical;
   }
-  
-  /* IDE Actions */
+
   .ide-actions {
     display: flex;
     justify-content: flex-end;
     padding-top: 10px;
   }
-  
+
   .ide-button {
     margin-left: 10px;
     padding: 8px 16px;
@@ -63,102 +38,30 @@
     font-size: 14px;
     cursor: pointer;
   }
-  
+
   .ide-button:hover {
     background-color: #0056b3;
   }
-  
+
   .ide-button:focus {
     outline: none;
     box-shadow: 0 0 0 2px #007bff;
   }
-  
-  /* IDE Input */
-.ide-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
+
   .ide-input::selection {
     background-color: #007bff;
     color: #fff;
   }
 
-  /* Terminal.css */
-
-.terminal-container {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
-    border-radius: 4px;
-    
-  }
-  
-  .terminal-output {
-    margin-bottom: 10px;
-  }
-  
-  .terminal-form {
-    display: flex;
-  }
-  
-  .terminal-prompt {
-    color: #66ff66;
-    margin-right: 5px;
-  }
-  
-  .terminal-input {
-    flex: 1;
-    background-color: transparent;
-    color: #ffffff;
-    border: none;
-    outline: none;
-  }
-  
-  .terminal-input::selection {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-  
-  .terminal-submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-
-  .terminal-form {
-    display: flex;
-    align-items: center;
-  }
-  
-  .terminal-prompt {
-    padding-right: 0.5em;
-  }
-  
-  .terminal-input {
-    flex: 1;
-  }
-  
-  /*.grid-container {*/
-  /*  display: grid;*/
-  /*  grid-template-columns: repeat(2, 1fr); !* Adjust the number of columns as needed *!*/
-  /*  grid-gap: 20px; !* Adjust the gap between grid items *!*/
-  /*}*/
-  .header-icon{
+  .header-icon {
     margin-right: auto;
     height: 50px;
   }
 
   .header-icon img {
-  max-height: 100%; /* Ensures the image doesn't exceed the height of the parent div */
-  width: auto; /* Allows the width to adjust proportionally based on the height */
-}
+    max-height: 100%;
+    width: auto;
+  }
 
   .header {
     width: 100%;
@@ -166,261 +69,267 @@
     padding: 20px;
     box-sizing: border-box;
   }
-  
+
   .navbar {
     display: flex;
     justify-content: flex-start;
     align-items: center;
   }
-  
+
   .nav-list {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
   }
-  
+
   .nav-item {
     margin-right: 20px;
   }
-  
+
   .nav-link {
     color: #fff;
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
   }
-  
+
   .nav-link:hover {
     text-decoration: underline;
   }
-  
 
-.video-player {
-  width: 200px; /* Adjust the width as per your preference */
-  margin: 0 auto; /* Center the video player horizontally */
-  display: flex;
-  justify-content: center;
-}
-
-  .header {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.header-links {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.header-links li {
-  margin-left: 10px;
-}
-
-.header-links li:first-child {
-  margin-left: 0;
-}
-
-.auth-container {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-}
-
-.auth-form {
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-.label {
-  display: block;
-  font-weight: bold;
-}
-
-.form-input {
-  width: 70%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.form-button {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.form-button:hover {
-  background-color: #0056b3;
-}
-
-
-.your-form {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc; /* Add a border */
-  padding: 20px; /* Add padding around the content */
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-label {
-  margin-bottom: 0.5rem;
-}
-
-.form-input,
-.form-select {
-  padding: 0.5rem;
-}
-
-.submit-button {
-  padding: 0.5rem 1rem;
-  background-color: blue;
-  color: white;
-  border: none;
-}
-
-.cms-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 600px; /* Adjust the value as needed */
-  margin: 0 auto; /* Centers the container horizontally */
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.video-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  /*height: 100vh; !* Optional: Set a height for the container, adjust as needed *!*/
 }
 
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-  position: relative; /* Add this line */
+.video-player {
+  max-width: 100%; /* Set a maximum width for the video player */
+  width: 100%; /* Ensure the video player takes up 100% of its parent's width */
+  margin: 0 auto; /* Center the video player horizontally */
 }
 
-.modal-close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.5rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
+.video {
+  width: 100%; /* Ensure the video takes up 100% of its parent's width */
+  height: auto; /* Maintain aspect ratio */
 }
 
-.share-button {
-  margin-top: 10px;
-}
 
-.topics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust the minmax value as needed */
-  gap: 20px; /* Adjust the gap value as needed */
-}
+  .header {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-.category-item {
-  /* Add styling for each category item */
-}
+  .header-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .header-links li {
+    margin-left: 10px;
+  }
+
+  .header-links li:first-child {
+    margin-left: 0;
+  }
+
+  .auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .label {
+    display: block;
+    font-weight: bold;
+  }
+
+  .form-input {
+    width: 70%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .form-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .form-button:hover {
+    background-color: #0056b3;
+  }
+
+  .your-form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-label {
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input,
+  .form-select {
+    padding: 0.5rem;
+  }
+
+  .submit-button {
+    padding: 0.5rem 1rem;
+    background-color: blue;
+    color: white;
+    border: none;
+  }
+
+  .cms-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+  }
+
+  .modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .share-button {
+    margin-top: 10px;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .category-item {
+    /* Add styling for each category item */
+  }
 
 .lesson-article-container {
-  width: 500px; /* Set the desired fixed width */
-  height: 758px;
-  max-width: 100%; /* Allow the container to shrink if the viewport is narrower */
-  overflow-y: auto; /* Add a vertical scrollbar if the content overflows vertically */
+  width: 100%;
+  max-width: 500px;
+  height: auto; /* Set your desired height */
   padding: 1rem;
   background-color: #f8f8f8;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  overflow-y: auto;
+  word-wrap: break-word; /* Allow word wrapping within pre element */
 }
 
 .lesson-article {
-  /* No specific styles needed here, they are defined in .lesson-article-container */
-}
-
-.lesson-text {
-  font-size: 1rem; /* Adjust font size as needed */
+  font-size: 1rem;
   line-height: 1.5;
   color: #333;
-  white-space: pre-wrap; /* Allow wrapping within the .lesson-text */
+  max-width: 100%; /* Ensure text doesn't extend wider than the container */
 }
 
 
-.non-code-text {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  /* Add any other styles as needed */
-}
-
+  .non-code-text {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-  grid-gap: 20px; /* Gap between grid items */
-}
-
-.grid-item-left {
-  width: 100%; /* Components within this column will take 100% width */
-}
-
-.grid-item-right {
-  width: 100%; /* Components within this column will take 100% width */
-}
-.hero {
-  position: relative;
-  height: 600px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #000;
-  font-size: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Adjust as needed */
+  gap: 20px; /* Adjust the gap between items */
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: url('4990671.png') no-repeat center center;
-  opacity: 0.5; /* Set the background image opacity */
+.grid-item-left,
+.grid-item-right {
+  width: calc(50% - 10px); /* Adjust the width and gap */
+  /* Add other styles for grid items if necessary */
 }
 
-.hero h2 {
-  color: #000; /* Set text color to black */
+@media only screen and (max-width: 767px) {
+  .grid-item-left,
+  .grid-item-right {
+    width: 100%;
+  }
 }
 
-.hero p {
-  color: #000;
-}
 
-.hero-content {
-  z-index: 1;
-}
+  .hero {
+    position: relative;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000;
+    font-size: 2rem;
+  }
 
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('4990671.png') no-repeat center center;
+    opacity: 0.5;
+  }
+
+  .hero h2,
+  .hero p {
+    color: #000;
+  }
+
+  .hero-content {
+    z-index: 1;
+  }
 
   .cta {
     background-color: #4CAF50;
@@ -439,112 +348,108 @@
     text-align: center;
   }
 
-.profile-container {
-  /* Your styles for the profile container */
-}
+  .profile-container {
+    /* Your styles for the profile container */
+  }
 
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-  grid-gap: 5px;
-}
+  .profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    grid-gap: 5px;
+  }
 
-.profile-grid-item {
-  height: 50px;
-  border: 1px solid #000;
-  cursor: pointer;
-}
+  .profile-grid-item {
+    height: 50px;
+    border: 1px solid #000;
+    cursor: pointer;
+  }
 
-.completed-lesson {
-  background-color: #4CAF50FF;
-}
+  .completed-lesson {
+    background-color: #4CAF50FF;
+  }
 
-.incomplete-lesson {
-  background-color: gray;
-}
+  .incomplete-lesson {
+    background-color: gray;
+  }
 
-.profile-grid-item:hover {
-  /* Tooltip styles */
-  position: relative;
-}
+  .profile-grid-item:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
 
-.profile-grid-item:hover:after {
-  content: attr(title);
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: black;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  white-space: nowrap;
-}
+  .category-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
 
-.category-name {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333; /* Change color as per your preference */
-}
+  .topic-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
 
-.topic-name {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555; /* Change color as per your preference */
-}
+  ul.lessons-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-ul.lessons-list {
-  list-style: none; /* Remove list style (bullets) */
-  padding: 0;
-  margin: 0;
-}
+  .lesson-tile {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
 
-.lesson-tile {
-  display: block;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #333; /* Change color as per your preference */
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
+  .lesson-tile:hover {
+    background-color: #f0f0f0;
+  }
 
-.lesson-tile:hover {
-  background-color: #f0f0f0; /* Change background color on hover */
-}
+  .footer {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
-.footer {
-  width: 100%;
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-}
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+  }
 
-.footer-content {
-  display: flex;
-  justify-content: space-around;
-}
+  .footer-section {
+    flex: 1;
+    padding: 0 20px;
+  }
 
-.footer-section {
-  flex: 1;
-  padding: 0 20px;
-}
+  .footer h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
 
-.footer h2 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
+  .footer p {
+    margin: 0;
+  }
 
-.footer p {
-  margin: 0;
-}
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
 
-.footer-bottom {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.9rem;
-}
