@@ -20,7 +20,7 @@
 .ide-button {
   margin-left: 10px;
   padding: 8px 16px;
-  background-color: #007bff;
+  background-color: #347ab4;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -287,7 +287,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #000;
+  color: #3d3e41;
   font-size: 2rem;
 }
 
@@ -302,17 +302,12 @@
   opacity: 0.5;
 }
 
-.hero h2,
-.hero p {
-  color: #000;
-}
-
 .hero-content {
   z-index: 1;
 }
 
 .cta {
-  background-color: #4CAF50;
+  background-color: #63b251;
   color: #fff;
   padding: 2rem;
   text-align: center;
@@ -326,7 +321,21 @@
 
 .feature {
   text-align: center;
+  max-width: 300px;
+  color: #3d3e41;
 }
+
+.feature h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #3d3e41;
+}
+
+.feature p {
+  font-size: 1rem;
+  color: #3d3e41;
+}
+
 
 /* components.css */
 
@@ -354,16 +363,16 @@
 
 .profile-grid-item {
   height: 50px;
-  border: 1px solid #000;
+  border: 1px solid #3d3e41;
   cursor: pointer;
 }
 
 .completed-lesson {
-  background-color: #4CAF50FF;
+  background-color: #63b251;
 }
 
 .incomplete-lesson {
-  background-color: gray;
+  background-color: #3d3e41;
 }
 
 .profile-grid-item:hover::after {
@@ -372,7 +381,7 @@
   top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: black;
+  background-color: #3d3e41;
   color: white;
   padding: 5px;
   border-radius: 5px;
@@ -383,14 +392,14 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #333;
+  color: #3d3e41;
 }
 
 .topic-name {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #555;
+  color: #3d3e41;
 }
 
 ol.lessons-list {
@@ -405,7 +414,7 @@ ol.lessons-list {
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  color: #333;
+  color: #3d3e41;
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
@@ -416,7 +425,7 @@ ol.lessons-list {
 
 .footer {
   width: 100%;
-  background-color: #333;
+  background-color: #3d3e41;
   color: #fff;
   padding: 20px;
   box-sizing: border-box;
