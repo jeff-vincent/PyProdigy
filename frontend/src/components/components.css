@@ -253,8 +253,9 @@
 
 .lesson-text {
   white-space: pre-wrap;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Arial', Courier, monospace;
   font-weight: bold;
+  /*line-height: 12px;*/
 }
 
 .lesson-text code {
