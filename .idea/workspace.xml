@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="730e662a-dbaa-4962-bd83-27fa8a275a87" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/components.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/create-category.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create-category.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/create-topic.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create-topic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ide.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ide.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/lesson-text.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/lesson-text.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/video.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/video.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +63,7 @@
       <workItem from="1698013185515" duration="6838000" />
       <workItem from="1698084948462" duration="2049000" />
       <workItem from="1698088936644" duration="16190000" />
-      <workItem from="1698179919447" duration="22590000" />
+      <workItem from="1698179919447" duration="22809000" />
     </task>
     <servers />
   </component>
