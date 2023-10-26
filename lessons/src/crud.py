@@ -30,6 +30,8 @@ def get_lesson_by_id(db: Session, lesson_id: int):
 def get_category_by_id(db: Session, id: str):
     return db.query(models.User).filter(models.Category.id == id).first()
 
+
+# TODO: write sorting logic for display order
 def get_categories(db: Session, skip: int = 0, limit: int = 100):
     return (
         db.query(models.Category)

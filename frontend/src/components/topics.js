@@ -49,13 +49,13 @@ const Topics = () => {
           {Object.entries(topics).map(([topicName, lessons]) => (
             <div key={topicName} className="topic-section">
               <h4 className="topic-name">{topicName}</h4>
-              <ul className="lessons-list">
+              <ol className="lessons-list">
                 {lessons.map((lesson) => (
                   <li key={lesson.id} className="lesson-item">
                     <a href={`/learn/${lesson.id}`} className="lesson-tile">{lesson.name}</a>
                   </li>
                 ))}
-              </ul>
+              </ol>
             </div>
           ))}
         </div>

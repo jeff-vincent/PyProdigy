@@ -41,15 +41,24 @@ const Profile = ({ userID }) => {
 
   return (
   isAuthenticated && (
+      <div>
     <div className="profile-container">
       <div className="profile-header">
-        <img src={user.picture} alt={user.name} />
+        <img
+            src={user.picture}
+            alt={user.name}
+            className="profile-picture"
+          />
         <div className="profile-info">
           <h2>{user.name}</h2>
           <p>{user.email}</p>
         </div>
       </div>
-      <h1>💪 Track your progress 💪</h1>
+      </div>
+      <div>
+      <h1>Track your progress 💪</h1>
+        </div>
+      <div>
       <div className="profile-grid">
         {last100DaysDates.map((date) => {
           const completedLessonsOnDate = userData
@@ -71,6 +80,7 @@ const Profile = ({ userID }) => {
           );
         })}
       </div>
+    </div>
     </div>
   )
 );
