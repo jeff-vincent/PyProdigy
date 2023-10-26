@@ -62,7 +62,7 @@ const CreateTopic = () => {
   return (
     <div>
       <h2>Create a category</h2>
-    <form onSubmit={handleSubmit} className="your-form">
+    <form onSubmit={handleSubmit} className="lesson-form">
       <div className="form-group">
         <label htmlFor="thumbnail" className="form-label">Thumbnail Image:</label>
         <input type="file" id="thumbnail" onChange={handleThumbnailChange} className="form-input" />

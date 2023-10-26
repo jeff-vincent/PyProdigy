@@ -15,28 +15,16 @@ const LessonText = ({ lessonID }) => {
     fetch(`/lessons/lesson/${lessonID}`)
       .then((response) => response.json())
       .then((data) => {
-        // Apply text highlighting
-        const highlightedText = highlightCode(data.text);
-        // Set the highlighted lesson text in state
-        setLessonText(highlightedText);
+        console.log(data)
+        setLessonText(data.text)
       })
       .catch((error) => {
         console.error('Error fetching lesson:', error);
       });
   };
 
-  const highlightCode = (text) => {
-    // Match text within backticks and apply Prism highlighting
-    const highlightedText = text.replace(/`([^`]+)`/g, (match, p1) => {
-      const highlightedCode = Prism.highlight(p1, Prism.languages.javascript, 'python');
-      return `<span style="font-family: 'Courier New', Courier, monospace; font-weight: bold;">${highlightedCode}</span>`;
-    });
-
-    return highlightedText;
-  };
-
   return (
-    <div className="lesson-article-container">
+    <div className="lesson-component-container">
       <div className="lesson-article">
         <pre className="lesson-text" dangerouslySetInnerHTML={{ __html: lessonText }}></pre>
       </div>

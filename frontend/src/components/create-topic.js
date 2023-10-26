@@ -49,7 +49,7 @@ const CreateTopic = () => {
   return (
     <div>
       <h2>Create a topic</h2>
-    <form onSubmit={handleSubmit} className="your-form">
+    <form onSubmit={handleSubmit} className="lesson-form">
             <div className="form-group">
         <label htmlFor="category" className="form-label">Category:</label>
         <select id="category" value={selectedCategory} onChange={handleCategoryChange} className="form-select">

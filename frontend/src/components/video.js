@@ -6,7 +6,7 @@ const VideoPlayer = ({ lessonID }) => {
   const videoUrl = `/video/stream/${lessonID}`;
   
 return (
-  <div className='video-container'>
+  <div className='lesson-component-container' style={{ marginBottom: '25px' }}>
     <div className="video-player">
       <video className="video" controls>
         <source src={videoUrl} type="video/mp4" />

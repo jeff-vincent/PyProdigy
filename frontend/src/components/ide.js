@@ -126,7 +126,7 @@ const IDE = ({ lessonID, userID }) => {
   };
 
   return (
-    <div className="ide-container">
+    <div className="lesson-component-container">
       <AceEditor
         mode="python"
         theme="solarized_light"
