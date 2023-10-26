@@ -54,7 +54,7 @@
 
 .header {
   width: 100%;
-  background-color: #333;
+  background-color: #3d3e41;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -64,7 +64,7 @@
   justify-content: space-between; /* Adjust alignment as needed */
   align-items: center;
   padding: 10px 20px; /* Optional: Add padding for space around the items */
-  background-color: #333; /* Set background color */
+  background-color: #3d3e41; /* Set background color */
 }
 
 .nav-list {
@@ -152,7 +152,7 @@
 
 .form-button {
   padding: 5px 10px;
-  background-color: #007bff;
+  background-color: #347ab4;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -185,7 +185,7 @@
 
 .submit-button {
   padding: 0.5rem 1rem;
-  background-color: blue;
+  background-color: #347ab4;
   color: white;
   border: none;
 }
@@ -383,7 +383,7 @@
 }
 
 .incomplete-lesson {
-  background-color: #3d3e41;
+  background-color: gray;
 }
 
 .profile-grid-item:hover::after {
