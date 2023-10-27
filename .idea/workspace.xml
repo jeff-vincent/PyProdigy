@@ -7,6 +7,7 @@
     <list default="true" id="730e662a-dbaa-4962-bd83-27fa8a275a87" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/components.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/PyProdigy.gif" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +65,7 @@
       <workItem from="1698013185515" duration="6838000" />
       <workItem from="1698084948462" duration="2049000" />
       <workItem from="1698088936644" duration="16190000" />
-      <workItem from="1698179919447" duration="45853000" />
+      <workItem from="1698179919447" duration="48540000" />
     </task>
     <servers />
   </component>

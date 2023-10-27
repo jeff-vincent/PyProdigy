@@ -358,7 +358,7 @@
 }
 
 .profile-picture {
-  max-width: 400px; /* Set maximum width for responsiveness */
+  max-width: 25%; /* Set maximum width for responsiveness */
   height: auto; /* Maintain aspect ratio */
   border-radius: 50%; /* Optional: Make the picture round */
   margin-right: 20px; /* Add spacing between picture and text */
