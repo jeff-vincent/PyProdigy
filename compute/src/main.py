@@ -35,6 +35,9 @@ def start_container(user_id: str):
         api_instance = client.CoreV1Api(api_client)
         api_instance.create_namespaced_pod(namespace="default", body=run_pod_manifest)
     except Exception as e:
+        running_pod = get_pod(user_id)
+        if running_pod:
+            return f"Pod status: {running_pod}"
         return f"Error creating pod: {str(e)}"
 
     return f"Container {user_id} created."
@@ -106,7 +109,11 @@ def get_pod(user_id: str):
     result = subprocess.run(['kubectl', 'get', 'pod', user_id], capture_output=True)
     result_string = result.stdout.decode('utf-8')
     if 'Running' in result_string:
-        return True
+        return 'Running'
+    if 'Terminating' in result_string:
+        return 'Terminating'
+    if 'Creating' in result_string:
+        return 'Creating'
     else:
         return False
 
