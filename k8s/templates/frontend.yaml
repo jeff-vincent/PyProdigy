@@ -43,15 +43,18 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: frontend
+  name: pyprodigy-ingress
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
 spec:
   tls:
-  - secretName: tls-secret
+  - hosts:
+    - pyprodigy.dev
+    secretName: pyprodigy-tls
   rules:
-  - http:
+   - http:
       paths:
         - path: /
           pathType: Prefix
@@ -95,3 +98,4 @@ spec:
               name: auth-api
               port:
                 number: 8000
+

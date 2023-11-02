@@ -1,13 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
-import './index.css';
+import './index.css'; // Import your stylesheets here
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const OnRedirectCallback = () => {
   const { getAccessTokenSilently, user } = useAuth0();
   const [userID, setUserID] = useState(null);
+  const [loading, setLoading] = useState(false); // State to manage loading spinner visibility
+
+  const fetchComputeStatus = async (userId) => {
+    try {
+      const computeResponse = await fetch(`/compute/start/${userId}`);
+      if (computeResponse.ok) {
+        const computeResult = await computeResponse.json();
+        console.log('Compute Result:', computeResult);
+        if (computeResult === 'Pod status: Terminating') {
+          setLoading(true);
+          setTimeout(() => {
+            fetchComputeStatus(userId);
+          }, 4000);
+        } else if (computeResult === `Container ${userId} created.` || computeResult === 'Pod status: Running') {
+          setUserID(userId);
+          setLoading(false); // Hide loading spinner when condition is met
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
 
   useEffect(() => {
     const fetchAccessToken = async () => {
@@ -21,26 +43,13 @@ const OnRedirectCallback = () => {
           const userData = await response.json();
           console.log('User Data:', userData);
 
-
-          // TODO: Implement spinning up user's pod logic here
-
-          const computeResponse = await fetch(`/compute/start/${userData.id}`);
-
-          if (computeResponse.ok) {
-            const computeResult = await computeResponse.json();
-            console.log('Compute Result:', computeResult);
-            console.log('UserID in the callback:', userData.id);
-            // Set the user ID in the state
-            setUserID(userData.id);
-          } else {
-            console.error('Failed to start user compute');
-          }
+          // Fetch compute status recursively until condition met
+          await fetchComputeStatus(userData.id);
         } else {
           console.error('Failed to get or create user');
         }
       } catch (error) {
         console.error('Error:', error.message);
-        // Handle the error, display a message to the user, or log it for debugging
       }
     };
 
@@ -49,7 +58,18 @@ const OnRedirectCallback = () => {
     }
   }, [getAccessTokenSilently, user]);
 
-  return <App userID={userID} />;
+  return (
+<div >
+  {loading && (
+    <div className="loading-container">
+      <h1>Spinning up your cloud environment</h1>
+      <div className="loading-spinner" />
+    </div>
+  )}
+  {!loading && <App userID={userID} />} {/* Render App component when loading is false */}
+</div>
+
+  );
 };
 
 const rootElement = document.getElementById('root');

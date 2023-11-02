@@ -89,3 +89,9 @@ def update_category(db: Session, id: int, thumbnail: bytes):
     db.commit()
     db.refresh(db_category)
     return db_category
+
+
+# TODO add update/delete category; topic; lesson
+def update_lesson():
+    pass
+
