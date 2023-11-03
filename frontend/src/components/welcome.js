@@ -27,21 +27,20 @@ const Welcome = () => {
         <LoginButton/>
       </div>
 
-<div className="features">
-  <div className="feature">
-    <h3>🎥 Fun Video Lessons 😄</h3>
-    <p>Nifty video lessons explain the core concepts!!!</p>
-  </div>
-  <div className="feature">
-    <h3>💻 In-browser IDE 🤓</h3>
-    <p>Everything you need is right in the browser for you!!!</p>
-  </div>
-  <div className="feature">
-    <h3>📈 Track your progress 💪</h3>
-    <p>See a record of the lessons you've completed in your profile!!!</p>
-  </div>
-</div>
-
+      <div className="features">
+        <div className="feature">
+          <h3>🎥 Fun Video Lessons 😄</h3>
+          <p>Nifty video lessons explain the core concepts!!!</p>
+      </div>
+      <div className="feature">
+        <h3>💻 In-browser IDE 🤓</h3>
+        <p>Everything you need is right in the browser for you!!!</p>
+      </div>
+      <div className="feature">
+        <h3>📈 Track your progress 💪</h3>
+        <p>See a record of the lessons you've completed in your profile!!!</p>
+      </div>
+    </div>
     </div>
   );
 };

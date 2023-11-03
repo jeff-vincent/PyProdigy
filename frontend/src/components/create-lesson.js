@@ -28,7 +28,6 @@ const CreateLesson = () => {
       fetch(`/lessons/${categoryId}/topics`)
         .then(response => response.json())
         .then(data => {
-          console.log(data); // Add this line to check the data received
           setTopics(data);
         })
         .catch(error => console.error('Error fetching topics:', error));
@@ -66,18 +65,14 @@ const CreateLesson = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Create the payload object
     const payload = {
       example_code: exampleCode,
       text: lessonText,
       name,
       topic_id: topicID,
-      expected_output: expectedOutput // Include expected output in the payload
+      expected_output: expectedOutput
     };
 
-    console.log(payload);
-
-    // Send the payload as JSON to the server
     fetch(`/lessons/lesson/`, {
       method: 'POST',
       headers: {
@@ -87,7 +82,6 @@ const CreateLesson = () => {
     })
       .then(response => {
         if (response.ok) {
-          // Handle successful form submission and extract lessonID from the response
           return response.json();
         } else {
           throw new Error('Failed to submit form.');
@@ -107,7 +101,6 @@ const CreateLesson = () => {
       })
       .then(response => {
         if (response.ok) {
-          // Handle successful video submission
         } else {
           throw new Error('Failed to submit video.');
         }
@@ -150,48 +143,47 @@ const CreateLesson = () => {
         </div>
           <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
       </div>
- <div className="form-group">
-   <div>
-  <label htmlFor="exampleCode" className="form-label">
-    Example Code:
-  </label>
-   </div>
-  <textarea
-    id="exampleCode"
-    value={exampleCode}
-    onChange={handleExampleCodeChange}
-    className="form-input"
-    rows="4" // Set the number of rows for the textarea (adjust as needed)
-  />
-</div>
-
-    <div className="form-group">
-      <label htmlFor="lessonText" className="form-label">
-        Lesson Text:
-      </label>
-      <ReactQuill
-        id="lessonText"
-        value={lessonText}
-        onChange={handleLessonTextChange}
-        className="form-input"
-      />
-    </div>
       <div className="form-group">
         <div>
-  <label htmlFor="expectedOutput" className="form-label">
-    Expected Output:
-  </label>
+          <label htmlFor="exampleCode" className="form-label">
+            Example Code:
+          </label>
         </div>
-  <textarea
-    id="expectedOutput"
-    value={expectedOutput}
-    onChange={handleExpectedOutputChange}
-    className="form-input"
-    rows="4" // Set the number of rows for the textarea (adjust as needed)
-  />
-</div>
-      <button type="submit" className="submit-button">Submit</button>
-    </form>
+        <textarea
+          id="exampleCode"
+          value={exampleCode}
+          onChange={handleExampleCodeChange}
+          className="form-input"
+          rows="4"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="lessonText" className="form-label">
+          Lesson Text:
+        </label>
+        <ReactQuill
+          id="lessonText"
+          value={lessonText}
+          onChange={handleLessonTextChange}
+          className="form-input"
+        />
+      </div>
+      <div className="form-group">
+        <div>
+          <label htmlFor="expectedOutput" className="form-label">
+            Expected Output:
+          </label>
+        </div>
+        <textarea
+          id="expectedOutput"
+          value={expectedOutput}
+          onChange={handleExpectedOutputChange}
+          className="form-input"
+          rows="4"
+        />
+      </div>
+        <button type="submit" className="submit-button">Submit</button>
+      </form>
     </div>
   );  
 };

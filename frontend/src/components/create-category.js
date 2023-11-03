@@ -16,12 +16,10 @@ const CreateTopic = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    // Create the payload object
     const payload = {
       name: name,
     };
   
-    // Send the payload as JSON to create the category
     const createResponse = await fetch(`/lessons/category`, {
       method: 'POST',
       headers: {
@@ -30,29 +28,20 @@ const CreateTopic = () => {
       body: JSON.stringify(payload),
     });
   
-    // Check if the category was created successfully
     if (createResponse.ok) {
       const category = await createResponse.json();
-  
-      // Check if a thumbnail file was selected
       if (thumbnail) {
-        // Create a new FormData object
         const formData = new FormData();
         formData.append('thumbnail', thumbnail);
         formData.append('id', category.id);
-  
-        // Send the thumbnail as a PUT request to update the category
         const updateResponse = await fetch(`/lessons/category/${category.id}`, {
           method: 'PUT',
           body: formData,
         });
-  
         if (!updateResponse.ok) {
           console.error('Error updating category:', updateResponse.status);
         }
       }
-  
-      // Handle other success scenarios or redirects after updating the category
     } else {
       console.error('Error creating category:', createResponse.status);
     }

@@ -15,7 +15,6 @@ const withAdminRole = (WrappedComponent) => {
 
         try {
           const roles = user['https://127.0.0.1/roles']; // Replace with your actual roles key
-          console.log('roles:', roles)
           const isAdminUser = roles && roles.includes('admin');
           setIsAdmin(isAdminUser);
         } catch (error) {
