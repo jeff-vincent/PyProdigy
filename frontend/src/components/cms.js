@@ -26,7 +26,7 @@ const CMS = () => {
   }, [getAccessTokenSilently]);
 
   if (!isAuthorized) {
-    return <div>You are not authorized to access this content.</div>;
+    return <div></div>;
   }
 
   return (

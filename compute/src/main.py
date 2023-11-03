@@ -73,12 +73,12 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
 
     logging.info(f"user: {user_id} script: {script}")
 
-    # TODO: add logging to script for garbage collection
     with open(script_path, 'w') as f:
         for line in script:
             f.write(line)
     try:
         pod_name = str(user_id)
+        subprocess.run(['kubectl', 'cp', 'log_event.py', f'{pod_name}:log_event.py'])
         # copy the script into the pod
         subprocess.run(['kubectl', 'cp', script_path, f'{pod_name}:script.py'])
         # run the script
@@ -86,7 +86,10 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
         result = subprocess.run([
             'kubectl', 'exec', pod_name, '--namespace', 'default', '--', *exec_command
         ], capture_output=True)
-
+        log_event_command = ['/bin/bash', '-c', 'python log_event.py']
+        # log event to event_log.txt
+        subprocess.run([
+            'kubectl', 'exec', pod_name, '--namespace', 'default', '--', *log_event_command])
         shutil.rmtree(tmp_dir)
         if not result.stderr:
             return result.stdout

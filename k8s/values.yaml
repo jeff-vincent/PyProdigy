@@ -26,7 +26,7 @@ usersAPI:
 
 lessonsAPI:
   containers:
-    image: jdvincent/pyprodigy-lessons:latest
+    image: jdvincent/pyprodigy-lessons:0.0.1
   
   envVars:
     POSTGRES_HOST: postgres2

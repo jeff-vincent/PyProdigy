@@ -5,14 +5,12 @@ import './components.css';
 const Topics = () => {
   const { id } = useParams();
   const [categories, setCategories] = useState([]);
-
-  const BASE_URL = process.env.BASE_URL;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`/lessons/category`);
         const data = await response.json();
+        console.log(data)
         setCategories(data);
       } catch (error) {
         console.error(error);
