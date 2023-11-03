@@ -1,6 +1,16 @@
+import os
 import time
 import subprocess
 import re
+from kubernetes import  config
+
+# Check if running inside a Kubernetes cluster
+if 'KUBERNETES_SERVICE_HOST' in os.environ and 'KUBERNETES_SERVICE_PORT' in os.environ:
+    # Load the in-cluster configuration
+    config.load_incluster_config()
+else:
+    # Load the kubeconfig file
+    config.load_kube_config()
 
 
 class GarbageCollection:
@@ -25,10 +35,16 @@ class GarbageCollection:
         now = time.time()
         for pod in self.pods_list:
             last_pod_event = subprocess.run(['kubectl', 'exec', pod, '--', '/bin/bash', '-c', 'cat event_log.txt'], capture_output=True)
+            if last_pod_event.stderr:
+                subprocess.run(['kubectl', 'cp', 'log_event.py', f'{pod}:log_event.py'])
+                log_event_command = ['/bin/bash', '-c', 'python log_event.py']
+                # log event to event_log.txt
+                subprocess.run([
+                    'kubectl', 'exec', pod, '--namespace', 'default', '--', *log_event_command])
             try:
                 inactive_duration = now - float(last_pod_event.stdout.decode('utf-8'))
                 print(f'Pod {pod} inactive for {inactive_duration}')
-                if inactive_duration > 300:
+                if inactive_duration > 10:
                     self._delete_pod(pod)
             except:
                 pass
