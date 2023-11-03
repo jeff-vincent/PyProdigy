@@ -51,9 +51,6 @@ const IDE = ({ lessonID, userID }) => {
         const sections = rawContent.split('\n');
 
         const htmlContent = `<div>${rawContent}</div>`
-        // const processedContent = sections
-        //   .map(section => `<div>${section.replace(/"/g, '')}</div>`)
-        //   .join('');
         console.log('processed content:', htmlContent);
         console.log('expected output:', expectedOutput)
 
@@ -106,7 +103,6 @@ const IDE = ({ lessonID, userID }) => {
         editorProps={{ $blockScrolling: true }}
         width="100%"
         height="300px"
-        readOnly={loading} // Set readOnly to true when loading is true, to gray out the IDE
       />
       <div className="ide-response">
         <div dangerouslySetInnerHTML={{ __html: outputFileContent.replace(/\\n/g, '<br>').replace(/"/g, '') }} />
