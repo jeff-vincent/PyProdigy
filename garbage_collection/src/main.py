@@ -44,7 +44,7 @@ class GarbageCollection:
             try:
                 inactive_duration = now - float(last_pod_event.stdout.decode('utf-8'))
                 print(f'Pod {pod} inactive for {inactive_duration}')
-                if inactive_duration > 10:
+                if inactive_duration > 600:
                     self._delete_pod(pod)
             except:
                 pass

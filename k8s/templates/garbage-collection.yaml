@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: garbage-collection
+      labels:
+        api: garbage-collection
+    spec:
+      selector:
+        matchLabels:
+          api: garbage-collection
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            api: garbage-collection
+        spec:
+          containers:
+            - name: garbage-collection
+              image: jdvincent/pyprodigy-garbage-collection:latest
+              imagePullPolicy: Always
