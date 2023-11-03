@@ -16,10 +16,9 @@ const CMS = () => {
         const accessToken = await getAccessTokenSilently();
         const response = await fetch(`/authenticate/get-user-roles/${accessToken}`);
         const data = await response.json();
-        setIsAuthorized(data); // Assuming the API response is a boolean value
+        setIsAuthorized(data);
       } catch (error) {
         console.error('Error:', error.message);
-        // Handle the error, display a message to the user, or log it for debugging
       }
     };
 
@@ -27,11 +26,9 @@ const CMS = () => {
   }, [getAccessTokenSilently]);
 
   if (!isAuthorized) {
-    // User is not authorized, render a message or redirect to an error page
-    return <div>You are not authorized to access this content.</div>;
+    return <div></div>;
   }
 
-  // User is authorized, render the components
   return (
     <div className="cms-container">
       <div className="grid-item">

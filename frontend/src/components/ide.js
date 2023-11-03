@@ -4,8 +4,6 @@ import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
 import './components.css';
 
-
-
 const IDE = ({ lessonID, userID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
@@ -50,15 +48,15 @@ const IDE = ({ lessonID, userID }) => {
 
       if (response.ok) {
         const rawContent = await response.text();
-        console.log('raw content as text:', rawContent);
+        const sections = rawContent.split('\n');
 
-        const processedContent = rawContent.replace(/\\n/g, '').replace(/"/g, '');
-        console.log('processed content:', processedContent);
+        const htmlContent = `<div>${rawContent}</div>`
+        console.log('processed content:', htmlContent);
         console.log('expected output:', expectedOutput)
 
-        setOutputFileContent(processedContent);
+        setOutputFileContent(htmlContent);
 
-        if (processedContent === expectedOutput) {
+        if (htmlContent === expectedOutput) {
           setOutputFileContent('Success!');
           setShowModal(true);
 
@@ -76,13 +74,9 @@ const IDE = ({ lessonID, userID }) => {
             body: JSON.stringify(data),
           });
 
-          if (completionResponse.ok) {
-            console.log('Lesson completed.');
-          } else {
+          if (!completionResponse.ok) {
             console.error('Failed to complete lesson.');
           }
-        } else {
-          // Handle case when output does not match expected output
         }
       } else {
         throw new Error('Failed to run code.');
@@ -94,35 +88,8 @@ const IDE = ({ lessonID, userID }) => {
     }
   };
 
-  // const makeRecursiveCall = () => {
-  //   setLoading(true); // Set loading to true before making the recursive call
-  //
-  //   fetch(`/compute/get-pod/${userID}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data === true) {
-  //         // If the recursive call returns true, the code has finished executing
-  //         handleRunCode(); // Run the code again to check the output
-  //       } else {
-  //         // If the recursive call doesn't return true, make the recursive call again after a delay
-  //         setTimeout(makeRecursiveCall, 1000); // Adjust the delay as needed
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error making recursive call:', error);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false); // Set loading back to false after the recursive call
-  //     });
-  // };
-
   const handleCloseModal = () => {
     setShowModal(false);
-  };
-
-  const handleShareAccomplishment = () => {
-    // Handle sharing accomplishment on social media
-    console.log('Sharing accomplishment...');
   };
 
   return (
@@ -136,7 +103,6 @@ const IDE = ({ lessonID, userID }) => {
         editorProps={{ $blockScrolling: true }}
         width="100%"
         height="300px"
-        readOnly={loading} // Set readOnly to true when loading is true, to gray out the IDE
       />
       <div className="ide-response">
         <div dangerouslySetInnerHTML={{ __html: outputFileContent.replace(/\\n/g, '<br>').replace(/"/g, '') }} />
@@ -149,20 +115,17 @@ const IDE = ({ lessonID, userID }) => {
       </div>
 
       {showModal && (
-<div className="modal">
-  <div className="modal-content">
-    <button className="modal-close-button" onClick={handleCloseModal}>
-      X
-    </button>
-    <h2>Congratulations!</h2>
-    <p>You have successfully completed the lesson. 🎉</p>
-    <p>🎇🎆🎉🎊</p>
-    <button className="ide-button" onClick={() => window.location.href = '/topics'}>
-      Ready for another lesson? 💪
-    </button>
-  </div>
-</div>
-
+        <div className="modal">
+          <div className="modal-content">
+            <button className="modal-close-button" onClick={handleCloseModal}>X</button>
+            <h2>Congratulations!</h2>
+            <p>You have successfully completed the lesson. 🎉</p>
+            <p>🎇🎆🎉🎊</p>
+            <button className="ide-button" onClick={() => window.location.href = '/topics'}>
+              Ready for another lesson? 💪
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

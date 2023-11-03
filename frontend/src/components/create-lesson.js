@@ -120,8 +120,8 @@ const CreateLesson = () => {
   return (
     <div>
     <h2>Create a lesson</h2>
-    
-    <form onSubmit={handleSubmit} className="lesson-form">
+
+    <form onSubmit={handleSubmit} className="your-form">
       <div className="form-group">
         <label htmlFor="category" className="form-label">Category:</label>
         <select id="category" onChange={handleCategoryChange} className="form-select">
@@ -193,7 +193,7 @@ const CreateLesson = () => {
       <button type="submit" className="submit-button">Submit</button>
     </form>
     </div>
-  );  
+  );
 };
 
 export default CreateLesson;

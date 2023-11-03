@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { redirect } from 'react-router-dom';
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
@@ -13,7 +12,7 @@ const withAuth = (WrappedComponent) => {
 
     if (!isAuthenticated || !user) {
       // Redirect to the login page if the user is not authenticated or user object is not available
-      return redirect('https://127.0.0.1');
+      return window.location.href = '/';
     }
 
     // Render the wrapped component if the user is authenticated

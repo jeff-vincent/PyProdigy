@@ -6,7 +6,6 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     try {
-      // Initiate asynchronous deletion process (send a request to delete the pod)
       fetch(`/compute/delete/${user.sub}`, {
         method: "GET",
         headers: {
@@ -14,13 +13,10 @@ const LogoutButton = () => {
         },
       });
 
-      // Logout the user immediately, without waiting for the deletion response
       logout({ logoutParams: { returnTo: window.location.origin } });
     } catch (error) {
-      // Handle errors if needed
       console.error("Error initiating deletion process:", error);
 
-      // Logout the user even if the deletion process fails
       logout({ logoutParams: { returnTo: window.location.origin } });
     }
   };
