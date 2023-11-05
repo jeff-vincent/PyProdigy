@@ -57,7 +57,7 @@ const IDE = ({ lessonID, userID }) => {
         setOutputFileContent(htmlContent);
         const podTerminated = "Error from server (NotFound):"
         if (htmlContent.includes(podTerminated)) {
-          setOutputFileContent('Your cloud environment needs to be restarted.\nCopy any code you\'d like to save and refresh your browser to restart it.');
+          setOutputFileContent('<b>Your cloud environment needs to be restarted.\nCopy any code you\'d like to save and refresh your browser to continue.</b>');
         }
 
         if (htmlContent === expectedOutput) {

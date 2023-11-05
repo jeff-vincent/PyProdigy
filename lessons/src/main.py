@@ -52,3 +52,8 @@ def get_lesson_by_id(lesson_id: int, db: Session = Depends(get_db)):
 @app.post("/lessons/lesson/", response_model=schemas.Lesson)
 def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
     return crud.create_lesson(db=db, lesson=lesson)
+
+
+@app.put("/lessons/lesson/{lesson_id}", response_model=schemas.Lesson)
+def update_lesson(lesson: schemas.Lesson, db: Session = Depends(get_db)):
+    return crud.update_lesson(db=db, lesson=lesson)

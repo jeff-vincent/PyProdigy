@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './components.css'; // Make sure to adjust the path based on your project structure for the CSS file
 
 const CreateLesson = () => {
+  const [loading, setLoading] = useState(false);
   const [video, setVideo] = useState(null);
   const [exampleCode, setExampleCode] = useState('');
   const [lessonText, setLessonText] = useState('');
@@ -11,8 +13,6 @@ const CreateLesson = () => {
   const [categories, setCategories] = useState([]);
   const [topics, setTopics] = useState([]);
   const [expectedOutput, setExpectedOutput] = useState('');
-
-  const BASE_URL = process.env.BASE_URL
 
   useEffect(() => {
     fetch(`/lessons/category`)
@@ -23,7 +23,6 @@ const CreateLesson = () => {
 
   const handleCategoryChange = (event) => {
     const categoryId = event.target.value;
-
     if (categoryId) {
       fetch(`/lessons/${categoryId}/topics`)
         .then(response => response.json())
@@ -35,7 +34,6 @@ const CreateLesson = () => {
     } else {
       setTopics([]);
     }
-
     setTopicID('');
   };
 
@@ -55,7 +53,7 @@ const CreateLesson = () => {
     setName(event.target.value);
   };
 
- const handleLessonTextChange = (content, delta, source, editor) => {
+  const handleLessonTextChange = (content, delta, source, editor) => {
     setLessonText(content);
   };
 
@@ -65,6 +63,7 @@ const CreateLesson = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true); // Set loading state to true when submitting form
 
     // Create the payload object
     const payload = {
@@ -74,8 +73,6 @@ const CreateLesson = () => {
       topic_id: topicID,
       expected_output: expectedOutput // Include expected output in the payload
     };
-
-    console.log(payload);
 
     // Send the payload as JSON to the server
     fetch(`/lessons/lesson/`, {
@@ -114,84 +111,62 @@ const CreateLesson = () => {
       })
       .catch(error => {
         console.error('Error submitting form:', error);
-      });
+      })
+      .finally(() => setLoading(false)); // Set loading state to false when the response is received or in case of error
   };
 
   return (
     <div>
-    <h2>Create a lesson</h2>
+      <h2>Create a lesson</h2>
 
-    <form onSubmit={handleSubmit} className="your-form">
-      <div className="form-group">
-        <label htmlFor="category" className="form-label">Category:</label>
-        <select id="category" onChange={handleCategoryChange} className="form-select">
-          <option value="">Select a category</option>
-          {categories.map(category => (
-            <option key={category.id} value={category.id}>{category.name}</option>
-          ))}
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="topic" className="form-label">Topic:</label>
-        <select id="topic" value={topicID} onChange={handleTopicIDChange} className="form-select">
-          <option value="">Select a topic</option>
-          {topics.map(topic => (
-            <option key={topic.id} value={topic.id}>{topic.name}</option>
-          ))}
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="video" className="form-label">Video:</label>
-        <input type="file" id="video" onChange={handleVideoChange} className="form-input" />
-      </div>
-      <div className="form-group">
-        <div>
-        <label htmlFor="name" className="form-label">Lesson Name:</label>
+      <form onSubmit={handleSubmit} className="lesson-form">
+        <div className="form-group">
+          <label htmlFor="category" className="form-label">Category:</label>
+          <select id="category" onChange={handleCategoryChange} className="form-select">
+            <option value="">Select a category</option>
+            {categories.map(category => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
+          </select>
         </div>
+        <div className="form-group">
+          <label htmlFor="topic" className="form-label">Topic:</label>
+          <select id="topic" value={topicID} onChange={handleTopicIDChange} className="form-select">
+            <option value="">Select a topic</option>
+            {topics.map(topic => (
+              <option key={topic.id} value={topic.id}>{topic.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="video" className="form-label">Video:</label>
+          <input type="file" id="video" onChange={handleVideoChange} className="form-input" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name" className="form-label">Lesson Name:</label>
           <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
-      </div>
- <div className="form-group">
-   <div>
-  <label htmlFor="exampleCode" className="form-label">
-    Example Code:
-  </label>
-   </div>
-  <textarea
-    id="exampleCode"
-    value={exampleCode}
-    onChange={handleExampleCodeChange}
-    className="form-input"
-    rows="4" // Set the number of rows for the textarea (adjust as needed)
-  />
-</div>
-
-    <div className="form-group">
-      <label htmlFor="lessonText" className="form-label">
-        Lesson Text:
-      </label>
-      <ReactQuill
-        id="lessonText"
-        value={lessonText}
-        onChange={handleLessonTextChange}
-        className="form-input"
-      />
-    </div>
-      <div className="form-group">
-        <div>
-  <label htmlFor="expectedOutput" className="form-label">
-    Expected Output:
-  </label>
         </div>
-  <textarea
-    id="expectedOutput"
-    value={expectedOutput}
-    onChange={handleExpectedOutputChange}
-    className="form-input"
-    rows="4" // Set the number of rows for the textarea (adjust as needed)
-  />
-</div>
-      <button type="submit" className="submit-button">Submit</button>
-    </form>
+        <div className="form-group">
+          <label htmlFor="exampleCode" className="form-label">Example Code:</label>
+          <textarea id="exampleCode" value={exampleCode} onChange={handleExampleCodeChange} className="form-input" rows="4" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lessonText" className="form-label">Lesson Text:</label>
+          <ReactQuill id="lessonText" value={lessonText} onChange={handleLessonTextChange} className="form-input" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="expectedOutput" className="form-label">Expected Output:</label>
+          <textarea id="expectedOutput" value={expectedOutput} onChange={handleExpectedOutputChange} className="form-input" rows="4" />
+        </div>
+        <button type="submit" className="submit-button">Submit</button>
+      </form>
+
+      {loading && (
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading...</p>
+        </div>
+      )}
     </div>
   );
 };

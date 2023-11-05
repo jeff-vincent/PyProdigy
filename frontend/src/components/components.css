@@ -191,10 +191,15 @@
 }
 
 .cms-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px; /* Adjust the gap between components as needed */
+  max-width: 90%;
   margin: 0 auto;
+}
+
+.cms-grid-item {
+  width: 100%; /* Ensure each item takes full width of its grid cell */
 }
 
 .modal {

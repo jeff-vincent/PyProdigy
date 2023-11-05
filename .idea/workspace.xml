@@ -6,8 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="730e662a-dbaa-4962-bd83-27fa8a275a87" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/garbage_collection/log_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/garbage_collection/src/log_event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/garbage_collection/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/garbage_collection/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/cms.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/cms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/components.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ide.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/welcome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/withAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/withAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/pod-access-service-account.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/pod-access-service-account.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lessons/src/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/src/crud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lessons/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +78,7 @@
       <workItem from="1698179919447" duration="57777000" />
       <workItem from="1698852168652" duration="12277000" />
       <workItem from="1698933555906" duration="11222000" />
-      <workItem from="1699028300519" duration="16230000" />
+      <workItem from="1699028300519" duration="30820000" />
     </task>
     <servers />
   </component>

@@ -92,6 +92,13 @@ def update_category(db: Session, id: int, thumbnail: bytes):
 
 
 # TODO add update/delete category; topic; lesson
-def update_lesson():
-    pass
+def update_lesson(db: Session, lesson: schemas.Lesson):
+    existing_lesson = db.query(models.Lesson).filter(models.Lesson.id == lesson.id).first()
+    existing_lesson.text = lesson.text
+    existing_lesson.example_code = lesson.example_code
+    existing_lesson.name = lesson.name
+    existing_lesson.expected_output = lesson.expected_output
+    db.commit()
+    db.refresh(existing_lesson)
+    return existing_lesson
 

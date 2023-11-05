@@ -10,7 +10,7 @@ const withAuth = (WrappedComponent) => {
       return <div>Loading...</div>;
     }
 
-    if (!isAuthenticated || !user) {
+    if (!isLoading && !isAuthenticated || !isLoading && !user) {
       // Redirect to the login page if the user is not authenticated or user object is not available
       return window.location.href = '/';
     }
