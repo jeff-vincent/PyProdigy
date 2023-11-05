@@ -5,6 +5,7 @@ import CreateLesson from './create-lesson';
 import CreateCategory from './create-category';
 import CreateTopic from './create-topic';
 import withAuth from './withAuth';
+import EditLesson from "./edit-lesson";
 
 const CMS = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -31,14 +32,17 @@ const CMS = () => {
 
   return (
     <div className="cms-container">
-      <div className="grid-item">
+      <div className="cms-grid-item">
         <CreateCategory />
       </div>
-      <div className="grid-item">
+      <div className="cms-grid-item">
         <CreateTopic />
       </div>
-      <div className="grid-item">
+      <div className="cms-grid-item">
         <CreateLesson />
+      </div>
+        <div className="cms-grid-item">
+        <EditLesson />
       </div>
     </div>
   );

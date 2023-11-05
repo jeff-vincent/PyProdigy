@@ -1,46 +1,38 @@
 import React from "react";
-import './components.css';
+import './components.css'; // Import your CSS file for styling
 import LoginButton from "./login-button";
 
 const Welcome = () => {
-  const buttonStyle = {
-    fontSize: '1.2rem',
-    padding: '1rem 2rem',
-    backgroundColor: '#fff',
-    color: '#4CAF50',
-    border: 'none',
-    cursor: 'pointer'
-  };
-
   return (
-    <div>
+    <div className="welcome-container">
       <div className="hero">
         <div className="hero-content">
-          <h2>👋 Welcome to PyProdigy 👋</h2>
-          <p>Learn some cool Python stuff with our free curriculum!</p>
-          <LoginButton/>
+          <h1 className="hero-title">👋 Welcome to PyProdigy 👋</h1>
+          <p className="hero-description">Learn Python with our fun, interactive lessons!</p>
+          <LoginButton className="hero-button" />
         </div>
       </div>
-      <div id="cta" className="cta">
-        <h2>💻 Ready to Code? 💻</h2>
-        <p>💪 Just login to get started!!! 💪</p>
-        <LoginButton/>
+
+      <div className="cta">
+        <h2 className="cta-title">💻 Ready to Code? 💻</h2>
+        <p className="cta-description">Start coding now with our user-friendly in-browser IDE!</p>
+        <LoginButton className="cta-button" />
       </div>
 
       <div className="features">
         <div className="feature">
-          <h3>🎥 Fun Video Lessons 😄</h3>
-          <p>Nifty video lessons explain the core concepts!!!</p>
+          <h3 className="feature-title">🎥 Fun Video Lessons 😄</h3>
+          <p className="feature-description">Engaging video lessons designed to make learning fun and effective.</p>
+        </div>
+        <div className="feature">
+          <h3 className="feature-title">💻 In-browser IDE 🤓</h3>
+          <p className="feature-description">Work from any phone, tablet or computer as you write and run your code in the cloud.</p>
+        </div>
+        <div className="feature">
+          <h3 className="feature-title">📈 Track Your Progress 💪</h3>
+          <p className="feature-description">Monitor your progress and achievements to stay motivated and focused.</p>
+        </div>
       </div>
-      <div className="feature">
-        <h3>💻 In-browser IDE 🤓</h3>
-        <p>Everything you need is right in the browser for you!!!</p>
-      </div>
-      <div className="feature">
-        <h3>📈 Track your progress 💪</h3>
-        <p>See a record of the lessons you've completed in your profile!!!</p>
-      </div>
-    </div>
     </div>
   );
 };
