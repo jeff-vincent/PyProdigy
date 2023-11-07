@@ -8,10 +8,12 @@ import logging
 
 from typing import Annotated
 from kubernetes import client, config
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, Request
+from middleware import TokenValidationMiddleware
 
 
 app = FastAPI()
+app.add_middleware(TokenValidationMiddleware)
 
 # Check if running inside a Kubernetes cluster
 if 'KUBERNETES_SERVICE_HOST' in os.environ and 'KUBERNETES_SERVICE_PORT' in os.environ:
@@ -27,15 +29,17 @@ api_client = client.ApiClient()
 logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 
 
-@app.get('/compute/start/{user_id}')
-def start_container(user_id: str):
-    run_pod_manifest = _create_run_pod_manifest('python:latest', user_id)
+@app.get('/compute/start')
+def start_container(request: Request):
+    logging.info(f'Local user_id: {request.state.user_info}')
+    user_id = request.state.user_info
+    run_pod_manifest = _create_run_pod_manifest('python:3.9.18-alpine3.18', str(user_id))
 
     try:
         api_instance = client.CoreV1Api(api_client)
         api_instance.create_namespaced_pod(namespace="default", body=run_pod_manifest)
     except Exception as e:
-        running_pod = get_pod(user_id)
+        running_pod = get_pod(str(user_id))
         if running_pod:
             return f"Pod status: {running_pod}"
         return f"Error creating pod: {str(e)}"
@@ -82,11 +86,11 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
         # copy the script into the pod
         subprocess.run(['kubectl', 'cp', script_path, f'{pod_name}:script.py'])
         # run the script
-        exec_command = ['/bin/bash', '-c', 'python script.py']
+        exec_command = ['/bin/sh', '-c', 'python script.py']
         result = subprocess.run([
             'kubectl', 'exec', pod_name, '--namespace', 'default', '--', *exec_command
         ], capture_output=True)
-        log_event_command = ['/bin/bash', '-c', 'python log_event.py']
+        log_event_command = ['/bin/sh', '-c', 'python log_event.py']
         # log event to event_log.txt
         subprocess.run([
             'kubectl', 'exec', pod_name, '--namespace', 'default', '--', *log_event_command])

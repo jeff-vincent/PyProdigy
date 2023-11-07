@@ -11,9 +11,15 @@ const OnRedirectCallback = () => {
   const [loading, setLoading] = useState(false); // State to manage loading spinner visibility
 
   const fetchComputeStatus = async (userId) => {
+    const accessToken = await getAccessTokenSilently();
     try {
-      const computeResponse = await fetch(`/compute/start/${userId}`);
-      if (computeResponse.ok) {
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
+      };
+      const computeResponse = await fetch(`/compute/start`, {
+        method: 'GET',
+        headers: headers,
+      });      if (computeResponse.ok) {
         const computeResult = await computeResponse.json();
         console.log('Compute Result:', computeResult);
         if (computeResult === 'Pod status: Terminating') {
@@ -35,7 +41,6 @@ const OnRedirectCallback = () => {
     const fetchAccessToken = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
-        console.log('Access Token:', accessToken);
 
         const response = await fetch(`/api/user/${accessToken}`);
 

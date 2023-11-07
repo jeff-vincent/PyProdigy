@@ -1,7 +1,7 @@
 import React from 'react';
 import './components.css'; // Assuming you have a CSS file for video player styling
 
-const VideoPlayer = ({ lessonID }) => {
+const VideoPlayer = ({ lessonID, accessToken }) => {
 
   const videoUrl = `/video/stream/${lessonID}`;
   

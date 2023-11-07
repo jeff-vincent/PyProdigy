@@ -5,15 +5,22 @@ import IDE from './ide';
 import LessonText from "./lesson-text";
 import './components.css';
 import withAuth from './withAuth'
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Grid = ({userID}) => {
   console.log('UserID in the Grid component:', userID)
   const { lessonID } = useParams();
   const [lessonName, setLessonName] = useState('');
+  const [accessToken, setAccessToken] = useState('')
+  const { getAccessTokenSilently, user } = useAuth0();
 
   // Fetch lesson data
   useEffect(() => {
+
+
     const fetchLessonData = async () => {
+      const accessToken = await getAccessTokenSilently();
+      setAccessToken(accessToken)
       try {
         const response = await fetch(`/lessons/lesson/${lessonID}/`);
         if (response.ok) {
@@ -33,11 +40,11 @@ const Grid = ({userID}) => {
   return (
     <div className="grid-container">
       <div className="grid-item-left">
-        <VideoPlayer lessonID={lessonID} />
-        <IDE lessonID={lessonID} userID={userID} />
+        <VideoPlayer lessonID={lessonID}/>
+        <IDE lessonID={lessonID} userID={userID} accessToken={accessToken}/>
       </div>
       <div className="grid-item-right">
-        <LessonText lessonID={lessonID} />
+        <LessonText lessonID={lessonID}/>
       </div>
     </div>
   );
