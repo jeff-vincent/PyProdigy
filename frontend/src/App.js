@@ -9,20 +9,19 @@ import CMS from './components/cms';
 import './App.css';
 import Footer from "./components/footer";
 
-const App = ({ userID }) => {
-  console.log('UserID in the App component:', userID);
+const App = ({ user }) => {
   return (
     <div>
       <Router>
-        <Header userID={userID}/>
+        <Header user={user}/>
         <div className='app'>
           <div className="app-container">
             <Routes>
               <Route exact path="/" element={<Welcome />} />
               <Route exact path="/topics" element={<Topics />} />
-              <Route exact path="/profile" element={<Profile userID={userID}/>} />
-              <Route path="/learn/" element={<Grid userID={userID} />} />
-              <Route path="/learn/:lessonID" element={<Grid userID={userID} />} />
+              <Route exact path="/profile" element={<Profile />} />
+              <Route path="/learn/" element={<Grid />} />
+              <Route path="/learn/:lessonID" element={<Grid />} />
               <Route path="/cms/" element={<CMS />} />
             </Routes>
           </div>

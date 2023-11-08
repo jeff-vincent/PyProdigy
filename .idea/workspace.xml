@@ -6,16 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="730e662a-dbaa-4962-bd83-27fa8a275a87" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/cms.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/cms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/components.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compute/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/compute/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compute/src/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/compute/src/middleware.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ide.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ide.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/welcome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/withAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/withAuth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/pod-access-service-account.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/pod-access-service-account.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/values.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/src/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/src/crud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lessons/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/lesson-grid.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/lesson-grid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/logout-button.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/logout-button.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/profile-full.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/profile-full.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/video/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +40,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "interwebs",
+    "git-widget-placeholder": "update__auth",
     "last_opened_file_path": "/Users/jeffvincent/PyProdigy/garbage_collection",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -54,6 +56,7 @@
       <recent name="$PROJECT_DIR$/frontend/src/components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/users/src" />
       <recent name="$PROJECT_DIR$/garbage_collection/src" />
       <recent name="$PROJECT_DIR$/frontend/public" />
       <recent name="$PROJECT_DIR$/img" />
@@ -78,7 +81,7 @@
       <workItem from="1698179919447" duration="57777000" />
       <workItem from="1698852168652" duration="12277000" />
       <workItem from="1698933555906" duration="11222000" />
-      <workItem from="1699028300519" duration="30820000" />
+      <workItem from="1699028300519" duration="62677000" />
     </task>
     <servers />
   </component>

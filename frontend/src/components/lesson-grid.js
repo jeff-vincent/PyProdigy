@@ -6,13 +6,14 @@ import LessonText from "./lesson-text";
 import './components.css';
 import withAuth from './withAuth'
 
-const Grid = ({userID}) => {
-  console.log('UserID in the Grid component:', userID)
+const Grid = ({}) => {
   const { lessonID } = useParams();
   const [lessonName, setLessonName] = useState('');
 
   // Fetch lesson data
   useEffect(() => {
+
+
     const fetchLessonData = async () => {
       try {
         const response = await fetch(`/lessons/lesson/${lessonID}/`);
@@ -33,11 +34,11 @@ const Grid = ({userID}) => {
   return (
     <div className="grid-container">
       <div className="grid-item-left">
-        <VideoPlayer lessonID={lessonID} />
-        <IDE lessonID={lessonID} userID={userID} />
+        <VideoPlayer lessonID={lessonID}/>
+        <IDE lessonID={lessonID} />
       </div>
       <div className="grid-item-right">
-        <LessonText lessonID={lessonID} />
+        <LessonText lessonID={lessonID}/>
       </div>
     </div>
   );

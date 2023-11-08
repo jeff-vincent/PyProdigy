@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from 'react-ace';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
 import './components.css';
 
-const IDE = ({ lessonID, userID }) => {
+const IDE = ({ lessonID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
   const [expectedOutput, setExpectedOutput] = useState('');
   const [lessonName, setLessonName] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const BASE_URL = process.env.BASE_URL;
+  const { getAccessTokenSilently, user } = useAuth0();
 
   useEffect(() => {
     // Fetch the lesson data from the /lesson/{lessonID} endpoint
@@ -38,12 +38,16 @@ const IDE = ({ lessonID, userID }) => {
 
     const formData = new FormData();
     formData.append('script', fileContent);
-    formData.append('user_id', userID);
+    const accessToken = await getAccessTokenSilently();
+    const headers = {
+        Authorization: `Bearer ${accessToken}`,
+      };
 
     try {
       const response = await fetch(`/compute/run`, {
         method: 'POST',
         body: formData,
+        headers: headers,
       });
 
       if (response.ok) {
@@ -61,12 +65,10 @@ const IDE = ({ lessonID, userID }) => {
         }
 
         if (htmlContent === expectedOutput) {
-          setOutputFileContent('Success!');
           setShowModal(true);
 
           const data = {
             lesson_id: lessonID,
-            user_id: userID,
             name: lessonName,
           };
 
@@ -74,6 +76,7 @@ const IDE = ({ lessonID, userID }) => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify(data),
           });
