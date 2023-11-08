@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="730e662a-dbaa-4962-bd83-27fa8a275a87" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/k8s/infra-and-roles.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compute/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/compute/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/garbage_collection/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/garbage_collection/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/namespaces.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/pod-access-service-account.yaml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +72,7 @@
       <workItem from="1698852168652" duration="12277000" />
       <workItem from="1698933555906" duration="11222000" />
       <workItem from="1699028300519" duration="66744000" />
-      <workItem from="1699462459425" duration="12838000" />
+      <workItem from="1699462459425" duration="13926000" />
     </task>
     <servers />
   </component>

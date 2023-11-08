@@ -55,6 +55,10 @@ def _create_run_pod_manifest(image_name: str, user_id: str) -> client.V1Pod:
         resources=client.V1ResourceRequirements(
             requests={"cpu": "100m", "memory": "128Mi"},  # Request 100 milliCPU and 128 MiB memory
             limits={"cpu": "500m", "memory": "512Mi"},  # Limit to 500 milliCPU and 512 MiB memory
+        ),
+        security_context=client.V1SecurityContext(
+            run_as_non_root=True,  # Run the container as non-root user
+            allow_privilege_escalation=False  # Disallow privilege escalation
         )
     )
 
@@ -70,6 +74,7 @@ def _create_run_pod_manifest(image_name: str, user_id: str) -> client.V1Pod:
     )
 
     return pod_manifest
+
 
 
 def _check_for_infinite_loop(script_content):
