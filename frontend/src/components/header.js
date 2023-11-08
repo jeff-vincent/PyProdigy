@@ -4,7 +4,7 @@ import './components.css'; // Assuming you have a CSS file for header styling
 import LoginButton from "./login-button";
 import LogoutButton from "./logout-button";
 
-const Header = ({ userID }) => {
+const Header = ({ user }) => {
   return (
     <header className="header">
         <div className="header-icon">
@@ -14,7 +14,7 @@ const Header = ({ userID }) => {
         </div>
       <nav className="navbar">
         <ul className="nav-list">
-          {userID && (
+          {user && (
             <>
               <li className="nav-item">
                 <Link to="/profile" className="nav-link">Profile</Link>
@@ -24,7 +24,7 @@ const Header = ({ userID }) => {
               </li>
             </>
           )}
-          {userID ? (
+          {user ? (
             <li className="nav-list">
               <LogoutButton className="nav-link" />
             </li>

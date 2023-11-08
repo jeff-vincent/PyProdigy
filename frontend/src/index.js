@@ -7,11 +7,9 @@ import reportWebVitals from './reportWebVitals';
 
 const OnRedirectCallback = () => {
   const { getAccessTokenSilently, user } = useAuth0();
-  const [userID, setUserID] = useState(null);
   const [loading, setLoading] = useState(false); // State to manage loading spinner visibility
 
-  const fetchComputeStatus = async (userId) => {
-    const accessToken = await getAccessTokenSilently();
+  const fetchComputeStatus = async (accessToken) => {
     try {
       const headers = {
         Authorization: `Bearer ${accessToken}`,
@@ -25,10 +23,9 @@ const OnRedirectCallback = () => {
         if (computeResult === 'Pod status: Terminating') {
           setLoading(true);
           setTimeout(() => {
-            fetchComputeStatus(userId);
+            fetchComputeStatus();
           }, 4000);
-        } else if (computeResult === `Container ${userId} created.` || computeResult === 'Pod status: Running') {
-          setUserID(userId);
+        } else if (computeResult === `Container created.` || computeResult === 'Pod status: Running') {
           setLoading(false); // Hide loading spinner when condition is met
         }
       }
@@ -41,15 +38,16 @@ const OnRedirectCallback = () => {
     const fetchAccessToken = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
-
-        const response = await fetch(`/api/user/${accessToken}`);
+        const headers = {
+          Authorization: `Bearer ${accessToken}`
+        }
+        const response = await fetch(`/api/user/${accessToken}`, {
+          method: 'GET',
+          headers: headers,
+        });
 
         if (response.ok) {
-          const userData = await response.json();
-          console.log('User Data:', userData);
-
-          // Fetch compute status recursively until condition met
-          await fetchComputeStatus(userData.id);
+          await fetchComputeStatus(accessToken);
         } else {
           console.error('Failed to get or create user');
         }
@@ -71,7 +69,7 @@ const OnRedirectCallback = () => {
       <div className="loading-spinner" />
     </div>
   )}
-  {!loading && <App userID={userID} />} {/* Render App component when loading is false */}
+  {!loading && <App user={user}/>} {/* Render App component when loading is false */}
 </div>
 
   );

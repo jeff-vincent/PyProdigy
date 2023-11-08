@@ -2,7 +2,6 @@ import binascii
 import os
 import shutil
 import tempfile
-import requests
 import subprocess
 import logging
 
@@ -69,7 +68,8 @@ def _create_run_pod_manifest(image_name: str, user_id: str) -> client.V1Pod:
 
 
 @app.post('/compute/run')
-async def attach_to_container_run_script(script: Annotated[str, Form()], user_id: Annotated[str, Form()]):
+async def attach_to_container_run_script(request: Request, script: Annotated[str, Form()]):
+    user_id = request.state.user_info
     _hash = _generate_hash()
     tmp_dir = tempfile.mkdtemp(prefix=_hash)
 
@@ -102,16 +102,13 @@ async def attach_to_container_run_script(script: Annotated[str, Form()], user_id
         return f"Error attaching to pod: {str(e)}"
 
 
-@app.get('/compute/delete/{user_sub}')
-def delete_container_on_logout(user_sub: str):
-    # TODO: get user id with user sub, pass user id in following call
-    r = requests.get(f'http://users:8000/api/get-user-by-sub/{user_sub}')
-    user_data = r.json()
-    result = subprocess.run(['kubectl', 'delete', 'pod', str(user_data['id']), '--namespace', 'default'])
+@app.get('/compute/delete')
+def delete_container_on_logout(request: Request):
+    user_id = request.state.user_info
+    result = subprocess.run(['kubectl', 'delete', 'pod', str(user_id), '--namespace', 'default'])
     return result
 
 
-@app.get('/compute/get-pod/{user_id}')
 def get_pod(user_id: str):
     result = subprocess.run(['kubectl', 'get', 'pod', user_id], capture_output=True)
     result_string = result.stdout.decode('utf-8')

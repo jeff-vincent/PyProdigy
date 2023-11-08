@@ -3,14 +3,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 import withAuth from "./withAuth";
 import "./components.css"; // Import your CSS file for styling
 
-const Profile = ({ userID }) => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+const Profile = () => {
+  const { getAccessTokenSilently, user, isAuthenticated, isLoading } = useAuth0();
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      const accessToken = await getAccessTokenSilently()
+
       try {
-        const response = await fetch(`/api/get-completed-lessons-by-id/${userID}`);
+        const headers = {
+          Authorization: `Bearer ${accessToken}`
+        }
+        const response = await fetch(`/api/get-completed-lessons`, {
+          method: 'GET',
+          headers: headers,
+        })
         if (response.ok) {
           const completedLessons = await response.json();
           setUserData(completedLessons);
@@ -22,10 +30,10 @@ const Profile = ({ userID }) => {
       }
     };
 
-    if (isAuthenticated && userID) {
+    if (isAuthenticated) {
       fetchData();
     }
-  }, [isAuthenticated, userID]);
+  }, [isAuthenticated]);
 
   if (isLoading) {
     return <div>Loading ...</div>;

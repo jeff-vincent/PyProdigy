@@ -1,10 +1,12 @@
-from fastapi import Depends, FastAPI, HTTPException, status, Form
+from fastapi import Depends, FastAPI, HTTPException, status, Form, Request
 from sqlalchemy.orm import Session
 import aiohttp
 from . import crud, models
 from .database import SessionLocal, engine
+import logging
 
 models.Base.metadata.create_all(bind=engine)
+logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 
@@ -37,7 +39,6 @@ async def get_or_create_user(token: str, db: Session = Depends(get_db)):
     return db_user
 
 
-#TODO add get user by sub endpoint for delete pod on logout
 @app.get('/api/get-user-by-sub/{sub}')
 async def get_user_by_sub(sub: str, db: Session = Depends(get_db)):
     data = {'sub': sub}
@@ -45,11 +46,20 @@ async def get_user_by_sub(sub: str, db: Session = Depends(get_db)):
     return db_user
 
 
-@app.get('/api/get-completed-lessons-by-id/{user_id}')
-async def get_completed_lessons_by_id(user_id: int, db: Session = Depends(get_db)):
-    completed_lessons = crud.get_completed_lessons_by_id(db, user_id)
+@app.get('/api/get-completed-lessons')
+async def get_completed_lessons_by_id(request: Request, db: Session = Depends(get_db)):
+    token = request.headers.get('Authorization', '').replace('Bearer ', '')
+    auth0_user = await get_auth0_user(token)
+    db_user = crud.get_user_by_sub(db, auth0_user)
+    completed_lessons = crud.get_completed_lessons_by_id(db, db_user.id)
     return completed_lessons
 
+
 @app.post('/api/completed-lesson')
-async def create_completed_lesson(completed_lesson: dict, db: Session = Depends(get_db)):
+async def create_completed_lesson(request: Request, completed_lesson: dict, db: Session = Depends(get_db)):
+    token = request.headers.get('Authorization', '').replace('Bearer ', '')
+    auth0_user = await get_auth0_user(token)
+    logging.info(f'Auth0 user: {auth0_user}')
+    db_user = crud.get_user_by_sub(db, auth0_user)
+    completed_lesson['user_id'] = db_user.id
     return crud.create_completed_lesson(db=db, completed_lesson=completed_lesson)

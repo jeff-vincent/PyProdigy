@@ -3,12 +3,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const LogoutButton = () => {
   // const { logout, user } = useAuth0();
-   const { getAccessTokenSilently, user, logout, } = useAuth0();
+   const { getAccessTokenSilently, logout, } = useAuth0();
 
   const handleLogout = async () => {
     try {
       const accessToken = await getAccessTokenSilently()
-      fetch(`/compute/delete/${user.sub}`, {
+      fetch(`/compute/delete`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,

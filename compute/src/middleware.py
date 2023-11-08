@@ -26,7 +26,8 @@ class TokenValidationMiddleware(BaseHTTPMiddleware):
             pass
         #
         # # Attach user information to the request for downstream route handlers to use
-        local_user = requests.get(f'http://users:8000/api/get-user-by-sub/{user_info.json()["sub"]}')
+        headers = {'Authorization': f'Bearer {token}'}
+        local_user = requests.get(f'http://users:8000/api/get-user-by-sub/{user_info.json()["sub"]}', headers=headers)
         request.state.user_info = local_user.json()['id']
 
         response = await call_next(request)

@@ -5,7 +5,7 @@ import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
 import './components.css';
 
-const IDE = ({ lessonID, userID, accessToken }) => {
+const IDE = ({ lessonID }) => {
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
   const [expectedOutput, setExpectedOutput] = useState('');
@@ -38,7 +38,6 @@ const IDE = ({ lessonID, userID, accessToken }) => {
 
     const formData = new FormData();
     formData.append('script', fileContent);
-    formData.append('user_id', userID);
     const accessToken = await getAccessTokenSilently();
     const headers = {
         Authorization: `Bearer ${accessToken}`,
@@ -70,7 +69,6 @@ const IDE = ({ lessonID, userID, accessToken }) => {
 
           const data = {
             lesson_id: lessonID,
-            user_id: userID,
             name: lessonName,
           };
 
@@ -78,6 +76,7 @@ const IDE = ({ lessonID, userID, accessToken }) => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify(data),
           });
