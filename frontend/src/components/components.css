@@ -295,62 +295,97 @@
 
 
 .hero {
-  position: relative;
-  height: 600px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  justify-content: left;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  text-align: left;
   color: #3d3e41;
   font-size: 2rem;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: url('4990671.png') no-repeat center center;
-  opacity: 0.5;
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 600px;
+  margin: 0 auto;
+  /*padding-left: 20px;*/
 }
 
-.hero-content {
-  z-index: 1;
+.hero-image {
+  margin-top: 50px;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-description {
+  max-width: 80%;
 }
 
 .cta {
-  background-color: #63b251;
-  color: #fff;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  background-color: #347ab4;
+  width: 100%;
+  height: 200px;
+  margin-top: 75px;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  color: white;
+  font-size: 4rem;
+}
+
+
+@media (max-width: 768px) {
+  .cta {
+    display: none;
+  }
 }
 
 .features {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
   margin: 2rem 0;
+  padding-top: 50px;
 }
 
 .feature {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  max-width: 30%; /* Adjust the maximum width as per your design */
-  /*padding: 2rem; !* Add padding for spacing *!*/
-  /*background-color: #f9f9f9; !* Light background color for features *!*/
-  /*border-radius: 10px; !* Optional: Add rounded corners *!*/
-  /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); !* Optional: Add box shadow for depth *!*/
+  max-width: 80%;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
 }
 
-.feature h3 {
+
+.feature-title {
   font-size: 1.5rem;
-  margin-bottom: 1rem;
   color: #3d3e41;
 }
 
 .feature p {
   font-size: 1rem;
   color: #3d3e41;
+}
+.feature-description {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.feature img {
+  max-width: 100%; /* Set the maximum width to 100% of the parent container */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 1rem; /* Optional: Add margin between image and text */
 }
 
 
