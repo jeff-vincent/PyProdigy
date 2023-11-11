@@ -37,7 +37,7 @@ class GarbageCollection:
             last_pod_event = subprocess.run(['kubectl', 'exec', pod, '--namespace', 'user-envs', '--', '/bin/bash', '-c', 'cat event_log.txt'], capture_output=True)
             if last_pod_event.stderr:
                 subprocess.run(['kubectl', 'cp', 'log_event.py', f'{pod}:log_event.py', '--namespace', 'user-envs'])
-                log_event_command = ['/bin/bash', '-c', 'python log_event.py']
+                log_event_command = ['/bin/sh', '-c', 'python log_event.py']
                 # log event to event_log.txt
                 subprocess.run([
                     'kubectl', 'exec', pod, '--namespace', 'user-envs', '--', *log_event_command])

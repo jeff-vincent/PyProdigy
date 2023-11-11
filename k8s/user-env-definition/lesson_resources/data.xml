@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <person>
+        <name>John Doe</name>
+        <age>30</age>
+        <address>
+            <city>New York</city>
+            <zipcode>10001</zipcode>
+        </address>
+    </person>
+
+    <person>
+        <name>Jane Smith</name>
+        <age>25</age>
+        <address>
+            <city>Los Angeles</city>
+            <zipcode>90001</zipcode>
+        </address>
+    </person>
+
+    <person>
+        <name>Bob Johnson</name>
+        <age>40</age>
+        <address>
+            <city>Chicago</city>
+            <zipcode>60601</zipcode>
+        </address>
+    </person>
+</root>

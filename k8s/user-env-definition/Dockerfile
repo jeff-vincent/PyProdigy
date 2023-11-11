@@ -7,13 +7,19 @@ RUN addgroup -g 1000 -S appgroup && \
 
 # Set the working directory to /app
 WORKDIR /app
-COPY log_event.py .
 
-# Install pip and specific Python packages (example: Flask)
-RUN apk add --no-cache py3-pip \
-    && pip install Flask \
+# Copy your application files
+COPY log_event.py .
+COPY /lesson_resources /lesson_resources
+
+# Install required packages (SQLAlchemy, SQLite, Pandas)
+RUN apk add --no-cache py3-pip sqlite \
+    && pip install SQLAlchemy pandas beautifulsoup4 \
     # Remove pip and its dependencies after installation
     && apk del py3-pip
+
+# Create the data.db file with write permissions for appuser
+RUN touch data.db && chown appuser:appgroup data.db && chmod 774 data.db
 
 # Switch to the non-root user
 USER appuser

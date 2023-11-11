@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="730e662a-dbaa-4962-bd83-27fa8a275a87" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/1.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compute/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/compute/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/components.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/welcome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/garbage_collection/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/garbage_collection/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/infra-and-roles.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/infra-and-roles.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k8s/user-env-definition/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/k8s/user-env-definition/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +77,7 @@
       <workItem from="1698933555906" duration="11222000" />
       <workItem from="1699028300519" duration="66744000" />
       <workItem from="1699462459425" duration="32011000" />
-      <workItem from="1699538056425" duration="2963000" />
+      <workItem from="1699538056425" duration="19836000" />
     </task>
     <servers />
   </component>

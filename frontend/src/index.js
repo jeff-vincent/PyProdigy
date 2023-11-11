@@ -19,13 +19,12 @@ const OnRedirectCallback = () => {
         headers: headers,
       });      if (computeResponse.ok) {
         const computeResult = await computeResponse.json();
-        console.log('Compute Result:', computeResult);
         if (computeResult === 'Pod status: Terminating') {
           setLoading(true);
           setTimeout(() => {
-            fetchComputeStatus();
+            fetchComputeStatus(accessToken);
           }, 4000);
-        } else if (computeResult === `Container created.` || computeResult === 'Pod status: Running') {
+        } else if (computeResult.includes('created') || computeResult.includes('Running')) {
           setLoading(false); // Hide loading spinner when condition is met
         }
       }

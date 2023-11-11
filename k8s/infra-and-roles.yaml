@@ -56,9 +56,9 @@ metadata:
 spec:
   hard:
     requests.cpu: "1"     # Maximum CPU requests in cores
-    requests.memory: 0.5Gi  # Maximum memory requests in bytes
+    requests.memory: 1Gi  # Maximum memory requests in bytes
     limits.cpu: "1"       # Maximum CPU limits in cores
-    limits.memory: 0.5Gi    # Maximum memory limits in bytes
+    limits.memory: 1Gi    # Maximum memory limits in bytes
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
