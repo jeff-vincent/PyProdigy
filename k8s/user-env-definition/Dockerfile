@@ -14,7 +14,7 @@ COPY /lesson_resources /lesson_resources
 
 # Install required packages (SQLAlchemy, SQLite, Pandas)
 RUN apk add --no-cache py3-pip sqlite \
-    && pip install SQLAlchemy pandas beautifulsoup4 \
+    && pip install SQLAlchemy pandas beautifulsoup4 numpy \
     # Remove pip and its dependencies after installation
     && apk del py3-pip
 

@@ -24,7 +24,10 @@ const Welcome = () => {
           <img src={heroImage} alt="PyProdigy" className="hero-image" />
         </div>
       </div>
-      <div className="cta">Your pace. Any device. Get started.</div>
+      <div className="cta">
+        <div>Python fundamentals | SQL Databases | Testing in Python</div>
+        <div>Data Science foundations | Object oriented programming</div>
+      </div>
       <div className="features">
         <div className="feature">
           <div className="feature-title">Fun Video Lessons 😄</div>
