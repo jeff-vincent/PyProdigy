@@ -5,6 +5,7 @@ import './index.css'; // Import your stylesheets here
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
 const OnRedirectCallback = () => {
   const { getAccessTokenSilently, user } = useAuth0();
   const [loading, setLoading] = useState(false); // State to manage loading spinner visibility
