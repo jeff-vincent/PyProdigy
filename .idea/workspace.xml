@@ -9,8 +9,7 @@
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create-lesson.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/lesson-text.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/lesson-text.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/lesson-text-input.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

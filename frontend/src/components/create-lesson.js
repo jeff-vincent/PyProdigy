@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
-import SyntaxHighlightedQuillEditor from "./lesson-text-input";
-import 'react-quill/dist/quill.snow.css';
 import './components.css'; // Make sure to adjust the path based on your project structure for the CSS file
 
 const CreateLesson = () => {
