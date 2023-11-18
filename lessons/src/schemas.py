@@ -11,6 +11,7 @@ class LessonCreate(LessonBase):
     example_code: str | None = None
     text: str | None = None
     expected_output: str | None = None
+    display_index: int | None = None
 
 
 class Lesson(LessonBase):
@@ -20,6 +21,7 @@ class Lesson(LessonBase):
     example_code: str | None = None
     text: str | None = None
     expected_output: str | None = None
+    display_index: int | None = None
 
     class Config:
         orm_mode = True
@@ -31,10 +33,12 @@ class TopicBase(BaseModel):
 
 class TopicCreate(TopicBase):
     category_id: int
+    display_index: int | None = None
 
 
 class Topic(TopicBase):
     id: int
+    display_index: int | None = None
     lessons: list[Lesson] = []
 
     class Config:

@@ -12,6 +12,7 @@ const CreateLesson = () => {
   const [categories, setCategories] = useState([]);
   const [topics, setTopics] = useState([]);
   const [expectedOutput, setExpectedOutput] = useState('');
+  const [displayIndex, setDisplayIndex] = useState(0);
 
   useEffect(() => {
     fetch(`/lessons/category`)
@@ -59,6 +60,9 @@ const CreateLesson = () => {
   const handleTopicIDChange = (event) => {
     setTopicID(event.target.value);
   };
+  const handleDisplayIndexChange = (event) => {
+    setDisplayIndex(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -70,7 +74,8 @@ const CreateLesson = () => {
       text: lessonText,
       name,
       topic_id: topicID,
-      expected_output: expectedOutput // Include expected output in the payload
+      expected_output: expectedOutput, // Include expected output in the payload
+      display_index: displayIndex,
     };
 
     // Send the payload as JSON to the server
@@ -144,6 +149,10 @@ const CreateLesson = () => {
         <div className="form-group">
           <label htmlFor="name" className="form-label">Lesson Name:</label>
           <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="display-index" className="form-label">Display Index:</label>
+          <input type="text" id="display-index" value={displayIndex} onChange={handleDisplayIndexChange} className="form-input" />
         </div>
         <div className="form-group">
           <label htmlFor="exampleCode" className="form-label">Example Code:</label>

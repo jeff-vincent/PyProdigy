@@ -357,6 +357,8 @@
   gap: 2rem;
   margin: 2rem 0;
   padding-top: 50px;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
 }
 
 .feature {

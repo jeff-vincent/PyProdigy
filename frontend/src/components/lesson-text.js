@@ -15,6 +15,7 @@ const LessonText = ({ lessonID }) => {
     fetch(`/lessons/lesson/${lessonID}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         const processedText = parseCodeBlocks(data.text);
         console.log(processedText)
         setLessonText(processedText);

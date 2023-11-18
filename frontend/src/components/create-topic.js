@@ -4,6 +4,7 @@ const CreateTopic = () => {
   const [name, setName] = useState('');
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [displayIndex, setDisplayIndex] = useState(0)
 
   const BASE_URL = process.env.BASE_URL
 
@@ -21,6 +22,9 @@ const CreateTopic = () => {
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
+  const handleDisplayIndexChange = (event) => {
+    setDisplayIndex(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,6 +33,7 @@ const CreateTopic = () => {
     const payload = {
       name: name,
       category_id: selectedCategory,
+      display_index: displayIndex,
     };
 
     console.log(payload);
@@ -62,6 +67,10 @@ const CreateTopic = () => {
       <div className="form-group">
         <label htmlFor="name" className="form-label">Topic Name:</label>
         <input type="text" id="name" value={name} onChange={handleNameChange} className="form-input" />
+      </div>
+      <div className="form-group">
+        <label htmlFor="display-index" className="form-label">Display Index:</label>
+        <input type="text" id="display-index" value={displayIndex} onChange={handleDisplayIndexChange} className="form-input" />
       </div>
       <button type="submit" className="submit-button">
         Submit

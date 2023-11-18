@@ -50,29 +50,25 @@ def get_categories(db: Session, skip: int = 0, limit: int = 100):
         .limit(limit)
         .all()
     )
-    sorted_data = sort_topics_within_categories(unsorted_data)
+    sorted_data = sort_topics_and_lessons_within_categories(unsorted_data)
 
     return sorted_data
 
 
-def sort_topics_within_categories(unsorted_data):
-    topic_order = {
-        'Beginner': ['Variables', 'Data Types', 'Functions', 'Loops', 'HTTP Requests'],
-        'Intermediate': ['More Data Types', 'Text Parsing', 'Classes'],
-        'Advanced': ['Asyncio', 'Async Await Keywords', 'Event Loops', 'Generators']
-    }
-
+def sort_topics_and_lessons_within_categories(unsorted_data):
     for category in unsorted_data:
-        category_name = category.name
-        if category_name in topic_order:
-            topics = {topic.name: topic for topic in category.topics}
-            sorted_topics = [topics[topic_name] for topic_name in topic_order[category_name] if topic_name in topics]
-            category.topics = sorted_topics
+        # Sort topics in each category in ascending order by topic.display_index
+        sorted_topics = sorted(category.topics, key=lambda x: x.display_index)
+        category.topics = sorted_topics
 
-    for category in unsorted_data:
-        logging.info(f'Sorted Topics for {category.name}: {[topic.name for topic in category.topics]}')
+        for topic in category.topics:
+            # Sort lessons within each topic in ascending order by lesson.display_index
+            sorted_lessons = sorted(topic.lessons, key=lambda x: x.display_index)
+            topic.lessons = sorted_lessons
+
     sorted_data = unsorted_data
     return sorted_data
+
 
 
 def create_category(db: Session, category: schemas.CategoryCreate):
@@ -98,6 +94,7 @@ def update_lesson(db: Session, lesson: schemas.Lesson):
     existing_lesson.example_code = lesson.example_code
     existing_lesson.name = lesson.name
     existing_lesson.expected_output = lesson.expected_output
+    existing_lesson.display_index = lesson.display_index
     db.commit()
     db.refresh(existing_lesson)
     return existing_lesson

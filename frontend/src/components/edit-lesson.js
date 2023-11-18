@@ -12,6 +12,7 @@ const EditLesson = () => {
   const [expectedOutput, setExpectedOutput] = useState('');
   const [exampleCode, setExampleCode] = useState('');
   const [video, setVideo] = useState(null);
+  const [displayIndex, setDisplayIndex] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +47,7 @@ const EditLesson = () => {
           setLessonName(data.name);
           setExpectedOutput(data.expected_output);
           setExampleCode(data.example_code);
+          setDisplayIndex(data.display_index)
         })
         .catch((error) => {
           console.error(error);
@@ -62,6 +64,9 @@ const EditLesson = () => {
   const handleVideoChange = (event) => {
     setVideo(event.target.files[0]);
   };
+  const handleDisplayIndexChange = (event) => {
+    setDisplayIndex(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -73,6 +78,7 @@ const EditLesson = () => {
       text: lessonText,
       name: lessonName,
       expected_output: expectedOutput,
+      display_index: displayIndex,
     };
 
     // Send the payload as JSON to the server
@@ -175,6 +181,10 @@ const EditLesson = () => {
           className="form-input"
           rows="4"
         />
+      </div>
+      <div className="form-group">
+        <label htmlFor="display-index" className="form-label">Display Index:</label>
+        <input type="text" id="display-index" value={displayIndex} onChange={handleDisplayIndexChange} className="form-input" />
       </div>
 
       <div className="form-group">

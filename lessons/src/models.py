@@ -20,6 +20,7 @@ class Topic(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     category_id = Column(Integer, ForeignKey("categories.id"))
+    display_index = Column(Integer)
 
     lessons = relationship("Lesson", back_populates="topic")
     category = relationship("Category", back_populates="topics")
@@ -37,6 +38,7 @@ class Lesson(Base):
     expected_output = Column(String, index=True)
     example_code = Column(String, index=True)
     text = Column(String, index=True)
+    display_index = Column(Integer)
 
     topic = relationship("Topic", back_populates="lessons")
 

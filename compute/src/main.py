@@ -53,8 +53,8 @@ def _create_run_pod_manifest(image_name: str, user_id: str) -> client.V1Pod:
         image=image_name,
         command=["tail", "-f", "/dev/null"],  # Keep the main container running indefinitely
         resources=client.V1ResourceRequirements(
-            requests={"cpu": "100m", "memory": "128Mi"},  # Request 100 milliCPU and 128 MiB memory
-            limits={"cpu": "500m", "memory": "512Mi"},  # Limit to 500 milliCPU and 512 MiB memory
+            requests={"cpu": "10m", "memory": "32Mi"},
+            limits={"cpu": "40m", "memory": "64Mi"},
         ),
         security_context=client.V1SecurityContext(
             # run_as_non_root=True,  # Run the container as non-root user
