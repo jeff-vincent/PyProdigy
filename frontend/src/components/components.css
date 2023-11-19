@@ -319,6 +319,7 @@
   width: 100%;
   height: auto;
   max-width: 100%;
+  border-radius: 5px;
 }
 
 @media (max-width: 768px) {
@@ -340,9 +341,12 @@
   margin-top: 75px;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  color: white;
+  color: #dddddd;
   font-size: 2.5rem;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add drop shadow */
 }
+
 
 
 @media (max-width: 768px) {
@@ -357,8 +361,6 @@
   gap: 2rem;
   margin: 2rem 0;
   padding-top: 50px;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
 }
 
 .feature {
@@ -366,10 +368,10 @@
   flex-direction: column;
   text-align: center;
   max-width: 80%;
+  margin: auto; /* Center horizontally */
   justify-content: center; /* Center vertically */
   align-items: center; /* Center horizontally */
 }
-
 
 .feature-title {
   font-size: 1.5rem;
@@ -380,19 +382,18 @@
   font-size: 1rem;
   color: #3d3e41;
 }
+
 .feature-description {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .feature img {
-  max-width: 100%; /* Set the maximum width to 100% of the parent container */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 1rem; /* Optional: Add margin between image and text */
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 5px;
 }
-
-
-/* components.css */
 
 .profile-container {
   display: flex;
@@ -401,29 +402,31 @@
 }
 
 .profile-picture {
-  max-width: 25%; /* Set maximum width for responsiveness */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 50%; /* Optional: Make the picture round */
-  margin-right: 20px; /* Add spacing between picture and text */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-right: 20px;
 }
-
-/* Rest of your CSS styles */
 
 
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   grid-gap: 5px;
+  background-color: #ddd;
+  border-radius: 4px;
+  padding: 15px;
 }
 
 .profile-grid-item {
   height: 50px;
   border: 1px solid #3d3e41;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .completed-lesson {
-  background-color: #63b251;
+  background-color: #4CAF50;
 }
 
 .incomplete-lesson {
@@ -436,11 +439,12 @@
   top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #3d3e41;
+  background-color: #2a2b2e;
   color: white;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 8px;
+  border-radius: 4px;
   white-space: nowrap;
+  font-size: 14px;
 }
 
 .category-name {
@@ -532,4 +536,20 @@ ol.lessons-list {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.progress-bar {
+  width: 100%; /* Adjust as needed */
+  height: 20px; /* Adjust as needed */
+  background-color: #ddd; /* Default color for incomplete lessons */
+  border-radius: 4px; /* Adjust as needed */
+  overflow: hidden;
+  margin-bottom: 50px;
+
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #4CAF50; /* Color for completed lessons */
+  transition: width 0.3s ease; /* Add a smooth transition effect */
 }

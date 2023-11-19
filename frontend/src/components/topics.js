@@ -3,14 +3,12 @@ import { useParams } from 'react-router-dom';
 import './components.css';
 
 const Topics = () => {
-  const { id } = useParams();
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`/lessons/category`);
         const data = await response.json();
-        console.log(data)
         setCategories(data);
       } catch (error) {
         console.error(error);
@@ -18,7 +16,7 @@ const Topics = () => {
     };
 
     fetchData();
-  }, [id]);
+  });
 
   if (!categories) {
     return <div>Loading...</div>;
