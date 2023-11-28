@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="730e662a-dbaa-4962-bd83-27fa8a275a87" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/components.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/profile-full.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/profile-full.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/welcome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/garbage_collection/src/log_event.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/garbage_collection/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/garbage_collection/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lessons/src/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/src/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lessons/src/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/lessons/src/schemas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +31,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "test-code",
     "last_opened_file_path": "/Users/jeffvincent/PyProdigy",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -84,7 +82,7 @@
       <workItem from="1699900383827" duration="608000" />
       <workItem from="1700276765581" duration="34767000" />
       <workItem from="1700497202531" duration="1223000" />
-      <workItem from="1701195671108" duration="3569000" />
+      <workItem from="1701195671108" duration="5835000" />
     </task>
     <servers />
   </component>

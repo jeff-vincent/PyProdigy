@@ -58,15 +58,17 @@ const Profile = () => {
   });
 
   const getTopicProgress = (topicId) => {
-    const completedLessonsInTopic = userData.filter((lesson) =>
-      categories.some((category) =>
-        category.topics.some((topic) =>
-          topic.lessons.some((categoryLesson) =>
-            categoryLesson.name === lesson.lessonName
+    const completedLessonsInTopic = userData
+      ? userData.filter((lesson) =>
+          categories.some((category) =>
+            category.topics.some((topic) =>
+              topic.lessons.some((categoryLesson) =>
+                categoryLesson.name === lesson.lessonName
+              )
+            )
           )
         )
-      )
-    );
+      : [];
 
     const totalLessonsInTopic = categories
       .flatMap((category) => category.topics)

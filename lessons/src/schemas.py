@@ -12,6 +12,7 @@ class LessonCreate(LessonBase):
     text: str | None = None
     expected_output: str | None = None
     display_index: int | None = None
+    tests: str | None = None
 
 
 class Lesson(LessonBase):
@@ -22,6 +23,7 @@ class Lesson(LessonBase):
     text: str | None = None
     expected_output: str | None = None
     display_index: int | None = None
+    tests: str | None = None
 
     class Config:
         orm_mode = True
