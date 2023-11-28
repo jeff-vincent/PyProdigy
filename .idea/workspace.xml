@@ -8,9 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/components.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/components.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/profile-full.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/profile-full.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/topics.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/topics.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/welcome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/garbage_collection/src/log_event.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/garbage_collection/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/garbage_collection/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,22 +28,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jeffvincent/PyProdigy/k8s/user-env-definition&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/jeffvincent/PyProdigy",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/k8s/user-env-definition" />
@@ -82,7 +82,9 @@
       <workItem from="1699538056425" duration="19836000" />
       <workItem from="1699824329610" duration="9047000" />
       <workItem from="1699900383827" duration="608000" />
-      <workItem from="1700276765581" duration="26225000" />
+      <workItem from="1700276765581" duration="34767000" />
+      <workItem from="1700497202531" duration="1223000" />
+      <workItem from="1701195671108" duration="3569000" />
     </task>
     <servers />
   </component>

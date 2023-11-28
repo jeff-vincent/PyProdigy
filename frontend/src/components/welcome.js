@@ -34,20 +34,20 @@ const Welcome = () => {
         <div className="feature">
           <div className="feature-title">Fun Video Lessons 😄</div>
           <b className="feature-description">Engaging video lessons designed to make learning fun and effective.</b>
-          <img src={videoImage} alt="Image Placeholder" />
+          <img className="feature-img-left" src={videoImage} alt="Image Placeholder" />
         </div>
         <div className="feature">
-          <img src={learningImage1} alt="Image Placeholder" />
+          <img className="feature-img-right" src={learningImage1} alt="Image Placeholder" />
           <div className="feature-title">In-browser IDE 🤓</div>
           <b className="feature-description">Work from any device as you write and run your code in the cloud.</b>
         </div>
         <div className="feature">
           <div className="feature-title">Track Your Progress 💪</div>
           <b className="feature-description">Monitor your progress and achievements to stay motivated.</b>
-          <img src={progressImage} alt="Image Placeholder" />
+          <img className="feature-img-left" src={progressImage} alt="Image Placeholder" />
         </div>
         <div className="feature">
-          <img src={learningImage2} alt="Image Placeholder" />
+          <img className="feature-img-right" src={learningImage2} alt="Image Placeholder" />
           <div className="feature-title">100 Days of Code Challenge 🚀</div>
           <b className="feature-description">Join our coding challenge to code daily and level up.</b>
         </div>

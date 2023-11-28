@@ -22,6 +22,7 @@ const Profile = () => {
         });
         if (response.ok) {
           const completedLessons = await response.json();
+          console.log(completedLessons)
           setUserData(completedLessons);
         } else {
           console.error("Failed to fetch user data");

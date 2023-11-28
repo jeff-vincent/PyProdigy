@@ -34,11 +34,10 @@ class GarbageCollection:
     def get_logs_and_delete_inactive_pods(self):
         now = time.time()
         for pod in self.pods_list:
-            last_pod_event = subprocess.run(['kubectl', 'exec', pod, '--namespace', 'user-envs', '--', '/bin/bash', '-c', 'cat event_log.txt'], capture_output=True)
+            last_pod_event = subprocess.run(['kubectl', 'exec', pod, '--namespace', 'user-envs', '--', '/bin/sh', '-c', 'cat event_log.txt'], capture_output=True)
             if last_pod_event.stderr:
-                subprocess.run(['kubectl', 'cp', 'log_event.py', f'{pod}:log_event.py', '--namespace', 'user-envs'])
-                log_event_command = ['/bin/sh', '-c', 'python log_event.py']
                 # log event to event_log.txt
+                log_event_command = ['/bin/sh', '-c', 'python log_event.py']
                 subprocess.run([
                     'kubectl', 'exec', pod, '--namespace', 'user-envs', '--', *log_event_command])
             try:
@@ -46,8 +45,8 @@ class GarbageCollection:
                 print(f'Pod {pod} inactive for {inactive_duration}')
                 if inactive_duration > 600:
                     self._delete_pod(pod)
-            except:
-                pass
+            except Exception as e:
+                print(str(e))
 
     def run(self):
         self.get_pods()
