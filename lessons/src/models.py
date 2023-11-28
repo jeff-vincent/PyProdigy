@@ -39,6 +39,7 @@ class Lesson(Base):
     example_code = Column(String, index=True)
     text = Column(String, index=True)
     display_index = Column(Integer)
+    tests = Column(String)
 
     topic = relationship("Topic", back_populates="lessons")
 
