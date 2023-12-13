@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './components.css'; // Import your CSS file for styling
 import LoginButton from "./login-button";
 import { useAuth0 } from '@auth0/auth0-react';
@@ -10,6 +10,13 @@ import learningImage2 from "./5.jpg"
 
 const Welcome = () => {
   const { user, isAuthenticated } = useAuth0();
+
+    useEffect(() => {
+    const isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
+    if (!isChrome) {
+      alert("Your browser isn't supported by PyProdigy. Please switch to Chrome for the best experience.");
+    }
+  }, []);
 
   return (
     <div className="welcome-container">
