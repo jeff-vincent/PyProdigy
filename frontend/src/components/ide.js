@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AceEditor from 'react-ace';
-import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
+// import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
 import './components.css';
@@ -12,7 +12,7 @@ const IDE = ({ lessonID }) => {
   const [lessonName, setLessonName] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { getAccessTokenSilently, user } = useAuth0();
+  // const { getAccessTokenSilently, user } = useAuth0();
 
   useEffect(() => {
     // Fetch the lesson data from the /lesson/{lessonID} endpoint
@@ -38,7 +38,7 @@ const IDE = ({ lessonID }) => {
 
     const formData = new FormData();
     formData.append('script', fileContent);
-    const accessToken = await getAccessTokenSilently();
+    const accessToken = localStorage.getItem('jwt');
     const headers = {
         Authorization: `Bearer ${accessToken}`,
       };

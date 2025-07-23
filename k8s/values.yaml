@@ -1,6 +1,6 @@
 frontend:
   containers:
-    image: jdvincent/pyprodigy-frontend:latest
+    image: jdvincent/pyprodigy-lab-thingy-frontend:latest
   
   envVars:
     BASE_URL: "http://localhost/"
@@ -45,7 +45,7 @@ videoAPI:
 
 computeAPI:
   containers:
-    image: jdvincent/pyprodigy-compute:latest
+    image: jdvincent/pyprodigy-lab-thingy-compute:latest
 
 postgres1:
   envVars:

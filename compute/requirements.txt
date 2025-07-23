@@ -25,3 +25,4 @@ typing_extensions==4.6.3
 urllib3==1.26.16
 uvicorn==0.22.0
 websocket-client==1.5.3
+PyJWT

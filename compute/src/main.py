@@ -31,20 +31,21 @@ logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 
 @app.get('/compute/start')
 def start_container(request: Request):
-    logging.info(f'Local user_id: {request.state.user_info}')
-    user_id = request.state.user_info
+    logging.info(f'Local user_id: {request.state.user_info["user_id"]}')
+    org_id = request.state.user_info['org_id']
+    user_id = request.state.user_info['user_id']
     run_pod_manifest = _create_run_pod_manifest('jdvincent/pyprodigy-user-env:latest', str(user_id))
     try:
         api_instance = client.CoreV1Api(api_client)
-        api_instance.create_namespaced_pod(namespace="user-envs", body=run_pod_manifest)
+        api_instance.create_namespaced_pod(namespace=org_id, body=run_pod_manifest)
     except Exception as e:
         logging.info(f'failed to create pod: {str(e)}')
-        running_pod = get_pod(str(user_id))
+        running_pod = get_pod(str(user_id), org_id)
         if running_pod:
             return f"Pod status: {running_pod}"
         return f"Error creating pod: {str(e)}"
 
-    return f"Container {user_id} created."
+    return user_id
 
 
 def _create_run_pod_manifest(image_name: str, user_id: str) -> client.V1Pod:
@@ -92,7 +93,8 @@ def _check_for_infinite_loop(script_content):
 
 @app.post('/compute/run')
 async def attach_to_container_run_script(request: Request, script: Annotated[str, Form()]):
-    user_id = request.state.user_info
+    user_id = str(request.state.user_info['user_id'])
+    namespace = str(request.state.user_info['org_id'])
     _hash = _generate_hash()
     tmp_dir = tempfile.mkdtemp(prefix=_hash)
 
@@ -108,16 +110,16 @@ async def attach_to_container_run_script(request: Request, script: Annotated[str
     try:
         pod_name = str(user_id)
         # copy the script into the pod
-        subprocess.run(['kubectl', 'cp', script_path, '--namespace', 'user-envs', f'{pod_name}:script.py'])
+        subprocess.run(['kubectl', 'cp', script_path, '--namespace', namespace, f'{pod_name}:script.py'])
         # run the script
         exec_command = ['/bin/sh', '-c', 'python script.py']
         result = subprocess.run([
-            'kubectl', 'exec', pod_name, '--namespace', 'user-envs', '--', *exec_command
+            'kubectl', 'exec', pod_name, '--namespace', namespace, '--', *exec_command
         ], capture_output=True)
         log_event_command = ['/bin/sh', '-c', 'python log_event.py']
         # log event to event_log.txt
         r = subprocess.run([
-            'kubectl', 'exec', pod_name, '--namespace', 'user-envs', '--', *log_event_command], capture_output=True)
+            'kubectl', 'exec', pod_name, '--namespace', namespace, '--', *log_event_command], capture_output=True)
 
         shutil.rmtree(tmp_dir)
         if not result.stderr:
@@ -129,13 +131,14 @@ async def attach_to_container_run_script(request: Request, script: Annotated[str
 
 @app.get('/compute/delete')
 def delete_container_on_logout(request: Request):
-    user_id = request.state.user_info
-    result = subprocess.run(['kubectl', 'delete', 'pod', str(user_id), '--namespace', 'user-envs'])
+    user_id = request.state.user_info['user_id']
+    namespace = request.state.user_info['org_id']
+    result = subprocess.run(['kubectl', 'delete', 'pod', str(user_id), namespace, 'user-envs'])
     return result
 
 
-def get_pod(user_id: str):
-    result = subprocess.run(['kubectl', 'get', 'pod', user_id, '--namespace', 'user-envs',], capture_output=True)
+def get_pod(user_id: str, namespace: str):
+    result = subprocess.run(['kubectl', 'get', 'pod', user_id, namespace, 'user-envs',], capture_output=True)
     result_string = result.stdout.decode('utf-8')
     if 'Running' in result_string:
         return 'Running'
