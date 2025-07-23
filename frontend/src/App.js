@@ -7,15 +7,9 @@ import {
 } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import OrgPortalLayout from './components/OrgPortalLayout';
-import Dashboard from './components/Dashboard';
-import UserManagement from './components/UserManagement';
-import Settings from './components/Settings';
 import LabLayout from './components/LabLayout';
-import LessonView from './components/LessonView';
-import Progress from './components/Progress';
 import NotFound from './components/NotFound';
 import './App.css';
-import AuthProvider from './components/AuthProvider';
 import { jwtDecode } from 'jwt-decode';
 
 const RoutesWithRedirect = () => {
@@ -43,17 +37,10 @@ const RoutesWithRedirect = () => {
       <Route path="/" element={<Homepage />} />
 
       {/* Org Portal for admins, internal users */}
-      <Route path="/org/:orgId/*" element={<OrgPortalLayout />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="users" element={<UserManagement />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
+      <Route path="/org/:orgId/*" element={<OrgPortalLayout />}/>
 
       {/* Lab UI for end-users */}
-      <Route path="/lab/:labId/*" element={<LabLayout />}>
-        <Route path="" element={<LessonView />} />
-        <Route path="progress" element={<Progress />} />
-      </Route>
+      <Route path="/lab/:labId/*" element={<LabLayout />}/>
 
       <Route path="*" element={<NotFound />} />
     </Routes>
@@ -63,11 +50,9 @@ const RoutesWithRedirect = () => {
 const App = () => {
   return (
     <div>
-      <AuthProvider>
         <Router>
           <RoutesWithRedirect />
         </Router>
-      </AuthProvider>
     </div>
   );
 };
