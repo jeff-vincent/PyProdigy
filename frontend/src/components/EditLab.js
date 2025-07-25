@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const EditLesson = () => {
+const EditLab = () => {
   const [categories, setCategories] = useState([]);
   const [selectedLessonId, setSelectedLessonId] = useState('');
   const [lessonText, setLessonText] = useState('');
@@ -234,4 +234,4 @@ const EditLesson = () => {
   );
 };
 
-export default EditLesson;
+export default EditLab;

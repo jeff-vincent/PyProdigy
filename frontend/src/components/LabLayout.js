@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import VideoPlayer from './video';
-import IDE from './ide';
-import LessonText from './lesson-text';
+import VideoPlayer from './Video';
+import IDE from './IDE';
+import LessonText from './LessonText';
 
 const LabLayout = () => {
   const { labId: labID } = useParams();

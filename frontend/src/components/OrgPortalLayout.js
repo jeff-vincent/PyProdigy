@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import CMS from './cms'
-import Header from './header';
+import CMS from './CMS'
+import Header from './Header';
 import { useAuth0 } from '@auth0/auth0-react';
 import { jwtDecode } from 'jwt-decode';
 

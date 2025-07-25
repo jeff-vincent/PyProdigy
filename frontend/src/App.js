@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   useNavigate,
+  useLocation,
 } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import OrgPortalLayout from './components/OrgPortalLayout';
@@ -14,6 +15,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const RoutesWithRedirect = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0();
   const [checkingAuth, setCheckingAuth] = useState(true);
 
@@ -53,8 +55,9 @@ const RoutesWithRedirect = () => {
         console.log('Extracted orgId:', orgId);
         
         if (orgId) {
-          console.log('Navigating to org:', `/org/${orgId}`);
-          navigate(`/org/${orgId}`);
+          if (location.pathname === '/' || location.pathname === '/login') {
+            navigate(`/org/${orgId}`);
+          }
         } else {
           console.warn('No organization_id found in token claims');
         }

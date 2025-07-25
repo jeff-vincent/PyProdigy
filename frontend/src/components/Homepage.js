@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import './components.css';
-import Header from "./header";
-
+import Header from './Header';
 
 const Homepage = () => {
 
