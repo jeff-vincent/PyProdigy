@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lessons-api
+  name: labs-api
   labels:
-    app: lessons-api
+    app: labs-api
 spec:
   selector:
     matchLabels:
-      app: lessons-api
+      app: labs-api
   replicas: 1
   template:
     metadata:
       labels:
-        app: lessons-api
+        app: labs-api
     spec:
       initContainers:
         - name: postgres-ready-check
@@ -20,41 +20,41 @@ spec:
           command: ["sh", "-c", "until pg_isready --dbname=${POSTGRES_DB} --host=${POSTGRES_HOST} --port=${POSTGRES_PORT} --username=${POSTGRES_USER}; do echo waiting for Postgres; sleep 2; done;"]
           env:
             - name: POSTGRES_HOST
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_HOST | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_HOST | quote  }}
             - name: POSTGRES_PORT
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_PORT | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_PORT | quote  }}
             - name: POSTGRES_DB
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_DB | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_DB | quote  }}
             - name: POSTGRES_USER
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_USER | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_USER | quote  }}
       containers:
-        - name: lessons-api
-          image: {{ .Values.lessonsAPI.containers.image | quote }}
+        - name: labs-api
+          image: {{ .Values.labsAPI.containers.image | quote }}
           env:
             - name: POSTGRES_HOST
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_HOST | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_HOST | quote  }}
             - name: POSTGRES_PORT
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_PORT | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_PORT | quote  }}
             - name: POSTGRES_DB
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_DB | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_DB | quote  }}
             - name: POSTGRES_USER
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_USER | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_USER | quote  }}
             - name: POSTGRES_PASSWORD
-              value: {{ .Values.lessonsAPI.envVars.POSTGRES_PASSWORD | quote  }}
+              value: {{ .Values.labsAPI.envVars.POSTGRES_PASSWORD | quote  }}
           ports:
-            - name: lessons-api
+            - name: labs-api
               containerPort: 8000
               protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: lessons-api
+  name: labs-api
 spec:
   ports:
     - port: 8000
       targetPort: 8000
-      name: lessons-api
+      name: labs-api
   selector:
-    app: lessons-api
+    app: labs-api
   type: ClusterIP

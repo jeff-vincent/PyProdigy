@@ -24,7 +24,7 @@ usersAPI:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
 
-lessonsAPI:
+labsAPI:
   containers:
     image: jdvincent/pyprodigy-lessons:latest
   

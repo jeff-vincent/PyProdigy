@@ -78,11 +78,11 @@ spec:
               name: video-api
               port:
                 number: 8000
-        - path: /lessons
+        - path: /labs
           pathType: Prefix
           backend:
             service:
-              name: lessons-api
+              name: labs-api
               port:
                 number: 8000
         - path: /compute
