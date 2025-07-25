@@ -34,6 +34,7 @@ def start_container(request: Request):
     logging.info(f'Local user_id: {request.state.user_info["user_id"]}')
     org_id = request.state.user_info['org_id']
     user_id = request.state.user_info['user_id']
+    # TODO: call lessons API to get container image
     run_pod_manifest = _create_run_pod_manifest('jdvincent/pyprodigy-user-env:latest', str(user_id))
     try:
         api_instance = client.CoreV1Api(api_client)

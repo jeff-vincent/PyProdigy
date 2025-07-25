@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import CMS from './cms'
+import Header from './header';
+import { useAuth0 } from '@auth0/auth0-react';
+import { jwtDecode } from 'jwt-decode';
 
 const OrgPortalLayout = () => {
+  const { isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0();
   const tabs = ['Org Info', 'Labs', 'API Keys', 'JWT Debugger'];
   const [activeTab, setActiveTab] = useState('Labs');
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -11,8 +15,14 @@ const OrgPortalLayout = () => {
   const [apiKeys, setApiKeys] = useState([]);
   const [orgInfo, setOrgInfo] = useState({ name: '', billingEmail: '' });
 
-  useEffect(() => {
-    setIsAuthorized(true);
+  useEffect(async () => {
+    const token = await getAccessTokenSilently({
+              audience: 'urn:labthingy:api',
+            });
+            const decoded = jwtDecode(token);
+            const orgId = decoded['org_id'];
+
+    setIsAuthorized(true)
     setLabs([{ id: '1', name: 'Sample Lab' }]);
     setApiKeys([{ id: 'abc123', key: 'sk_live_1234', createdAt: '2025-07-01' }]);
     setOrgInfo({ name: 'Acme Org', billingEmail: 'billing@acme.org' });
@@ -116,8 +126,11 @@ const OrgPortalLayout = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-8">
+      
       <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Organization Portal</h1>
+      <div className="mb-4 sm:mb-6 mt-2 sm:mt-4">
+        <Header />
+      </div>
 
         {/* Tabs */}
         <div className="flex space-x-2 sm:space-x-4 border-b pb-2 mb-6">

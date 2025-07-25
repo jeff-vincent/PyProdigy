@@ -3,10 +3,10 @@ import os
 from fastapi import FastAPI, BackgroundTasks, UploadFile
 from fastapi.responses import StreamingResponse, JSONResponse
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorGridFSBucket
-# from middleware import TokenValidationMiddleware
+from middleware import TokenValidationMiddleware
 
 app = FastAPI()
-# app.add_middleware(TokenValidationMiddleware)
+app.add_middleware(TokenValidationMiddleware)
 
 MONGO_HOST = os.environ.get('MONGO_HOST')
 MONGO_PORT = os.environ.get('MONGO_PORT')
