@@ -7,7 +7,7 @@ payload = {
     "org_name": "Some Fancy Company",
     # TODO: dynaimcally set user_id
     "user_id": "user-123",
-    "lab_id": '68853f8211554acbb50a6c2b',
+    "lab_id": '6884761222cf630a3a84f126',
     "exp": datetime.now(timezone.utc) + timedelta(minutes=300000),  # Expiration time
     "iat": datetime.now(timezone.utc)  # Issued at time
 }

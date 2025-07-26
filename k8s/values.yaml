@@ -13,16 +13,13 @@ authAPI:
   containers:
     image: jdvincent/pyprodigy-auth:latest
 
-usersAPI:
+orgsAPI:
   containers:
     image: jdvincent/pyprodigy-users:latest
 
   envVars:
-    POSTGRES_HOST: postgres1
-    POSTGRES_PORT: "5432"
-    POSTGRES_DB: users_db
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
+    MONGO_HOST: mongo
+    MONGO_PORT: "27017"
 
 labsAPI:
   containers:
@@ -43,15 +40,3 @@ videoAPI:
 computeAPI:
   containers:
     image: jdvincent/pyprodigy-lab-thingy-compute:latest
-
-postgres1:
-  envVars:
-    POSTGRES_DB: users_db
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-
-postgres2:
-  envVars:
-    POSTGRES_DB: lessons_db
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
