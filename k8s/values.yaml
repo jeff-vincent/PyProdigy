@@ -34,7 +34,7 @@ labsAPI:
 
 videoAPI:
   containers:
-    image: jdvincent/pyprodigy-video:latest
+    image: jdvincent/pyprodigy-lab-thingy-video:latest
 
   envVars:
     MONGO_HOST: mongo

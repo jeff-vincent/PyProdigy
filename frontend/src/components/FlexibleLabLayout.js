@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import VideoPlayer from './Video';
 import IDE from './IDE';
-import LessonText from './LessonText';
+import LabText from './LabText';
 import Terminal from './Terminal';
 
 const LabLayout = () => {
-  const [labConfig, setLabConfig] = useState(null);
+  const [labData, setLabData] = useState(null);
   const [labID, setLabID] = useState(null);
 
   useEffect(() => {
-    // Extract lab_id from JWT
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      try {
-        const payload = JSON.parse(atob(jwt.split('.')[1]));
-        setLabID(payload.lab_id);
-      } catch (error) {
-        console.error('Failed to parse JWT:', error);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!labID) return;
-
+    console.log('LabLayout: useEffect triggered');
+    
     const fetchLabConfig = async () => {
       try {
+        console.log('LabLayout: Starting fetchLabConfig');
         const jwt = localStorage.getItem('jwt');
+        console.log('LabLayout: JWT retrieved:', jwt ? 'Present' : 'Missing');
+        
         const response = await fetch(`/labs/lab`, {
           method: 'GET',
           headers: {
@@ -36,14 +25,22 @@ const LabLayout = () => {
           },
         });
 
+        console.log('LabLayout: API response status:', response.status);
+        
         if (!response.ok) {
           throw new Error(`Server error: ${response.status}`);
         }
 
         const labContent = await response.json();
-        setLabConfig(labContent);
+        console.log('LabLayout: Lab content received:', labContent);
+        console.log('LabLayout: Lab elements:', labContent.elements);
+        
+        setLabID(labContent._id);
+        setLabData(labContent);
+        
+        console.log('LabLayout: State updated - labID:', labContent._id);
       } catch (error) {
-        console.error('Failed to fetch lab configuration:', error);
+        console.error('LabLayout: Failed to fetch lab configuration:', error);
       }
     };
 
@@ -71,19 +68,27 @@ const LabLayout = () => {
 
     fetchLabConfig();
     startComputeEnv();
-  }, [labID]);
+  }, []);
 
   const renderComponent = (componentType) => {
+    console.log('LabLayout: Rendering component type:', componentType);
+    console.log('LabLayout: labData available:', !!labData);
+    
     switch (componentType) {
       case 'IDE':
-        return <IDE lessonID={labID} />;
-      case 'LabContent':
-        return <LessonText lessonID={labID} />;
+        console.log('LabLayout: Rendering IDE with labData:', labData);
+        return <IDE labData={labData} />;
+      case 'LabText':
+        console.log('LabLayout: Rendering LabText with lab_text:', labData?.lab_text);
+        return <LabText labText={labData.lab_text} />;
       case 'Terminal':
-        return <Terminal lessonID={labID} />;
+        console.log('LabLayout: Rendering Terminal with terminal_commands:', labData?.terminal_commands);
+        return <Terminal terminalText={labData.terminal_commands} />;
       case 'Video':
-        return <VideoPlayer lessonID={labID} />;
+        console.log('LabLayout: Rendering VideoPlayer with labID:', labID);
+        return <VideoPlayer labID={labID} />;
       default:
+        console.warn('LabLayout: Unknown component type:', componentType);
         return null;
     }
   };
@@ -109,7 +114,10 @@ const LabLayout = () => {
     return 'col-span-1 row-span-1';
   };
 
-  if (!labConfig || !labID) {
+  console.log('LabLayout: Render check - labData:', !!labData, 'labID:', !!labID);
+  
+  if (!labData || !labID) {
+    console.log('LabLayout: Showing loading state');
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div>Loading lab configuration...</div>
@@ -117,20 +125,27 @@ const LabLayout = () => {
     );
   }
 
-  const components = labConfig.elements || [];
+  const components = labData.elements || [];
+  console.log('LabLayout: Components to render:', components);
+  console.log('LabLayout: Components length:', components.length);
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className={`grid gap-6 h-screen ${getGridClasses(components.length)}`}>
-          {components.map((componentType, index) => (
-            <div 
-              key={`${componentType}-${index}`}
-              className={getComponentClasses(index, components.length)}
-            >
-              {renderComponent(componentType)}
-            </div>
-          ))}
+        <div className={`grid gap-6 min-h-[calc(100vh-3rem)] ${getGridClasses(components.length)}`}>
+          {components.map((componentType, index) => {
+            console.log(`LabLayout: Mapping component ${index}:`, componentType);
+            return (
+              <div 
+                key={`${componentType}-${index}`}
+                className={`${getComponentClasses(index, components.length)} bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden`}
+              >
+                <div className="h-full p-4">
+                  {renderComponent(componentType)}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

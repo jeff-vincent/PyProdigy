@@ -1,12 +1,12 @@
 import json
 import os
-from fastapi import FastAPI, BackgroundTasks, UploadFile
+from fastapi import FastAPI, BackgroundTasks, UploadFile, File, Request
 from fastapi.responses import StreamingResponse, JSONResponse
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorGridFSBucket
 from middleware import TokenValidationMiddleware
 
 app = FastAPI()
-app.add_middleware(TokenValidationMiddleware)
+# app.add_middleware(TokenValidationMiddleware)
 
 MONGO_HOST = os.environ.get('MONGO_HOST')
 MONGO_PORT = os.environ.get('MONGO_PORT')
@@ -43,14 +43,19 @@ async def _upload(file: object, lesson_id: str):
     await grid_in.write(data)
     await grid_in.close()
 
-@app.post('/video/upload/{id}')
-async def upload(background_tasks: BackgroundTasks, video: UploadFile, id: int):
-    lesson_id = str(id)
+@app.post('/video/upload')
+async def upload(request: Request, background_tasks: BackgroundTasks, video: UploadFile = File(...)):
+    # lab_id = request.state.user_info.get('lab_id')
+    form_data = await request.form()
+    lab_id = form_data.get('lab_id')
+    video.filename = lab_id
     print(video.filename)
     if video.filename:
-        background_tasks.add_task(_upload, video, lesson_id)
-        background_tasks.add_task(_add_library_record, lesson_id)
-        return ''
+        background_tasks.add_task(_upload, video, lab_id)
+        background_tasks.add_task(_add_library_record, lab_id)
+        return JSONResponse({'status': 'success', 'message': 'Video uploaded successfully'})
+    
+    return JSONResponse({'status': 'error', 'message': 'No video file provided'}, status_code=400)
 
 @app.get('/video/stream/{filename}')
 async def stream(filename: str):

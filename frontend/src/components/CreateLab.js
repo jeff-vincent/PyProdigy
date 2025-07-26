@@ -8,6 +8,7 @@ const CreateLab = () => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [orgId, setOrgId] = useState(null);
+  const [jwt, setJwt] = useState(null);
 
   const { getAccessTokenSilently } = useAuth0();
 
@@ -17,6 +18,7 @@ const CreateLab = () => {
         const token = await getAccessTokenSilently({
           audience: 'urn:labthingy:api',
         });
+        setJwt(token);
         const decoded = jwtDecode(token);
         setOrgId(decoded['org_id']);
       } catch (error) {
@@ -28,13 +30,13 @@ const CreateLab = () => {
   
   // UI Elements state
   const [selectedElements, setSelectedElements] = useState([]);
-  const [lessonText, setLessonText] = useState('');
+  const [labText, setLabText] = useState('');
   const [exampleCode, setExampleCode] = useState('');
   const [terminalCommands, setTerminalCommands] = useState('');
   const [video, setVideo] = useState(null);
 
   const availableElements = [
-    { id: 'LessonText', label: 'Lesson Text', description: 'Rich text content for the lab' },
+    { id: 'LabText', label: 'Lab Text', description: 'Rich text content for the lab' },
     { id: 'IDE', label: 'IDE', description: 'Code editor with example code' },
     { id: 'Terminal', label: 'Terminal', description: 'Terminal commands and expected output' },
     { id: 'Video', label: 'Video', description: 'Instructional video content' }
@@ -64,7 +66,7 @@ const CreateLab = () => {
       name: name,
       org_id: orgId,
       elements: selectedElements,
-      lesson_text: isElementSelected('LessonText') ? lessonText : '',
+      lab_text: isElementSelected('LabText') ? labText : '',
       example_code: isElementSelected('IDE') ? exampleCode : '',
       terminal_commands: isElementSelected('Terminal') ? terminalCommands : '',
     };
@@ -74,28 +76,32 @@ const CreateLab = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${await getAccessTokenSilently({ audience: 'urn:labthingy:api' })}`,
+          'Authorization': `Bearer ${jwt}`,
         },
         body: JSON.stringify(payload)
       });
 
       if (response.ok) {
         const data = await response.json();
-        const extractedLabID = data.id;
+        const extractedLabID = data._id;
+        console.log('Lab created successfully:', data);
 
         if (video && isElementSelected('Video')) {
           const formData = new FormData();
           formData.append('video', video);
+          formData.append('lab_id', extractedLabID);
 
-          await fetch(`/video/upload/${extractedLabID}`, {
+          await fetch(`/video/upload`, {
             method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${jwt}`,    },
             body: formData
           });
         }
 
         // Reset form on success
         setName('');
-        setLessonText('');
+        setLabText('');
         setExampleCode('');
         setTerminalCommands('');
         setVideo(null);
@@ -159,27 +165,27 @@ const CreateLab = () => {
           )}
         </div>
 
-        {/* Lesson Text Section */}
+        {/* Lab Text Section */}
         <div className={`space-y-4 p-4 border rounded-lg transition-all duration-200 ${
-          isElementSelected('LessonText') ? 'border-blue-200 bg-white' : 'border-gray-200 bg-gray-50'
+          isElementSelected('LabText') ? 'border-blue-200 bg-white' : 'border-gray-200 bg-gray-50'
         }`}>
           <div className="flex items-center space-x-2">
-            <h4 className={`text-md font-medium ${isElementSelected('LessonText') ? 'text-gray-900' : 'text-gray-400'}`}>
-              Lesson Text Content
+            <h4 className={`text-md font-medium ${isElementSelected('LabText') ? 'text-gray-900' : 'text-gray-400'}`}>
+              Lab Text Content
             </h4>
-            {isElementSelected('LessonText') && <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Active</span>}
+            {isElementSelected('LabText') && <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Active</span>}
           </div>
           <div className="space-y-2">
-            <label htmlFor="lessonText" className={`block text-sm font-medium ${isElementSelected('LessonText') ? 'text-gray-700' : 'text-gray-400'}`}>
-              Lesson Content
+            <label htmlFor="labText" className={`block text-sm font-medium ${isElementSelected('LabText') ? 'text-gray-700' : 'text-gray-400'}`}>
+              Lab Content
             </label>
-            <div className={`border rounded-lg overflow-hidden ${isElementSelected('LessonText') ? 'border-gray-300' : 'border-gray-200'}`}>
+            <div className={`border rounded-lg overflow-hidden ${isElementSelected('LabText') ? 'border-gray-300' : 'border-gray-200'}`}>
               <ReactQuill 
-                id="lessonText" 
-                value={lessonText} 
-                onChange={setLessonText}
-                readOnly={!isElementSelected('LessonText')}
-                className={isElementSelected('LessonText') ? 'bg-white' : 'bg-gray-100'}
+                id="labText" 
+                value={labText} 
+                onChange={setLabText}
+                readOnly={!isElementSelected('LabText')}
+                className={isElementSelected('LabText') ? 'bg-white' : 'bg-gray-100'}
                 theme="snow"
                 style={{ minHeight: '150px' }}
               />

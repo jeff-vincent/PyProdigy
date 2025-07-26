@@ -71,7 +71,7 @@ async def create_lab(request: Request):
     lab_data = {
         'org_id': org_id,
         'elements': payload['elements'],
-        'lesson_text': payload.get('lesson_text', ''),
+        'lab_text': payload.get('lab_text', ''),
         'example_code': payload.get('example_code', ''),
         'terminal_commands': payload.get('terminal_commands', ''),
     }

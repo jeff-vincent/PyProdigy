@@ -3,7 +3,9 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-solarized_light';
 
-const IDE = ({ lessonID }) => {
+const IDE = ({ labData }) => {
+  console.log('IDE: Component initialized with labData:', labData);
+  
   const [fileContent, setFileContent] = useState('');
   const [outputFileContent, setOutputFileContent] = useState('');
   const [expectedOutput, setExpectedOutput] = useState('');
@@ -12,17 +14,21 @@ const IDE = ({ lessonID }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`/lessons/lesson/${lessonID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setFileContent(data.example_code);
-        setExpectedOutput(data.expected_output.replace(/'/g, ''));
-        setLessonName(data.name);
-      })
-      .catch((error) => {
-        console.error('Error fetching lesson:', error);
-      });
-  }, [lessonID]);
+    console.log('IDE: useEffect triggered with labData:', labData);
+    
+    if (labData) {
+      console.log('IDE: Setting up component with data:');
+      console.log('  - example_code:', labData.example_code);
+      console.log('  - expected_output:', labData.expected_output);
+      console.log('  - name:', labData.name);
+      
+      setFileContent(labData.example_code || '');
+      setExpectedOutput((labData.expected_output || '').replace(/'/g, ''));
+      setLessonName(labData.name || '');
+    } else {
+      console.log('IDE: No labData provided');
+    }
+  }, [labData]);
 
   const handleFileContentChange = (value) => {
     setFileContent(value);
@@ -58,24 +64,6 @@ const IDE = ({ lessonID }) => {
 
         if (htmlContent === expectedOutput) {
           setShowModal(true);
-
-          const data = {
-            lesson_id: lessonID,
-            name: lessonName,
-          };
-
-          const completionResponse = await fetch(`/api/completed-lesson`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${accessToken}`
-            },
-            body: JSON.stringify(data),
-          });
-
-          if (!completionResponse.ok) {
-            console.error('Failed to complete lesson.');
-          }
         }
       } else {
         throw new Error('Failed to run code.');
@@ -91,6 +79,8 @@ const IDE = ({ lessonID }) => {
     setShowModal(false);
   };
 
+  console.log('IDE: Rendering component');
+  
   return (
     <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
       {/* Code Editor Section */}

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import VideoPlayer from './Video';
 import IDE from './IDE';
-import LessonText from './LessonText';
+import LessonText from './LabText';
 
 const LabLayout = () => {
   const { labId: labID } = useParams();

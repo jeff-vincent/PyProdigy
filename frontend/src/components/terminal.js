@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Terminal = () => {
+const Terminal = ({ terminalText }) => {
+  console.log('Terminal: Component initialized with terminalText:', terminalText);
+  
   const [inputValue, setInputValue] = useState('');
   const [output, setOutput] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log('Terminal: useEffect triggered with terminalText:', terminalText);
+    
+    if (terminalText) {
+      console.log('Terminal: Setting initial output with terminalText');
+      // Display initial terminal commands/instructions if provided
+      setOutput([{ type: 'info', content: terminalText }]);
+    } else {
+      console.log('Terminal: No terminalText provided');
+    }
+  }, [terminalText]);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -62,6 +76,8 @@ const Terminal = () => {
     setOutput([]);
   };
 
+  console.log('Terminal: Rendering component');
+  
   return (
     <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
       {/* Terminal Header */}
@@ -90,7 +106,8 @@ const Terminal = () => {
             {output.map((line, index) => (
               <div key={index} className={`whitespace-pre-wrap ${
                 line.type === 'command' ? 'text-green-400' :
-                line.type === 'error' ? 'text-red-400' : 'text-gray-300'
+                line.type === 'error' ? 'text-red-400' : 
+                line.type === 'info' ? 'text-blue-400' : 'text-gray-300'
               }`}>
                 {line.content}
               </div>
