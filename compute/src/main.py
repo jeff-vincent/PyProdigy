@@ -32,7 +32,7 @@ logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 @app.get('/compute/start')
 def start_container(request: Request):
     logging.info(f'Local user_id: {request.state.user_info["user_id"]}')
-    org_id = request.state.user_info['org_id']
+    org_id = request.state.user_info['org_id'].replace('org_', '').lower()
     user_id = request.state.user_info['user_id']
     # TODO: call lessons API to get container image
     run_pod_manifest = _create_run_pod_manifest('jdvincent/pyprodigy-user-env:latest', str(user_id))
@@ -95,7 +95,7 @@ def _check_for_infinite_loop(script_content):
 @app.post('/compute/run')
 async def attach_to_container_run_script(request: Request, script: Annotated[str, Form()]):
     user_id = str(request.state.user_info['user_id'])
-    namespace = str(request.state.user_info['org_id'])
+    namespace = str(request.state.user_info['org_id']).replace('org_', '').lower()
     _hash = _generate_hash()
     tmp_dir = tempfile.mkdtemp(prefix=_hash)
 
@@ -133,7 +133,7 @@ async def attach_to_container_run_script(request: Request, script: Annotated[str
 @app.get('/compute/delete')
 def delete_container_on_logout(request: Request):
     user_id = request.state.user_info['user_id']
-    namespace = request.state.user_info['org_id']
+    namespace = request.state.user_info['org_id'].replace('org_', '').lower()
     result = subprocess.run(['kubectl', 'delete', 'pod', str(user_id), namespace, 'user-envs'])
     return result
 

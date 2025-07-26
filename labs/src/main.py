@@ -20,10 +20,10 @@ async def get_mongo():
     app.labs = labs_db.labs
 
 
-def require_roles(request: Request, allowed_roles: List[str]):
-    user_info = request.state.user_info
-    if user_info.get("role") not in allowed_roles:
-        raise HTTPException(status_code=403, detail="Forbidden: insufficient role")
+# def require_roles(request: Request, allowed_roles: List[str]):
+#     user_info = request.state.user_info
+#     if user_info.get("role") not in allowed_roles:
+#         raise HTTPException(status_code=403, detail="Forbidden: insufficient role")
 
 
 @app.get('/labs')
@@ -36,9 +36,12 @@ async def get_labs_by_org_id(request: Request):
     return result
 
 
-@app.get('/labs/{lab_id}')
-async def get_lab(request: Request, lab_id: str):
+@app.get('/labs/lab')
+async def get_lab(request: Request):
     org_id = request.state.user_info['org_id']
+    lab_id = request.state.user_info.get('lab_id')
+    if not lab_id:
+        raise HTTPException(status_code=400, detail="Lab ID is required")
 
     if not ObjectId.is_valid(lab_id):
         raise HTTPException(status_code=400, detail="Invalid lab ID")
@@ -51,25 +54,26 @@ async def get_lab(request: Request, lab_id: str):
     return lab
 
 
-@app.post('/labs', status_code=status.HTTP_201_CREATED)
+@app.post('/labs/lab', status_code=status.HTTP_201_CREATED)
 async def create_lab(request: Request):
-    require_roles(request, ["admin", "maintainer"])
+    # require_roles(request, ["admin", "maintainer"])
 
     payload = await request.json()
     org_id = request.state.user_info['org_id']
+    if not org_id:
+        raise HTTPException(status_code=401, detail="Unauthorized: org_id is required")
 
-    required_fields = ['title', 'description']
-    for field in required_fields:
-        if field not in payload:
-            raise HTTPException(status_code=400, detail=f"Missing required field: {field}")
+    # required_fields = ['title', 'description']
+    # for field in required_fields:
+    #     if field not in payload:
+    #         raise HTTPException(status_code=400, detail=f"Missing required field: {field}")
 
     lab_data = {
         'org_id': org_id,
-        'title': payload['title'],
-        'description': payload['description'],
-        'content': payload.get('content', ''),
-        'ide_content': payload.get('ide_content', ''),
-        'terminal_content': payload.get('terminal_content', ''),
+        'elements': payload['elements'],
+        'lesson_text': payload.get('lesson_text', ''),
+        'example_code': payload.get('example_code', ''),
+        'terminal_commands': payload.get('terminal_commands', ''),
     }
 
     result = await app.labs.insert_one(lab_data)
@@ -78,42 +82,42 @@ async def create_lab(request: Request):
     return created_lab
 
 
-@app.put('/labs/{lab_id}')
-async def update_lab(request: Request, lab_id: str):
-    require_roles(request, ["admin", "maintainer"])
+# @app.put('/labs/{lab_id}')
+# async def update_lab(request: Request, lab_id: str):
+#     require_roles(request, ["admin", "maintainer"])
 
-    if not ObjectId.is_valid(lab_id):
-        raise HTTPException(status_code=400, detail="Invalid lab ID")
+#     if not ObjectId.is_valid(lab_id):
+#         raise HTTPException(status_code=400, detail="Invalid lab ID")
 
-    payload = await request.json()
-    allowed_fields = ['title', 'description', 'difficulty', 'content', 'tags']
-    update_data = {k: v for k, v in payload.items() if k in allowed_fields and v is not None}
+#     payload = await request.json()
+#     allowed_fields = ['title', 'description', 'difficulty', 'content', 'tags']
+#     update_data = {k: v for k, v in payload.items() if k in allowed_fields and v is not None}
 
-    if not update_data:
-        raise HTTPException(status_code=400, detail="No valid fields to update")
+#     if not update_data:
+#         raise HTTPException(status_code=400, detail="No valid fields to update")
 
-    result = await app.labs.update_one(
-        {"_id": ObjectId(lab_id)},
-        {"$set": update_data}
-    )
+#     result = await app.labs.update_one(
+#         {"_id": ObjectId(lab_id)},
+#         {"$set": update_data}
+#     )
 
-    if result.matched_count == 0:
-        raise HTTPException(status_code=404, detail="Lab not found")
+#     if result.matched_count == 0:
+#         raise HTTPException(status_code=404, detail="Lab not found")
 
-    updated_lab = await app.labs.find_one({"_id": ObjectId(lab_id)})
-    updated_lab['_id'] = str(updated_lab['_id'])
-    return updated_lab
+#     updated_lab = await app.labs.find_one({"_id": ObjectId(lab_id)})
+#     updated_lab['_id'] = str(updated_lab['_id'])
+#     return updated_lab
 
 
-@app.delete('/labs/{lab_id}', status_code=status.HTTP_204_NO_CONTENT)
-async def delete_lab(request: Request, lab_id: str):
-    require_roles(request, ["admin"])
+# @app.delete('/labs/{lab_id}', status_code=status.HTTP_204_NO_CONTENT)
+# async def delete_lab(request: Request, lab_id: str):
+#     require_roles(request, ["admin"])
 
-    if not ObjectId.is_valid(lab_id):
-        raise HTTPException(status_code=400, detail="Invalid lab ID")
+#     if not ObjectId.is_valid(lab_id):
+#         raise HTTPException(status_code=400, detail="Invalid lab ID")
 
-    result = await app.labs.delete_one({"_id": ObjectId(lab_id)})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Lab not found")
+#     result = await app.labs.delete_one({"_id": ObjectId(lab_id)})
+#     if result.deleted_count == 0:
+#         raise HTTPException(status_code=404, detail="Lab not found")
 
-    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=None)
+#     return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=None)

@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import OrgPortalLayout from './components/OrgPortalLayout';
-import LabLayout from './components/LabLayout';
+import FlexibleLabLayout from './components/FlexibleLabLayout';
 import NotFound from './components/NotFound';
 import { useAuth0 } from '@auth0/auth0-react';
 import { jwtDecode } from 'jwt-decode';
@@ -85,7 +85,7 @@ const RoutesWithRedirect = () => {
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/org/:orgId/*" element={<OrgPortalLayout />} />
-      <Route path="/lab/:labId/*" element={<LabLayout />} />
+      <Route path="/lab/:labId/*" element={<FlexibleLabLayout />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

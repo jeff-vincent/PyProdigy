@@ -14,33 +14,14 @@ spec:
       labels:
         app: labs-api
     spec:
-      initContainers:
-        - name: postgres-ready-check
-          image: postgres:latest
-          command: ["sh", "-c", "until pg_isready --dbname=${POSTGRES_DB} --host=${POSTGRES_HOST} --port=${POSTGRES_PORT} --username=${POSTGRES_USER}; do echo waiting for Postgres; sleep 2; done;"]
-          env:
-            - name: POSTGRES_HOST
-              value: {{ .Values.labsAPI.envVars.POSTGRES_HOST | quote  }}
-            - name: POSTGRES_PORT
-              value: {{ .Values.labsAPI.envVars.POSTGRES_PORT | quote  }}
-            - name: POSTGRES_DB
-              value: {{ .Values.labsAPI.envVars.POSTGRES_DB | quote  }}
-            - name: POSTGRES_USER
-              value: {{ .Values.labsAPI.envVars.POSTGRES_USER | quote  }}
       containers:
         - name: labs-api
           image: {{ .Values.labsAPI.containers.image | quote }}
           env:
-            - name: POSTGRES_HOST
-              value: {{ .Values.labsAPI.envVars.POSTGRES_HOST | quote  }}
-            - name: POSTGRES_PORT
-              value: {{ .Values.labsAPI.envVars.POSTGRES_PORT | quote  }}
-            - name: POSTGRES_DB
-              value: {{ .Values.labsAPI.envVars.POSTGRES_DB | quote  }}
-            - name: POSTGRES_USER
-              value: {{ .Values.labsAPI.envVars.POSTGRES_USER | quote  }}
-            - name: POSTGRES_PASSWORD
-              value: {{ .Values.labsAPI.envVars.POSTGRES_PASSWORD | quote  }}
+            - name: MONGO_HOST
+              value: {{ .Values.labsAPI.envVars.MONGO_HOST | quote  }}
+            - name: MONGO_PORT
+              value: {{ .Values.labsAPI.envVars.MONGO_PORT | quote  }}
           ports:
             - name: labs-api
               containerPort: 8000

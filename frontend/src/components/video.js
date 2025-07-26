@@ -1,7 +1,7 @@
 import React from 'react';
 
-const VideoPlayer = ({ lessonID, accessToken }) => {
-  const videoUrl = `/video/stream/${lessonID}`;
+const VideoPlayer = ({ labID }) => {
+  const videoUrl = `/video/stream/${labID}`;
   
   return (
     <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mb-6">

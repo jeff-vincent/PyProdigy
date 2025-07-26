@@ -3,10 +3,11 @@ from datetime import datetime, timedelta, timezone
 
 # Define the payload
 payload = {
-    "org_id": 123,
+    "org_id": 'org_M5MqFBrXIe54kzI9',
     "org_name": "Some Fancy Company",
-    "user_id": "user-123456",
-    "lab_id": 1,
+    # TODO: dynaimcally set user_id
+    "user_id": "user-123456789",
+    "lab_id": '6884761222cf630a3a84f126',
     "exp": datetime.now(timezone.utc) + timedelta(minutes=300000),  # Expiration time
     "iat": datetime.now(timezone.utc)  # Issued at time
 }
