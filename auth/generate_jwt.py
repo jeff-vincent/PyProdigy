@@ -6,8 +6,8 @@ payload = {
     "org_id": 'org_M5MqFBrXIe54kzI9',
     "org_name": "Some Fancy Company",
     # TODO: dynaimcally set user_id
-    "user_id": "demo-environment",
-    "lab_id": '68866c41c6c7b78ccf975b30',
+    "user_id": "b",
+    "lab_id": '68867d9591f7a949010ec10c',
     "exp": datetime.now(timezone.utc) + timedelta(minutes=300000),  # Expiration time
     "iat": datetime.now(timezone.utc)  # Issued at time
 }

@@ -21,6 +21,8 @@ const IDE = ({ labData }) => {
       console.log('  - example_code:', labData.example_code);
       console.log('  - expected_output:', labData.expected_output);
       console.log('  - name:', labData.name);
+      console.log('  - execution_command:', labData.execution_command);
+      console.log('  - script_name:', labData.script_name);
       
       setFileContent(labData.example_code || '');
       setExpectedOutput((labData.expected_output || '').replace(/'/g, ''));
@@ -39,6 +41,8 @@ const IDE = ({ labData }) => {
 
     const formData = new FormData();
     formData.append('script', fileContent);
+    formData.append('script_name', labData?.script_name || null);
+    formData.append('execution_command', labData?.execution_command || null);
     const accessToken = localStorage.getItem('jwt');
     const headers = {
       Authorization: `Bearer ${accessToken}`,

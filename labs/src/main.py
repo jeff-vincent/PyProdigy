@@ -69,9 +69,14 @@ async def create_lab(request: Request):
     #         raise HTTPException(status_code=400, detail=f"Missing required field: {field}")
 
     lab_data = {
+        # Required fields
         'org_id': org_id,
-        'name': payload.get('name', ''),
+        'name': payload['name'],
+        'container_image': payload['container_image'],
         'elements': payload['elements'],
+        # Optional fields
+        'script_name': payload.get('script_name', ''),
+        'execution_command': payload.get('execution_command', ''),
         'lab_text': payload.get('lab_text', ''),
         'example_code': payload.get('example_code', ''),
         'terminal_commands': payload.get('terminal_commands', ''),

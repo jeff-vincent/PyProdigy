@@ -18,8 +18,11 @@ const EditLab = () => {
   const [selectedElements, setSelectedElements] = useState([]);
   const [labText, setLabText] = useState('');
   const [exampleCode, setExampleCode] = useState('');
+  const [scriptName, setScriptName] = useState('');
+  const [executionCommand, setExecutionCommand] = useState('');
   const [terminalCommands, setTerminalCommands] = useState('');
   const [video, setVideo] = useState(null);
+  const [containerImage, setContainerImage] = useState('');
 
   const availableElements = [
     { id: 'LabText', label: 'Lab Text', description: 'Rich text content for the lab' },
@@ -90,8 +93,11 @@ const EditLab = () => {
         setName(selectedLab.name || '');
         setLabText(selectedLab.lab_text || '');
         setExampleCode(selectedLab.example_code || '');
+        setScriptName(selectedLab.script_name || '');
+        setExecutionCommand(selectedLab.execution_command || '');
         setTerminalCommands(selectedLab.terminal_commands || '');
         setSelectedElements(selectedLab.elements || []);
+        setContainerImage(selectedLab.container_image || '');
         setVideo(null); // Reset video selection
       }
     } else {
@@ -99,8 +105,11 @@ const EditLab = () => {
       setName('');
       setLabText('');
       setExampleCode('');
+      setScriptName('');
+      setExecutionCommand('');
       setTerminalCommands('');
       setSelectedElements([]);
+      setContainerImage('');
       setVideo(null);
     }
   };
@@ -117,7 +126,10 @@ const EditLab = () => {
       elements: selectedElements,
       lab_text: isElementSelected('LabText') ? labText : '',
       example_code: isElementSelected('IDE') ? exampleCode : '',
+      script_name: isElementSelected('IDE') ? scriptName : '',
+      execution_command: isElementSelected('IDE') ? executionCommand : '',
       terminal_commands: isElementSelected('Terminal') ? terminalCommands : '',
+      container_image: containerImage,
     };
 
     try {
@@ -196,6 +208,21 @@ const EditLab = () => {
               />
             </div>
 
+              <div className="space-y-2">
+                <label htmlFor="containerImage" className="block text-sm font-medium text-gray-700">
+                  Container Image
+                </label>
+                <input 
+                  type="text" 
+                  id="containerImage" 
+                  value={containerImage} 
+                  onChange={(e) => setContainerImage(e.target.value)} 
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                  placeholder="e.g., python:3.9, node:18, ubuntu:22.04"
+                  required
+                />
+              </div>
+            {/* Lab Components Section */}
             <div className="bg-gray-50 p-4 rounded-lg">
               <h3 className="text-lg font-medium text-gray-900 mb-2">Select Lab Components</h3>
               <p className="text-sm text-gray-600 mb-4">Choose between 2 and 4 components for your lab</p>
@@ -264,6 +291,38 @@ const EditLab = () => {
                   IDE Content
                 </h4>
                 {isElementSelected('IDE') && <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Active</span>}
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="scriptName" className={`block text-sm font-medium ${isElementSelected('IDE') ? 'text-gray-700' : 'text-gray-400'}`}>
+                  Script Name
+                </label>
+                <input 
+                  type="text" 
+                  id="scriptName" 
+                  value={scriptName} 
+                  onChange={(e) => setScriptName(e.target.value)} 
+                  disabled={!isElementSelected('IDE')}
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 font-mono text-sm ${
+                    isElementSelected('IDE') ? 'bg-white border-gray-300' : 'bg-gray-100 border-gray-200 text-gray-400'
+                  }`}
+                  placeholder="e.g., script.py, main.go, app.js"
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="executionCommand" className={`block text-sm font-medium ${isElementSelected('IDE') ? 'text-gray-700' : 'text-gray-400'}`}>
+                  Execution Command
+                </label>
+                <input 
+                  type="text" 
+                  id="executionCommand" 
+                  value={executionCommand} 
+                  onChange={(e) => setExecutionCommand(e.target.value)} 
+                  disabled={!isElementSelected('IDE')}
+                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 font-mono text-sm ${
+                    isElementSelected('IDE') ? 'bg-white border-gray-300' : 'bg-gray-100 border-gray-200 text-gray-400'
+                  }`}
+                  placeholder="e.g., python script.py, go run main.go, node app.js"
+                />
               </div>
               <div className="space-y-2">
                 <label htmlFor="exampleCode" className={`block text-sm font-medium ${isElementSelected('IDE') ? 'text-gray-700' : 'text-gray-400'}`}>
@@ -342,7 +401,7 @@ const EditLab = () => {
 
             <button 
               type="submit" 
-              disabled={loading || !name.trim() || !isValidSelection}
+              disabled={loading || !name.trim() || !containerImage.trim() || !isValidSelection}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
             >
               {loading ? (

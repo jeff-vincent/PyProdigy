@@ -9,7 +9,7 @@ import asyncio
 import json
 import websockets
 
-from typing import Annotated
+from typing import Annotated, Optional
 from kubernetes import client, config
 from fastapi import FastAPI, Form, Request, WebSocket, WebSocketDisconnect
 from middleware import TokenValidationMiddleware
@@ -32,12 +32,14 @@ api_client = client.ApiClient()
 logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 
 
-@app.get('/compute/start')
-def start_container(request: Request):
+@app.post('/compute/start')
+async def start_container(request: Request):
     logging.info(f'Local user_id: {request.state.user_info["user_id"]}')
     org_id = request.state.user_info['org_id'].replace('org_', '').lower()
     user_id = request.state.user_info['user_id']
-    # TODO: call lessons API to get container image
+    data = await request.json()
+    container_image = data.get('container_image', 'jdvincent/lab-thingy-demo-env:latest')
+    logging.info(f'Container image: {container_image}')
     run_pod_manifest = _create_run_pod_manifest('jdvincent/lab-thingy-demo-env:latest', str(user_id))
     try:
         api_instance = client.CoreV1Api(api_client)
@@ -96,7 +98,12 @@ def _check_for_infinite_loop(script_content):
     return False
 
 @app.post('/compute/run')
-async def attach_to_container_run_script(request: Request, script: Annotated[str, Form()]):
+async def attach_to_container_run_script(
+    request: Request, 
+    script: Annotated[str, Form()],
+    script_name: Annotated[Optional[str], Form()] = None,
+    execution_command: Annotated[Optional[str], Form()] = None
+):
     user_id = str(request.state.user_info['user_id'])
     namespace = str(request.state.user_info['org_id']).replace('org_', '').lower()
     _hash = _generate_hash()
@@ -105,6 +112,8 @@ async def attach_to_container_run_script(request: Request, script: Annotated[str
     script_path = os.path.join(tmp_dir, 'script.py')
 
     logging.info(f"user: {user_id} script: {script}")
+    logging.info(f"script_name: {script_name}")
+    logging.info(f"execution_command: {execution_command}")
 
     with open(script_path, 'w') as f:
         for line in script:

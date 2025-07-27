@@ -35,6 +35,9 @@ const LabLayout = () => {
         console.log('LabLayout: Lab content received:', labContent);
         console.log('LabLayout: Lab elements:', labContent.elements);
         
+        // Start compute environment with the fetched lab content
+        await startComputeEnv(labContent.container_image);
+        
         setLabID(labContent._id);
         setLabData(labContent);
         
@@ -44,15 +47,19 @@ const LabLayout = () => {
       }
     };
 
-    const startComputeEnv = async () => {
+    const startComputeEnv = async (containerImage = null) => {
+      const payload = {
+        container_image: containerImage,
+      };
       try {
         const jwt = localStorage.getItem('jwt');
         const response = await fetch(`/compute/start`, {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwt}`
           },
+          body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
@@ -67,7 +74,6 @@ const LabLayout = () => {
     };
 
     fetchLabConfig();
-    startComputeEnv();
   }, []);
 
   const renderComponent = (componentType) => {
