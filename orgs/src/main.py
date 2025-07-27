@@ -4,6 +4,7 @@ from fastapi import Depends, FastAPI, File, HTTPException, status, Request
 from fastapi.responses import JSONResponse
 from pymongo import AsyncMongoClient
 from bson import ObjectId
+import aiohttp
 
 from middleware import TokenValidationMiddleware
 
@@ -48,6 +49,8 @@ async def create_org(request: Request):
     result = await app.orgs.insert_one(org_data)
     if result.acknowledged:
         org_data['_id'] = str(result.inserted_id)
+        # TODO: Check for namespace in compute service
+        # await create_namespace(org_id)  # Assuming a function to create a namespace in the compute service
         return JSONResponse(content=org_data, status_code=status.HTTP_201_CREATED)
     else:
         raise HTTPException(status_code=500, detail="Failed to create organization")

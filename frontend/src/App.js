@@ -9,6 +9,7 @@ import {
 import Homepage from './components/Homepage';
 import OrgPortalLayout from './components/OrgPortalLayout';
 import FlexibleLabLayout from './components/FlexibleLabLayout';
+import SignUp from './components/SignUp';
 import NotFound from './components/NotFound';
 import { useAuth0 } from '@auth0/auth0-react';
 import { jwtDecode } from 'jwt-decode';
@@ -84,6 +85,7 @@ const RoutesWithRedirect = () => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/org/:orgId/*" element={<OrgPortalLayout />} />
       <Route path="/lab/:labId/*" element={<FlexibleLabLayout />} />
       <Route path="*" element={<NotFound />} />
