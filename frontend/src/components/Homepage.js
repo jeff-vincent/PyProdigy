@@ -1,15 +1,25 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import './components.css';
 import Header from './Header';
 
 const Homepage = () => {
+  const navigate = useNavigate();
 
-    useEffect(() => {
+  useEffect(() => {
     const isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
     if (!isChrome) {
       alert("Your browser isn't supported by PyProdigy. Please switch to Chrome for the best experience.");
     }
   }, []);
+
+  const handleGetStarted = () => {
+    navigate('/signup');
+  };
+
+  const handleViewDemo = () => {
+    navigate('https://subnode1.xyz/?token=eyJhbGciOiJIUzI1NiIsImtpZCI6ImtleS0yMDI1LTA3LTIyIiwidHlwIjoiSldUIn0.eyJvcmdfaWQiOiJvcmdfTTVNcUZCclhJZTU0a3pJOSIsIm9yZ19uYW1lIjoiU29tZSBGYW5jeSBDb21wYW55IiwidXNlcl9pZCI6ImRlbW8tZW52aXJvbm1lbnQiLCJsYWJfaWQiOiI2ODg1OWRkYTExNTU0YWNiYjUwYTZjMmQiLCJleHAiOjE3NzE1ODcxOTcsImlhdCI6MTc1MzU4NzE5N30.0KEnNdA0lkb0D6gVLOWm9AWs7z7k-ro-Pix-yfUuk5s');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
@@ -37,7 +47,7 @@ const Homepage = () => {
                 <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
                 </svg>
-                Powered by Python & Cloud Technology
+                Cloud Native Lab Environments for Developers
               </div>
             </div>
 
@@ -52,14 +62,17 @@ const Homepage = () => {
             </h2>
 
             <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Master Python programming with hands-on labs, real-time code execution, and interactive learning experiences.
+              Increase adoption of your products with Lab Thingy.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                Start Learning
+              <button 
+                onClick={handleGetStarted}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                Get Started
               </button>
-              <button className="border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 font-semibold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105">
+              <button onClick={handleViewDemo} className="border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 font-semibold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105">
                 View Demo
               </button>
             </div>

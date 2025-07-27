@@ -70,6 +70,7 @@ async def create_lab(request: Request):
 
     lab_data = {
         'org_id': org_id,
+        'name': payload.get('name', ''),
         'elements': payload['elements'],
         'lab_text': payload.get('lab_text', ''),
         'example_code': payload.get('example_code', ''),
@@ -82,31 +83,34 @@ async def create_lab(request: Request):
     return created_lab
 
 
-# @app.put('/labs/{lab_id}')
-# async def update_lab(request: Request, lab_id: str):
-#     require_roles(request, ["admin", "maintainer"])
+@app.put('/labs/lab/{lab_id}')
+async def update_lab(request: Request, lab_id: str):
+    # require_roles(request, ["admin", "maintainer"])
+    org_id = request.state.user_info['org_id']
+    if not org_id:
+        raise HTTPException(status_code=401, detail="Unauthorized: org_id is required")
 
-#     if not ObjectId.is_valid(lab_id):
-#         raise HTTPException(status_code=400, detail="Invalid lab ID")
+    if not ObjectId.is_valid(lab_id):
+        raise HTTPException(status_code=400, detail="Invalid lab ID")
 
-#     payload = await request.json()
-#     allowed_fields = ['title', 'description', 'difficulty', 'content', 'tags']
-#     update_data = {k: v for k, v in payload.items() if k in allowed_fields and v is not None}
+    payload = await request.json()
+    allowed_fields = ['org_id', 'name', 'elements', 'lab_text', 'example_code', 'terminal_commands']
+    update_data = {k: v for k, v in payload.items() if k in allowed_fields and v is not None}
 
-#     if not update_data:
-#         raise HTTPException(status_code=400, detail="No valid fields to update")
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No valid fields to update")
 
-#     result = await app.labs.update_one(
-#         {"_id": ObjectId(lab_id)},
-#         {"$set": update_data}
-#     )
+    result = await app.labs.update_one(
+        {"_id": ObjectId(lab_id)},
+        {"$set": update_data}
+    )
 
-#     if result.matched_count == 0:
-#         raise HTTPException(status_code=404, detail="Lab not found")
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Lab not found")
 
-#     updated_lab = await app.labs.find_one({"_id": ObjectId(lab_id)})
-#     updated_lab['_id'] = str(updated_lab['_id'])
-#     return updated_lab
+    updated_lab = await app.labs.find_one({"_id": ObjectId(lab_id)})
+    updated_lab['_id'] = str(updated_lab['_id'])
+    return updated_lab
 
 
 # @app.delete('/labs/{lab_id}', status_code=status.HTTP_204_NO_CONTENT)

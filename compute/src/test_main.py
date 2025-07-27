@@ -4,7 +4,7 @@ from unittest.mock import patch, MagicMock, mock_open
 import os
 import tempfile
 
-from main import app, _create_run_pod_manifest, _check_for_infinite_loop
+from PyProdigy.compute.src.old_main import app, _create_run_pod_manifest, _check_for_infinite_loop
 
 client = TestClient(app)
 

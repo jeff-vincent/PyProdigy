@@ -5,10 +5,13 @@ import tempfile
 import subprocess
 import logging
 import re
+import asyncio
+import json
+import websockets
 
 from typing import Annotated
 from kubernetes import client, config
-from fastapi import FastAPI, Form, Request
+from fastapi import FastAPI, Form, Request, WebSocket, WebSocketDisconnect
 from middleware import TokenValidationMiddleware
 
 
@@ -35,7 +38,7 @@ def start_container(request: Request):
     org_id = request.state.user_info['org_id'].replace('org_', '').lower()
     user_id = request.state.user_info['user_id']
     # TODO: call lessons API to get container image
-    run_pod_manifest = _create_run_pod_manifest('jdvincent/pyprodigy-user-env:latest', str(user_id))
+    run_pod_manifest = _create_run_pod_manifest('jdvincent/lab-thingy-demo-env:latest', str(user_id))
     try:
         api_instance = client.CoreV1Api(api_client)
         api_instance.create_namespaced_pod(namespace=org_id, body=run_pod_manifest)
@@ -153,3 +156,80 @@ def get_pod(user_id: str, namespace: str):
 
 def _generate_hash():
     return binascii.hexlify(os.urandom(16)).decode('utf-8')
+
+@app.websocket("/compute/terminal/{user_id}")
+async def terminal_websocket(websocket: WebSocket, user_id: str):
+    await websocket.accept()
+    
+    try:
+        # Get namespace from the first message (auth info)
+        auth_data = await websocket.receive_text()
+        auth_info = json.loads(auth_data)
+        namespace = auth_info.get('namespace', '').replace('org_', '').lower()
+        
+        if not namespace:
+            await websocket.send_text(json.dumps({"type": "error", "content": "Invalid namespace"}))
+            return
+        
+        pod_name = str(user_id)
+        
+        # Start an interactive shell session in the pod
+        process = await asyncio.create_subprocess_exec(
+            'kubectl', 'exec', '-i', '-t', pod_name, 
+            '--namespace', namespace, 
+            '--', '/bin/sh',
+            stdin=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT
+        )
+        
+        # Send initial prompt
+        await websocket.send_text(json.dumps({
+            "type": "output", 
+            "content": f"Connected to container {pod_name}\n$ "
+        }))
+        
+        async def read_output():
+            while True:
+                try:
+                    output = await process.stdout.read(1024)
+                    if output:
+                        decoded_output = output.decode('utf-8', errors='ignore')
+                        await websocket.send_text(json.dumps({
+                            "type": "output",
+                            "content": decoded_output
+                        }))
+                    else:
+                        break
+                except Exception as e:
+                    logging.error(f"Error reading output: {e}")
+                    break
+        
+        # Start reading output in background
+        output_task = asyncio.create_task(read_output())
+        
+        try:
+            while True:
+                # Receive command from WebSocket
+                data = await websocket.receive_text()
+                message = json.loads(data)
+                
+                if message.get('type') == 'command':
+                    command = message.get('content', '') + '\n'
+                    process.stdin.write(command.encode())
+                    await process.stdin.drain()
+                    
+        except WebSocketDisconnect:
+            logging.info(f"WebSocket disconnected for user {user_id}")
+        except Exception as e:
+            logging.error(f"WebSocket error: {e}")
+        finally:
+            # Clean up
+            output_task.cancel()
+            if process.returncode is None:
+                process.terminate()
+                await process.wait()
+            
+    except Exception as e:
+        logging.error(f"Terminal WebSocket error: {e}")
+        await websocket.send_text(json.dumps({"type": "error", "content": f"Connection error: {str(e)}"}))
