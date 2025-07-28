@@ -9,7 +9,7 @@ const Homepage = () => {
   useEffect(() => {
     const isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
     if (!isChrome) {
-      alert("Your browser isn't supported by PyProdigy. Please switch to Chrome for the best experience.");
+      alert("Your browser isn't supported by Lab Thingy. Please switch to Chrome for the best experience.");
     }
   }, []);
 

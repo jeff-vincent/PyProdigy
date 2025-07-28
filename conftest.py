@@ -1,6 +1,6 @@
 """
-PyProdigy Test Configuration
-This file configures pytest for the entire PyProdigy application
+Lab Thingy Test Configuration
+This file configures pytest for the entire Lab Thingy application
 """
 
 import pytest

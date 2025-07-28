@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# PyProdigy Comprehensive Test Runner
-# This script runs all tests across the entire PyProdigy application
+# Lab Thingy Comprehensive Test Runner
+# This script runs all tests across the entire Lab Thingy application
 
 set -e  # Exit on any error
 
-echo "🚀 Starting PyProdigy Comprehensive Test Suite"
+echo "🚀 Starting Lab Thingy Comprehensive Test Suite"
 echo "=============================================="
 
 # Colors for output
@@ -148,7 +148,7 @@ cat > test-reports/coverage-summary.html << EOF
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PyProdigy Test Coverage Summary</title>
+    <title>Lab Thingy Test Coverage Summary</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         .header { background: #f0f0f0; padding: 20px; border-radius: 5px; }
@@ -160,7 +160,7 @@ cat > test-reports/coverage-summary.html << EOF
 </head>
 <body>
     <div class="header">
-        <h1>PyProdigy Comprehensive Test Coverage Report</h1>
+        <h1>Lab Thingy Comprehensive Test Coverage Report</h1>
         <p>Generated on: $(date)</p>
     </div>
     

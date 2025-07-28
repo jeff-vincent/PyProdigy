@@ -19,7 +19,7 @@ describe('Homepage Component', () => {
 
   test('renders homepage content', () => {
     render(<MockedHomepage />);
-    expect(screen.getByText(/PyProdigy/i)).toBeInTheDocument();
+    expect(screen.getByText(/Lab Thingy/i)).toBeInTheDocument();
   });
 
   test('handles navigation correctly', () => {
