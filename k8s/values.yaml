@@ -9,10 +9,6 @@ frontend:
     ingressClassName: kong
     host: null
 
-authAPI:
-  containers:
-    image: jdvincent/pyprodigy-auth:latest
-
 orgsAPI:
   containers:
     image: jdvincent/pyprodigy-users:latest
