@@ -36,3 +36,7 @@ videoAPI:
 computeAPI:
   containers:
     image: jdvincent/pyprodigy-lab-thingy-compute:latest
+
+garbageCollector:
+  containers:
+    image: jdvincent/pyprodigy-lab-thingy-garbage-collector:latest
