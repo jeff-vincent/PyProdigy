@@ -81,7 +81,7 @@ ReactDOM.createRoot(rootElement).render(
     <Auth0Provider
       domain="dev-w5iil6bapqnf2nai.us.auth0.com"
       clientId="xtKBTiNb5uOEtqNgq6R12w7tzOaO4AwB"
-      redirectUri={'https://pyprodigy.dev/profile'}
+      redirectUri={'https://classics-companies-ellis-housewares.trycloudflare.com/'}
     >
       <OnRedirectCallback />
     </Auth0Provider>
