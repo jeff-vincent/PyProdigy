@@ -1,0 +1,147 @@
+name: Dev Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  REGISTRY: "registry:5000"
+  TAG: "${{ github.actor }}-${{ github.sha }}"
+
+jobs:
+  build-and-deploy:
+    runs-on: [self-hosted, "${{ github.actor }}"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Clean builds directory
+        shell: bash
+        run: |
+          rm -f /builds/*.done /builds/*.request /builds/*.processing \
+                /builds/*.apply /builds/*.apply-done /builds/*.apply-log \
+                /builds/*.apply-exitcode /builds/*.exitcode \
+                /builds/*.log /builds/*.dest /builds/*.tar.gz \
+                /builds/*.yaml /builds/*.sh
+
+      # -- Build all images --
+      - name: Build auth image
+        uses: jeff-vincent/kindling/.github/actions/kindling-build@main
+        with:
+          name: auth
+          context: "${{ github.workspace }}/auth"
+          image: "${{ env.REGISTRY }}/auth:${{ env.TAG }}"
+
+      - name: Build compute image
+        uses: jeff-vincent/kindling/.github/actions/kindling-build@main
+        with:
+          name: compute
+          context: "${{ github.workspace }}/compute"
+          image: "${{ env.REGISTRY }}/compute:${{ env.TAG }}"
+
+      - name: Build frontend image
+        uses: jeff-vincent/kindling/.github/actions/kindling-build@main
+        with:
+          name: frontend
+          context: "${{ github.workspace }}/frontend"
+          image: "${{ env.REGISTRY }}/frontend:${{ env.TAG }}"
+
+      - name: Build garbage_collection image
+        uses: jeff-vincent/kindling/.github/actions/kindling-build@main
+        with:
+          name: garbage-collection
+          context: "${{ github.workspace }}/garbage_collection"
+          image: "${{ env.REGISTRY }}/garbage-collection:${{ env.TAG }}"
+
+      - name: Build lessons image
+        uses: jeff-vincent/kindling/.github/actions/kindling-build@main
+        with:
+          name: lessons
+          context: "${{ github.workspace }}/lessons"
+          image: "${{ env.REGISTRY }}/lessons:${{ env.TAG }}"
+
+      - name: Build users image
+        uses: jeff-vincent/kindling/.github/actions/kindling-build@main
+        with:
+          name: users
+          context: "${{ github.workspace }}/users"
+          image: "${{ env.REGISTRY }}/users:${{ env.TAG }}"
+
+      - name: Build video image
+        uses: jeff-vincent/kindling/.github/actions/kindling-build@main
+        with:
+          name: video
+          context: "${{ github.workspace }}/video"
+          image: "${{ env.REGISTRY }}/video:${{ env.TAG }}"
+
+      # -- Deploy in dependency order --
+      - name: Deploy lessons
+        uses: jeff-vincent/kindling/.github/actions/kindling-deploy@main
+        with:
+          name: "${{ github.actor }}-lessons"
+          image: "${{ env.REGISTRY }}/lessons:${{ env.TAG }}"
+          port: "8000"
+          ingress-host: "${{ github.actor }}-lessons.localhost"
+          health-check-path: "/lessons/category"
+          dependencies: |
+            - type: postgres
+
+      - name: Deploy users
+        uses: jeff-vincent/kindling/.github/actions/kindling-deploy@main
+        with:
+          name: "${{ github.actor }}-users"
+          image: "${{ env.REGISTRY }}/users:${{ env.TAG }}"
+          port: "8000"
+          ingress-host: "${{ github.actor }}-users.localhost"
+          health-check-path: "/api/user/{token}"
+          dependencies: |
+            - type: postgres
+
+      - name: Deploy video
+        uses: jeff-vincent/kindling/.github/actions/kindling-deploy@main
+        with:
+          name: "${{ github.actor }}-video"
+          image: "${{ env.REGISTRY }}/video:${{ env.TAG }}"
+          port: "8000"
+          ingress-host: "${{ github.actor }}-video.localhost"
+          health-check-path: "/video"
+          dependencies: |
+            - type: mongodb
+
+      - name: Deploy auth
+        uses: jeff-vincent/kindling/.github/actions/kindling-deploy@main
+        with:
+          name: "${{ github.actor }}-auth"
+          image: "${{ env.REGISTRY }}/auth:${{ env.TAG }}"
+          port: "8000"
+          ingress-host: "${{ github.actor }}-auth.localhost"
+          health-check-path: "/authenticate/{token}"
+          # NOTE: OAuth detected — run 'kindling expose' for a public HTTPS URL
+
+      - name: Deploy compute
+        uses: jeff-vincent/kindling/.github/actions/kindling-deploy@main
+        with:
+          name: "${{ github.actor }}-compute"
+          image: "${{ env.REGISTRY }}/compute:${{ env.TAG }}"
+          port: "8000"
+          ingress-host: "${{ github.actor }}-compute.localhost"
+          health-check-path: "/compute/start"
+
+      - name: Deploy garbage_collection
+        uses: jeff-vincent/kindling/.github/actions/kindling-deploy@main
+        with:
+          name: "${{ github.actor }}-garbage-collection"
+          image: "${{ env.REGISTRY }}/garbage-collection:${{ env.TAG }}"
+          port: "8000"
+          ingress-host: "${{ github.actor }}-garbage-collection.localhost"
+
+      - name: Deploy frontend
+        uses: jeff-vincent/kindling/.github/actions/kindling-deploy@main
+        with:
+          name: "${{ github.actor }}-frontend"
+          image: "${{ env.REGISTRY }}/frontend:${{ env.TAG }}"
+          port: "80"
+          health-check-path: "/"
+          ingress-host: "${{ github.actor }}-frontend.localhost"
