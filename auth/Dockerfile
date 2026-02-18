@@ -1,5 +1,6 @@
 # Use a lightweight Python image with curl and ca-certificates
-FROM python:3.11-slim-buster AS base
+
+FROM python:3.11-slim-bookworm AS base
 
 # Set the working directory
 WORKDIR /app

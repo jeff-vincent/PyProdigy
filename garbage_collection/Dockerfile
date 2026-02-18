@@ -1,5 +1,5 @@
 # Use a lightweight Python image with curl and ca-certificates
-FROM python:3.11-slim-buster
+FROM python:3.11-slim-bookworm
 RUN apt-get update && apt-get install -y curl ca-certificates
 
 # Install kubectl
